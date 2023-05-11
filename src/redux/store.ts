@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import { apiSlice } from './api/apiSlice'
-import authReducer from './features/authSlice'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import { apiSlice } from './api/apiSlice'
+import userSlice from './features/userSlice'
+import authSlice from './features/authSlice'
 
 const persistConfig = {
   key: 'root',
@@ -13,7 +14,8 @@ const persistConfig = {
 }
 const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
-  auth: authReducer
+  auth: authSlice,
+  user: userSlice
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

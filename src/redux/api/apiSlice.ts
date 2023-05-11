@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
-import { logOut, setCredentials } from '../features/authSlice'
+import { logOut, setReAccessToken } from '../features/authSlice'
+import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:3001/api',
+  baseUrl: 'http://localhost:3001/api/',
   // credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.accessToken
@@ -14,17 +15,24 @@ const baseQuery = fetchBaseQuery({
   }
 })
 
-const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
+const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+  args,
+  api,
+  extraOptions
+) => {
   let result = await baseQuery(args, api, extraOptions)
-  if (result?.error?.data === 401) {
+  const refreshToken = (api.getState() as RootState).auth.refreshToken
+  if (result.error && result.error.status === 401) {
     // send refresh token to get new access token
     try {
-      console.log('sending refresh token')
-      const refreshResult: any = await baseQuery('/refresh', api, extraOptions)
+      const refreshResult: any = await baseQuery(
+        { url: 'auth/refresh-token', method: 'POST', body: { refreshToken } },
+        api,
+        extraOptions
+      )
       if (refreshResult.data) {
-        const email = (api.getState() as RootState).auth.email
         // store the new token
-        api.dispatch(setCredentials({ accessToken: refreshResult.data.accessToken, email }))
+        api.dispatch(setReAccessToken({ accessToken: refreshResult.data.accessToken }))
         // retry the original query with new access token
         result = await baseQuery(args, api, extraOptions)
       } else {

@@ -1,45 +1,59 @@
-import React from 'react'
-import { Navbar, MobileNav, Typography, IconButton, Collapse } from '@material-tailwind/react'
-import { Bars2Icon } from '@heroicons/react/24/outline'
-import { Outlet } from 'react-router-dom'
+import logo from '../assets/logos/logo.png'
+import { Navbar, Typography } from '@material-tailwind/react'
+import { Link, Outlet } from 'react-router-dom'
 import ProfileMenu from './ProfileMenu'
-import NavList from './NavList'
-
-export default function ComplexNavbar() {
-  const [isNavOpen, setIsNavOpen] = React.useState(false)
-  const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur)
-
-  React.useEffect(() => {
-    window.addEventListener('resize', () => window.innerWidth >= 960 && setIsNavOpen(false))
-  }, [])
+export default function ComplexNavbar({ token }: { token: string }) {
+  const navList = (
+    <ul className='flex h-full items-center gap-6'>
+      <Typography
+        as='li'
+        variant='small'
+        color='blue-gray'
+        className='letter flex h-full items-center font-semibold tracking-widest text-gray-800 hover:border-y-2 hover:border-black hover:border-t-transparent hover:text-black '
+      >
+        <Link to='/' className='flex h-full items-center uppercase'>
+          Home
+        </Link>
+      </Typography>
+      <Typography
+        as='li'
+        variant='small'
+        color='blue-gray'
+        className='letter flex h-full items-center font-semibold tracking-widest text-gray-800 hover:border-y-2 hover:border-black hover:border-t-transparent hover:text-black '
+      >
+        <Link to='users/1?view=been' className='flex items-center uppercase'>
+          Been Here
+        </Link>
+      </Typography>
+      <Typography
+        as='li'
+        variant='small'
+        color='blue-gray'
+        className='letter flex h-full items-center font-semibold tracking-widest text-gray-800 hover:border-y-2 hover:border-black hover:border-t-transparent hover:text-black '
+      >
+        <Link to='users/1?view=want' className='flex items-center uppercase'>
+          Want to Go
+        </Link>
+      </Typography>
+    </ul>
+  )
 
   return (
     <>
-      <Navbar className='mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6'>
-        <div className='relative mx-auto flex items-center text-blue-gray-900'>
-          <Typography as='a' href='#' className='mr-4 cursor-pointer font-rubik text-xl tracking-widest text-gray-800'>
-            Asdfghjk
-            {/* <img src={pin} className='ml-2 inline-block max-h-7' alt='logo' /> */}
-          </Typography>
-          <div className='absolute left-2/4 top-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block'>
-            <NavList />
+      <Navbar className='sticky inset-0 z-10 h-max max-w-full rounded-none border-none bg-gray-300 px-4 py-0 lg:px-32 '>
+        <div className='flex items-center justify-between text-blue-gray-900'>
+          <div className='flex items-center'>
+            <Link to='/' className='mr-4 cursor-pointer text-center font-medium'>
+              <img src={logo} className='h-auto w-32' alt='placewiz' />
+            </Link>
           </div>
-          <IconButton
-            size='sm'
-            color='blue-gray'
-            variant='text'
-            onClick={toggleIsNavOpen}
-            className='ml-auto mr-2 lg:hidden'
-          >
-            <Bars2Icon className='h-6 w-6' />
-          </IconButton>
-          <ProfileMenu />
+          <div className='  flex h-16 items-center justify-between'>{navList}</div>
+          <div className='flex items-center gap-4 border-l border-gray-600 pl-4'>
+            <ProfileMenu></ProfileMenu>
+          </div>
         </div>
-        <Collapse open={isNavOpen} className='overflow-scroll'>
-          <NavList />
-        </Collapse>
       </Navbar>
-      <Outlet></Outlet>
+      <Outlet />
     </>
   )
 }
