@@ -1,6 +1,5 @@
 import { Avatar, Menu, MenuHandler, MenuItem, MenuList, Typography } from '@material-tailwind/react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAppDispatch } from 'redux/store'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { UserProfile } from '../utils/types'
@@ -8,6 +7,7 @@ import { setCurrentUser } from '../redux/features/userSlice'
 import { logOut, selectCurrentRefreshToken } from '../redux/features/authSlice'
 import { useGetMeQuery } from '../redux/api/userApi'
 import { useLogoutMutation } from '../redux/api/authApi'
+import { useAppDispatch } from '../redux/store'
 
 export default function ProfileMenu() {
   const { data } = useGetMeQuery(undefined, { refetchOnMountOrArgChange: true })

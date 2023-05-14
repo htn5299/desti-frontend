@@ -24,8 +24,8 @@ export type Place = {
   longitude: number
   name: string
   status: string
-  updatedAt: Date
-  createdBy?: User
+  updatedAt?: Date
+  createdBy: User
 }
 export type User = {
   email: string
@@ -37,4 +37,13 @@ export type Profile = {
   avatar: string
   id: number | null
 }
+export type Review = {
+  id: number | null
+  review?: string
+  rating?: number
+  updatedAt?: Date
+  createdAt?: Date
+}
 export type UserProfile = User & { profile: Profile }
+export type AddReview = Partial<Omit<Review, 'id'>> & { placeId: number }
+export type ReviewResponse = Review & { user: Partial<UserProfile> } & { place: Partial<Place> }

@@ -1,16 +1,18 @@
-import moment from 'moment'
 import { Place } from '../utils/types'
-import { Card, CardBody, CardFooter, Typography, Avatar } from '@material-tailwind/react'
-import { ChatBubbleBottomCenterIcon, HeartIcon, ShareIcon } from '@heroicons/react/24/outline'
+import { Card, CardBody, CardFooter, Typography, Avatar, IconButton } from '@material-tailwind/react'
+import { ChatBubbleBottomCenterIcon, HeartIcon, ShareIcon } from '@heroicons/react/24/solid'
 import PlaceTemplate from './PlaceTemplate'
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import Moment from 'react-moment'
 interface PostItemProps {
   place: Place
 }
 function PostItem(props: PostItemProps) {
   const { place } = props
-  const dateString = place.updatedAt
-  const dateObj = new Date(dateString)
-  const updatedAt = moment(dateObj).format('DD MMMM [at] hh:mm')
+  const [isFavorite, setIsFavorite] = useState(false)
+  // const handleOpen = () => setOpen((cur) => !cur)
+  const handleIsFavorite = () => setIsFavorite((cur) => !cur)
   return (
     <Card className='mt-6 w-5/6 border border-gray-300 md:w-3/5 lg:w-[555px]'>
       <CardBody className='flex flex-col gap-5'>
@@ -22,11 +24,15 @@ function PostItem(props: PostItemProps) {
               className='cursor-pointer'
             ></Avatar>
             <Typography variant='h6'>
-              <span className='cursor-pointer font-semibold text-gray-900'>{place.createdBy?.name}</span>
+              <Link to={`users/${place.createdBy?.id}`} className='font-semibold text-gray-900'>
+                {place.createdBy?.name}
+              </Link>
             </Typography>
           </div>
           <Typography variant='small'>
-            <span>{updatedAt}</span>
+            <span>
+              <Moment fromNow>{place.updatedAt}</Moment>
+            </span>
           </Typography>
         </div>
         <div>
@@ -38,14 +44,20 @@ function PostItem(props: PostItemProps) {
       <CardFooter className='border-t-2'>
         <div className='flex items-end gap-6'>
           <div className='flex items-center gap-1 '>
-            <HeartIcon className=' h-[24px] w-[24px] cursor-pointer text-red-500 '></HeartIcon>
+            <IconButton variant='text' size='sm' color={isFavorite ? 'red' : 'blue-gray'} onClick={handleIsFavorite}>
+              <HeartIcon className='h-5 w-5' />
+            </IconButton>
             <p>69</p>
           </div>
           <div className='flex items-center gap-1'>
-            <ChatBubbleBottomCenterIcon className='h-[24px] w-[24px] cursor-pointer '></ChatBubbleBottomCenterIcon>
+            <IconButton variant='text' size='sm' color={'blue-gray'}>
+              <ChatBubbleBottomCenterIcon className='h-5 w-5'></ChatBubbleBottomCenterIcon>
+            </IconButton>
             <p>12</p>
           </div>
-          <ShareIcon className='h-[24px] w-[24px] cursor-pointer'></ShareIcon>
+          <IconButton variant='text' size='sm' color={'blue-gray'}>
+            <ShareIcon className='h-[24px] w-[24px] cursor-pointer'></ShareIcon>
+          </IconButton>
         </div>
       </CardFooter>
     </Card>

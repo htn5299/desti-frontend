@@ -1,8 +1,8 @@
-import { useState } from 'react'
 import { Place } from '../utils/types'
 import { Link } from 'react-router-dom'
-import { FlagIcon, StarIcon } from '@heroicons/react/24/solid'
-import { Card, CardBody, Rating, Typography } from '@material-tailwind/react'
+import { FlagIcon, HeartIcon } from '@heroicons/react/24/solid'
+import { Card, CardBody, IconButton, Rating, Typography } from '@material-tailwind/react'
+import { useState } from 'react'
 interface PostItemProps {
   place: Place
 }
@@ -20,17 +20,17 @@ function PlaceTemplate({ place }: PostItemProps) {
         </div>
         <div className='flex w-5/6 flex-col gap-2 py-2 '>
           <Typography variant='h6' color='blue-gray' className=''>
-            <Link to={`/places/${place.id}`} className='line-clamp-2'>
+            <Link to={`/places/${place.id}`} className='line-clamp-2 hover:underline'>
               {place.name}
             </Link>
           </Typography>
           <div className='flex w-full items-center gap-2'>
-            <button className='flex h-16 w-16 items-center justify-center rounded-lg border border-gray-800 p-1  font-semibold'>
-              <FlagIcon className='h-8 w-8 '></FlagIcon>
-            </button>
-            <button className='flex h-16 w-16 items-center justify-center rounded-lg border border-gray-800 p-1  font-semibold'>
-              <StarIcon className='h-8 w-8 '></StarIcon>
-            </button>
+            <IconButton variant='outlined' size='lg' color='blue-gray'>
+              <FlagIcon className='h-5 w-5' />
+            </IconButton>
+            <IconButton variant='outlined' size='lg' color='blue-gray'>
+              <HeartIcon className='h-5 w-5' />
+            </IconButton>
             <div className=''>
               <Typography color='blue-gray' className='font-medium'>
                 {`Your rating: `}
