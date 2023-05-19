@@ -1,7 +1,7 @@
-import { Place } from '../utils/types'
+import { Place } from '../../utils/types'
 import { Link } from 'react-router-dom'
 import { FlagIcon, HeartIcon } from '@heroicons/react/24/solid'
-import { Card, CardBody, IconButton, Rating, Typography } from '@material-tailwind/react'
+import { Card, CardBody, CardFooter, IconButton, Rating, Typography } from '@material-tailwind/react'
 import { useState } from 'react'
 interface PostItemProps {
   place: Place
@@ -24,6 +24,10 @@ function PlaceTemplate({ place }: PostItemProps) {
               {place.name}
             </Link>
           </Typography>
+
+          <Typography>
+            <span className='line-clamp-4'>{place.description}</span>
+          </Typography>
           <div className='flex w-full items-center gap-2'>
             <IconButton variant='outlined' size='lg' color='blue-gray'>
               <FlagIcon className='h-5 w-5' />
@@ -31,20 +35,7 @@ function PlaceTemplate({ place }: PostItemProps) {
             <IconButton variant='outlined' size='lg' color='blue-gray'>
               <HeartIcon className='h-5 w-5' />
             </IconButton>
-            <div className=''>
-              <Typography color='blue-gray' className='font-medium'>
-                {`Your rating: `}
-              </Typography>
-              <Rating value={rated} onChange={(value) => setRated(value)} />
-            </div>
           </div>
-
-          <Typography>
-            <span className='line-clamp-4'>
-              {place.description}
-              {` Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae atque earum, ea eligendi accusamus porro omnis fugit repellendus! Laboriosam quisquam voluptatem quae eius neque ut odit nemo cumque voluptatum alias.`}
-            </span>
-          </Typography>
         </div>
       </CardBody>
     </Card>

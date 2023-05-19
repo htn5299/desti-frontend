@@ -5,9 +5,9 @@ const initialState: UserProfile = {
   email: '',
   name: '',
   profile: {
+    id: null,
     about: '',
-    avatar: '',
-    id: null
+    avatar: ''
   }
 }
 const userSlice = createSlice({

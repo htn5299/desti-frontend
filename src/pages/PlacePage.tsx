@@ -1,20 +1,25 @@
-import { PlaceItem, Reviews } from 'components'
 import { useParams } from 'react-router-dom'
-import { useGetPlaceQuery, useGetReviewsQuery } from '../redux/api/placesApi'
-// import { useGetPlaceQuery, useGetReviewsQuery } from '../redux/api/placesApi'
+import { useGetPlaceQuery } from '../redux/api/placesApi'
+import { MapItem, PlaceItemInfo, PlaceItemCarousel, Reviews } from '../components'
+import { useGetReviewsByPlaceIdQuery } from '../redux/api/reviewApi'
 
 function PlacePage() {
-  const { placeId } = useParams<{ placeId: string }>()
+  const { placeId } = useParams<{ placeId: string }>() as { placeId: string }
   const { data: place, isFetching: isFetchingPlace } = useGetPlaceQuery(placeId as string, {
     refetchOnMountOrArgChange: true
   })
-  const { data: reviews, isFetching: isFetchingReview } = useGetReviewsQuery(placeId as string, {
+  const { data: reviews, isFetching: isFetchingReview } = useGetReviewsByPlaceIdQuery(placeId as string, {
     refetchOnMountOrArgChange: true
   })
+
   return (
-    <div className={'mx-auto w-11/12 lg:w-5/6'}>
-      {!isFetchingPlace && <PlaceItem place={place}></PlaceItem>}
-      {!isFetchingReview && <Reviews reviews={reviews}></Reviews>}
+    <div className={'mx-auto mt-10 grid w-11/12 grid-cols-3 gap-2 lg:w-5/6'}>
+      <div className={'col-span-3'}>{!isFetchingPlace && place && <PlaceItemInfo place={place} />}</div>
+      <div className={'col-span-3'}> {!isFetchingPlace && place && <PlaceItemCarousel place={place} />}</div>
+      <div className={'col-span-2'}>{!isFetchingReview && <Reviews reviews={reviews} placeId={placeId} />}</div>
+      <div className={'col-span-1'}>
+        <MapItem />
+      </div>
     </div>
   )
 }

@@ -1,7 +1,10 @@
-import logo from '../assets/logos/logo.png'
+import logo from '../../assets/logos/logo.png'
 import { Navbar, Typography } from '@material-tailwind/react'
 import { Link, Outlet } from 'react-router-dom'
 import ProfileMenu from './ProfileMenu'
+import { useAppDispatch } from '../../redux/store'
+import { resetPage } from '../../redux/features/appSlice'
+import { SearchBar } from '../index'
 export default function ComplexNavbar({ token }: { token: string }) {
   const navList = (
     <ul className='flex h-full items-center gap-3 lg:gap-6'>
@@ -47,7 +50,8 @@ export default function ComplexNavbar({ token }: { token: string }) {
               <img src={logo} className='h-auto w-24 lg:w-32' alt='placewiz' />
             </Link>
           </div>
-          <div className='  flex h-16 items-center justify-between'>{navList}</div>
+          <SearchBar />
+          <div className='flex h-16 items-center justify-between'>{navList}</div>
           <div className='flex items-center gap-4 border-l border-gray-600 pl-4'>
             <ProfileMenu></ProfileMenu>
           </div>

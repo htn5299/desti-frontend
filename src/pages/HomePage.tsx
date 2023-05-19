@@ -1,9 +1,4 @@
-import PostList from '../components/PostList'
-
+import PostList from '../components/Post/PostList'
 export default function HomePage() {
-  return (
-    <div>
-      <PostList />
-    </div>
-  )
+  return <PostList />
 }

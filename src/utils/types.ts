@@ -45,5 +45,8 @@ export type Review = {
   createdAt?: Date
 }
 export type UserProfile = User & { profile: Profile }
+export type ReviewsByPlace = Review & { user: User }
 export type AddReview = Partial<Omit<Review, 'id'>> & { placeId: number }
-export type ReviewResponse = Review & { user: Partial<UserProfile> } & { place: Partial<Place> }
+export type AddReviewResponse = ReviewsByPlace & { place: Place }
+export type ReviewByUserAndPlace = ReviewsByPlace & { user: User } & { place: Place }
+export type ReviewFeedRespone = Review & { user: UserProfile } & { place: Place }
