@@ -3,32 +3,23 @@ import {
   AddReview,
   AddReviewResponse,
   ReviewByUserAndPlace,
-  ReviewFeedRespone,
+  ReviewFeedResponse,
   ReviewsByPlace
 } from '../../utils/types'
 
 const reviewApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getReviews: builder.query<ReviewFeedRespone[], number>({
-      query: (page) => {
+    createReview: builder.mutation<AddReviewResponse, AddReview>({
+      query: (addReview) => {
+        const { review, rating } = addReview
         return {
-          url: `reviews/feed?page=${page}`,
-          method: 'GET'
+          url: `reviews/places/${addReview.placeId}`,
+          method: 'POST',
+          body: { review, rating }
         }
-      },
-      keepUnusedDataFor: 0,
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName
-      },
-      // Always merge incoming data to the cache entry
-      merge: (currentCache, newItems) => {
-        currentCache.push(...newItems)
-      },
-      // Refetch when the page arg changes
-      forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg
       }
     }),
+
     getReviewsByPlaceId: builder.query<ReviewsByPlace[], string>({
       query: (placeId) => {
         return {
@@ -47,14 +38,24 @@ const reviewApi = apiSlice.injectEndpoints({
         }
       }
     ),
-    createReview: builder.mutation<AddReviewResponse, AddReview>({
-      query: (addReview) => {
-        const { review, rating } = addReview
+    getReviews: builder.query<ReviewFeedResponse[], number>({
+      query: (page) => {
         return {
-          url: `reviews/places/${addReview.placeId}`,
-          method: 'POST',
-          body: { review, rating }
+          url: `reviews/feed?page=${page}`,
+          method: 'GET'
         }
+      },
+      keepUnusedDataFor: 0,
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName
+      },
+      // Always merge incoming data to the cache entry
+      merge: (currentCache, newItems) => {
+        currentCache.push(...newItems)
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg
       }
     })
   })

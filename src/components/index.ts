@@ -17,6 +17,8 @@ import EditProfileLayout from './EditProfile/EditProfileLayout'
 import PlaceItemInfo from './Place/PlaceItemInfo'
 import PlaceItemCarousel from './Place/PlaceItemCarousel'
 import WantHere from './Place/WantHere'
+import ListSearch from './Place/ListSearch'
+import SearchItem from './Search/SearchItem'
 export {
   BackHome,
   Login,
@@ -36,5 +38,7 @@ export {
   EditProfileLayout,
   PlaceItemInfo,
   PlaceItemCarousel,
-  WantHere
+  WantHere,
+  ListSearch,
+  SearchItem
 }

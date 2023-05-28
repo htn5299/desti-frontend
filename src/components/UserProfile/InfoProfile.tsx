@@ -19,7 +19,7 @@ const InfoProfile = ({ user }: PropsState) => {
       <div className={'mt-8 text-gray-600'}>
         <div className={'flex items-center gap-3 border-t border-t-gray-500 py-1'}>
           <strong className={'text-[2.8rem] text-gray-700'}>2023</strong>
-          <p className={'font-semibold'}>JOINED PLACEWIZ</p>
+          <p className={'font-semibold'}>JOINED DESTI</p>
         </div>
         <div className={'flex items-center gap-3 border-t border-t-gray-500 py-1'}>
           <strong className={'text-[2.8rem] text-gray-700'}>2</strong>

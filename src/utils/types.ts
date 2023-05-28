@@ -7,10 +7,7 @@ export type UserCreateBody = {
   password: string
   name: string
 }
-export type LoginResponse = {
-  accessToken: string
-  refreshToken: string
-}
+
 export type AuthState = {
   email: string
   accessToken: string
@@ -46,7 +43,19 @@ export type Review = {
 }
 export type UserProfile = User & { profile: Profile }
 export type ReviewsByPlace = Review & { user: User }
-export type AddReview = Partial<Omit<Review, 'id'>> & { placeId: number }
+export type AddReview = Partial<Omit<Review, 'id' | 'updatedAt' | 'createdAt'>> & { placeId: number }
 export type AddReviewResponse = ReviewsByPlace & { place: Place }
 export type ReviewByUserAndPlace = ReviewsByPlace & { user: User } & { place: Place }
-export type ReviewFeedRespone = Review & { user: UserProfile } & { place: Place }
+export type ReviewFeedResponse = Review & { user: UserProfile } & { place: Place }
+
+export type SetFavouriteParams = {
+  placeId: number
+  here?: boolean
+  want?: boolean
+}
+export type ResponseFavourite = {
+  userId: number
+  placeId: number
+  here: boolean
+  want: boolean
+}

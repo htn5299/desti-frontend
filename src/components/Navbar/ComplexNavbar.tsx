@@ -2,19 +2,16 @@ import logo from '../../assets/logos/logo.png'
 import { Navbar, Typography } from '@material-tailwind/react'
 import { Link, Outlet } from 'react-router-dom'
 import ProfileMenu from './ProfileMenu'
-import { useAppDispatch } from '../../redux/store'
-import { resetPage } from '../../redux/features/appSlice'
-import { SearchBar } from '../index'
 export default function ComplexNavbar({ token }: { token: string }) {
   const navList = (
-    <ul className='flex h-full items-center gap-3 lg:gap-6'>
+    <ul className='flex h-full items-center gap-3 lg:gap-8'>
       <Typography
         as='li'
         variant='small'
         color='blue-gray'
-        className='letter flex h-full items-center font-semibold text-gray-800 hover:border-y-2 hover:border-black hover:border-t-transparent hover:text-black '
+        className='letter flex h-full items-center  text-gray-800 hover:border-y-2 hover:border-black hover:border-t-transparent hover:text-black '
       >
-        <Link to='/' className='flex h-full items-center text-[12px] uppercase lg:text-sm'>
+        <Link to='/' className='flex h-full items-center text-[12px] uppercase lg:text-lg'>
           Home
         </Link>
       </Typography>
@@ -22,9 +19,9 @@ export default function ComplexNavbar({ token }: { token: string }) {
         as='li'
         variant='small'
         color='blue-gray'
-        className='letter flex h-full items-center font-semibold tracking-widest text-gray-800 hover:border-y-2 hover:border-black hover:border-t-transparent hover:text-black '
+        className='letter flex h-full items-center  tracking-widest text-gray-800 hover:border-y-2 hover:border-black hover:border-t-transparent hover:text-black '
       >
-        <Link to='users/1?view=been' className='flex items-center text-[12px] uppercase lg:text-sm'>
+        <Link to='users/1?view=been' className='flex items-center text-[12px] uppercase lg:text-lg'>
           Been Here
         </Link>
       </Typography>
@@ -32,9 +29,9 @@ export default function ComplexNavbar({ token }: { token: string }) {
         as='li'
         variant='small'
         color='blue-gray'
-        className='letter flex h-full items-center font-semibold tracking-widest text-gray-800 hover:border-y-2 hover:border-black hover:border-t-transparent hover:text-black '
+        className='letter flex h-full items-center  tracking-widest text-gray-800 hover:border-y-2 hover:border-black hover:border-t-transparent hover:text-black '
       >
-        <Link to='users/1?view=want' className='flex items-center text-[12px] uppercase lg:text-sm'>
+        <Link to='users/1?view=want' className='flex items-center text-[12px] uppercase lg:text-lg'>
           Want to Go
         </Link>
       </Typography>
@@ -47,13 +44,12 @@ export default function ComplexNavbar({ token }: { token: string }) {
         <div className='flex items-center justify-between text-blue-gray-900'>
           <div className='flex items-center'>
             <Link to='/' className='mr-4 cursor-pointer text-center font-medium'>
-              <img src={logo} className='h-auto w-24 lg:w-32' alt='placewiz' />
+              <img src={logo} className='h-auto w-24 lg:w-32' alt='desti' />
             </Link>
           </div>
-          <SearchBar />
           <div className='flex h-16 items-center justify-between'>{navList}</div>
           <div className='flex items-center gap-4 border-l border-gray-600 pl-4'>
-            <ProfileMenu></ProfileMenu>
+            <ProfileMenu />
           </div>
         </div>
       </Navbar>

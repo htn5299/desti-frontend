@@ -4,8 +4,8 @@ import { useGetUserByIdQuery } from '../../redux/api/userApi'
 import { useParams } from 'react-router-dom'
 
 const UserProfile = () => {
-  const { userId } = useParams<{ userId: string }>() as { userId: string }
-  const { data: user } = useGetUserByIdQuery(userId)
+  const { userId } = useParams<{ userId: string }>()
+  const { data: user } = useGetUserByIdQuery(`${userId}`)
   return (
     <>
       {user && (

@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import RequireAuth from 'components/Authentication/RequireAuth'
-import { HomePage, LoginPage, NotFoundPage, PlacePage, ProfilePage, RegisterPage } from './pages'
+import { HomePage, LoginPage, NotFoundPage, PlacePage, ProfilePage, RegisterPage, SearchPage } from './pages'
 import EditProfilePage from './pages/EditProfilePage'
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
           <Route path='edit' element={<EditProfilePage />} />
         </Route>
         <Route path={'/search'}>
-          <Route index element={<div>search here</div>} />
+          <Route index element={<SearchPage />} />
         </Route>
       </Route>
       <Route path='*' element={<NotFoundPage />} />

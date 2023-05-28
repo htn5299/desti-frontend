@@ -1,7 +1,5 @@
-import { AddReview, AddReviewResponse, Place, ReviewsByPlace } from '../../utils/types'
+import { Place } from '../../utils/types'
 import { apiSlice } from './apiSlice'
-import { RootState } from '../store'
-import { useSelector } from 'react-redux'
 const placesApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // getPlaces: builder.query<Place[], number>({
@@ -12,10 +10,19 @@ const placesApi = apiSlice.injectEndpoints({
     getPlace: builder.query<Place, string>({
       query: (placeId) => {
         return {
-          url: `places/${placeId}`
+          url: `places/${placeId}`,
+          method: 'GET'
+        }
+      }
+    }),
+    searchPlaces: builder.query<Place[], string>({
+      query: (query) => {
+        return {
+          url: `places/search?q=${query}`,
+          method: 'GET'
         }
       }
     })
   })
 })
-export const { useGetPlaceQuery } = placesApi
+export const { useGetPlaceQuery, useSearchPlacesQuery } = placesApi

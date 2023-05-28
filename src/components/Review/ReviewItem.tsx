@@ -1,31 +1,33 @@
 import React from 'react'
-import { Avatar, Typography } from '@material-tailwind/react'
-import { FaceSmileIcon } from '@heroicons/react/24/outline'
+import { Avatar, Rating, Typography } from '@material-tailwind/react'
+import { FaceSmileIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import Moment from 'react-moment'
 import { ReviewsByPlace } from '../../utils/types'
 import { useGetUserByIdQuery } from '../../redux/api/userApi'
 import EmptyAvatar from '../../assets/logos/avatar.png'
 import { Link } from 'react-router-dom'
-interface propsState {
+interface PropsState {
   review: ReviewsByPlace
 }
-const ReviewItem = (props: propsState) => {
-  const { review } = props
+const ReviewItem = ({ review }: PropsState) => {
   const { data: user } = useGetUserByIdQuery(`${review.user.id}` as string)
   return (
     <div className={'rounded-lg border border-gray-300 bg-gray-50 p-4'}>
-      <div className={' flex items-center gap-2'}>
-        <Avatar src={user?.profile.avatar || EmptyAvatar} alt={'avatar'}></Avatar>
+      <div className={'flex items-center gap-2'}>
+        <Link to={`/users/${review.user.id}`} className={'hover:cursor-pointer'}>
+          <Avatar src={user?.profile.avatar || EmptyAvatar} alt={'avatar'} />
+        </Link>
         <div>
-          <Typography className={'font-bold hover:cursor-pointer hover:underline'}>
-            <Link to={`users/${review.user.id}`}>{review.user.name}</Link>
-          </Typography>
-          <Moment fromNow className={'text-sm  text-gray-700'}>
-            {review.updatedAt}
+          <Link to={`/users/${review.user.id}`} className={'font-bold hover:cursor-pointer hover:underline'}>
+            {review.user.name}
+          </Link>
+          <Moment className={'block text-gray-700'} toNow>
+            {review?.updatedAt}
           </Moment>
         </div>
       </div>
-      <div className={'m-5'}>
+      <div className={'m-3'}>
+        <Rating value={review?.rating} readonly />
         <p>{review.review}</p>
       </div>
       <div className={'flex gap-3 border-t border-gray-300 pt-2 text-gray-700'}>

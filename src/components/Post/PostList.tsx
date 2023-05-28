@@ -1,14 +1,9 @@
 import PostItem from './PostItem'
 import { Fragment, useState } from 'react'
 import { Waypoint } from 'react-waypoint'
-import { useSelector } from 'react-redux'
-import { RootState, useAppDispatch } from '../../redux/store'
-import { setPage } from '../../redux/features/appSlice'
 import { useGetReviewsQuery } from '../../redux/api/reviewApi'
 
 function PostList() {
-  const dispatch = useAppDispatch()
-  // const page = useSelector((state: RootState) => state.appContext.page)
   const [page, setPage] = useState(1)
   const { data: reviews } = useGetReviewsQuery(page)
 
@@ -27,7 +22,7 @@ function PostList() {
       </Fragment>
     )
   })
-  return <div className='flex flex-col items-center gap-3'>{postList}</div>
+  return <div>{postList}</div>
 }
 
 export default PostList

@@ -3,20 +3,20 @@ import { ChatBubbleBottomCenterIcon, HeartIcon, ShareIcon } from '@heroicons/rea
 import Moment from 'react-moment'
 import PlaceTemplate from '../Place/PlaceTemplate'
 import { useState } from 'react'
-import { ReviewFeedRespone } from '../../utils/types'
+import { ReviewFeedResponse } from '../../utils/types'
 import { Link } from 'react-router-dom'
 
 import EmptyAvatar from '../../assets/logos/avatar.png'
 
 interface PostItemProps {
-  review: ReviewFeedRespone
+  review: ReviewFeedResponse
 }
 function PostItem(props: PostItemProps) {
   const { review } = props
   const [isFavorite, setIsFavorite] = useState(false)
   const handleIsFavorite = () => setIsFavorite((cur) => !cur)
   return (
-    <Card className='mt-6 w-5/6 border border-gray-300 md:w-3/5 lg:w-[555px]'>
+    <Card className='mt-6 w-full border border-gray-300'>
       <CardBody className='flex flex-col gap-5'>
         <div className='flex items-center justify-between'>
           <div className='flex  items-center gap-2'>
@@ -26,6 +26,7 @@ function PostItem(props: PostItemProps) {
                 {review.user.name}
               </Link>
             </Typography>
+            <span>reviewed</span>
           </div>
           <Typography variant='small'>
             <span>
@@ -33,9 +34,11 @@ function PostItem(props: PostItemProps) {
             </span>
           </Typography>
         </div>
-        <div>
-          <Typography variant='paragraph'>{review.review}</Typography>
-        </div>
+        {review.review && (
+          <div>
+            <Typography variant='paragraph'>{review.review}</Typography>
+          </div>
+        )}
         <PlaceTemplate place={review.place} />
       </CardBody>
       <CardFooter className='border-t-2'>
