@@ -43,8 +43,8 @@ export default function ComplexNavbar({ token }: { token: string }) {
       <Navbar className='sticky inset-0 z-10 h-max max-w-full rounded-none border-none bg-gray-300 px-4 py-0 lg:px-32 '>
         <div className='flex items-center justify-between text-blue-gray-900'>
           <div className='flex items-center'>
-            <Link to='/' className='mr-4 cursor-pointer text-center font-medium'>
-              <img src={logo} className='h-auto w-24 lg:w-32' alt='desti' />
+            <Link to='/' className='mr-4 cursor-pointer text-center font-pirata text-5xl'>
+              Desti
             </Link>
           </div>
           <div className='flex h-16 items-center justify-between'>{navList}</div>

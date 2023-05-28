@@ -6,7 +6,7 @@ module.exports = withMT({
   theme: {
     extend: {
       fontFamily: {
-        rubik: ['"Rubik"', 'sans-serif']
+        pirata: ['"Pirata One"', 'cursive']
       }
     }
   },
