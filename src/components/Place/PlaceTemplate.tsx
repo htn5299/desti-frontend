@@ -1,8 +1,7 @@
 import { Place } from '../../utils/types'
 import { Link } from 'react-router-dom'
 import { FlagIcon, HeartIcon } from '@heroicons/react/24/solid'
-import { Card, CardBody, CardFooter, IconButton, Rating, Typography } from '@material-tailwind/react'
-import { useState } from 'react'
+import { Card, CardBody, Typography } from '@material-tailwind/react'
 import { useGetFavouriteQuery, useSetFavouriteMutation } from '../../redux/api/apiFavourite'
 import classNames from 'classnames'
 interface PostItemProps {

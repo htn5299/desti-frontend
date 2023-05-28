@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { useSearchPlacesQuery } from '../redux/api/placesApi'
 import { ListSearch } from '../components'
 
-const SearchPage = () => {
+function SearchPage() {
   const [searchParams] = useSearchParams()
   const q = searchParams.get('q')
   const { data: placesSearch } = useSearchPlacesQuery(`${q}`, { skip: !Boolean(q) })

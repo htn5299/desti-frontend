@@ -1,4 +1,3 @@
-import logo from '../../assets/logos/logo.png'
 import { Navbar, Typography } from '@material-tailwind/react'
 import { Link, Outlet } from 'react-router-dom'
 import ProfileMenu from './ProfileMenu'

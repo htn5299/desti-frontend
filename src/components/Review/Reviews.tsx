@@ -4,7 +4,6 @@ import ReviewItem from './ReviewItem'
 import MyReviewItem from './MyReviewItem'
 import { useCreateReviewMutation, useGetReviewsByUserPlaceIdQuery } from '../../redux/api/reviewApi'
 import { useAppSelector } from '../../redux/store'
-import { useState } from 'react'
 
 interface PropsState {
   reviews?: ReviewsByPlace[]

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Typography } from '@material-tailwind/react'
 import { UserProfile } from '../../utils/types'
-import { Link } from 'react-router-dom'
 import EditProfile from './EditProfile'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'

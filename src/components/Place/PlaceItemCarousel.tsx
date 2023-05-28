@@ -1,6 +1,5 @@
 import React from 'react'
-import { Button, Carousel } from '@material-tailwind/react'
-import { FlagIcon, HeartIcon } from '@heroicons/react/24/outline'
+import { Carousel } from '@material-tailwind/react'
 import { Place } from '../../utils/types'
 interface propsState {
   place: Place

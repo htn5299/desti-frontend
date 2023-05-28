@@ -6,4 +6,4 @@ import RegisterPage from './RegisterPage'
 import ProfilePage from './ProfilePage'
 import EditProfilePage from './EditProfilePage'
 import SearchPage from './SearchPage'
-export { HomePage, LoginPage, NotFoundPage, PlacePage, RegisterPage, SearchPage, ProfilePage, EditProfilePage }
+export { HomePage, LoginPage, NotFoundPage, PlacePage, SearchPage, RegisterPage, ProfilePage, EditProfilePage }
