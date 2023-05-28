@@ -2,10 +2,10 @@ import { Card, Button, Typography } from '@material-tailwind/react'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useLoginMutation, useRegisterMutation } from '../redux/api/authApi'
-import { useAppDispatch } from '../redux/store'
-import { setCredentials } from '../redux/features/authSlice'
-import { isErrorWithMessage } from '../utils/helpers'
+import { useLoginMutation, useRegisterMutation } from '../../redux/api/authApi'
+import { useAppDispatch } from '../../redux/store'
+import { setCredentials } from '../../redux/features/authSlice'
+import { isErrorWithMessage } from '../../utils/helpers'
 export default function Register() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')

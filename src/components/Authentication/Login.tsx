@@ -1,6 +1,6 @@
 import { Card, Button, Typography } from '@material-tailwind/react'
 import { useNavigate, Link, useLocation } from 'react-router-dom'
-import { useLoginMutation } from '../redux/api/authApi'
+import { useLoginMutation } from '../../redux/api/authApi'
 import { useEffect, useRef, useState } from 'react'
 import { useAppDispatch } from 'redux/store'
 import { selectCurrentToken, setCredentials } from 'redux/features/authSlice'

@@ -1,14 +1,24 @@
-import BackHome from './BackHome'
-import Login from './Login'
-import ComplexNavbar from './ComplexNavbar'
-import Register from './Register'
-import ProfileMenu from './ProfileMenu'
-import SearchBar from './SearchBar'
-import PostItem from './PostItem'
-import PlaceTemplate from './PlaceTemplate'
-import PlaceItem from './PlaceItem'
-import Reviews from './Reviews'
-import ReviewTextarea from './ReviewTextarea'
+import BackHome from './Authentication/BackHome'
+import Login from './Authentication/Login'
+import ComplexNavbar from './Navbar/ComplexNavbar'
+import Register from './Authentication/Register'
+import ProfileMenu from './Navbar/ProfileMenu'
+import SearchBar from './Search/SearchBar'
+import PostItem from './Post/PostItem'
+import PlaceTemplate from './Place/PlaceTemplate'
+import Reviews from './Review/Reviews'
+import ReviewTextarea from './Review/ReviewTextarea'
+import MapItem from './Map/MapItem'
+import UserProfile from './UserProfile/UserProfile'
+import MapProfile from './UserProfile/MapProfile'
+import AvatarBanner from './UserProfile/AvatarBanner'
+import InfoProfile from './UserProfile/InfoProfile'
+import EditProfileLayout from './EditProfile/EditProfileLayout'
+import PlaceItemInfo from './Place/PlaceItemInfo'
+import PlaceItemCarousel from './Place/PlaceItemCarousel'
+import WantHere from './Place/WantHere'
+import ListSearch from './Place/ListSearch'
+import SearchItem from './Search/SearchItem'
 export {
   BackHome,
   Login,
@@ -18,7 +28,17 @@ export {
   SearchBar,
   PostItem,
   PlaceTemplate,
-  PlaceItem,
   Reviews,
-  ReviewTextarea
+  ReviewTextarea,
+  MapItem,
+  UserProfile,
+  MapProfile,
+  AvatarBanner,
+  InfoProfile,
+  EditProfileLayout,
+  PlaceItemInfo,
+  PlaceItemCarousel,
+  WantHere,
+  ListSearch,
+  SearchItem
 }

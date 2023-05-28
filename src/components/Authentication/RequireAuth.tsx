@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
-import { selectCurrentToken } from '../redux/features/authSlice'
+import { selectCurrentToken } from '../../redux/features/authSlice'
 import { Navigate, useLocation } from 'react-router-dom'
-import ComplexNavbar from './ComplexNavbar'
+import ComplexNavbar from '../Navbar/ComplexNavbar'
 
 function RequireAuth() {
   const token = useSelector(selectCurrentToken)
