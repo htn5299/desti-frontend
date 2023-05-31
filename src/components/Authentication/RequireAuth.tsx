@@ -6,7 +6,7 @@ import ComplexNavbar from '../Navbar/ComplexNavbar'
 function RequireAuth() {
   const token = useSelector(selectCurrentToken)
   const location = useLocation()
-  return token ? <ComplexNavbar token={token} /> : <Navigate to='/login' state={{ from: location }} replace></Navigate>
+  return token ? <ComplexNavbar /> : <Navigate to='/login' state={{ from: location }} replace></Navigate>
 }
 
 export default RequireAuth

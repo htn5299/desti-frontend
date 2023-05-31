@@ -17,8 +17,7 @@ export default function Login() {
   const passwordRef = useRef<HTMLInputElement>(null)
   const [password, setPassword] = useState('')
   const [errMsg, setErrMsg] = useState(0)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [login, loginResult] = useLoginMutation()
+  const [login] = useLoginMutation()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 

@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, IconButton, Rating } from '@material-tailwind/react'
 import { FaceSmileIcon, PhotoIcon } from '@heroicons/react/24/outline'
-import { useCreateReviewMutation, useGetReviewsByUserPlaceIdQuery } from '../../redux/api/reviewApi'
 
 import { toast } from 'react-toastify'
-import { ReviewByUserAndPlace } from '../../utils/types'
-import { RootState, useAppDispatch } from '../../redux/store'
-import { selectReviews, setReviews } from '../../redux/features/placeSlice'
-import { useSelector } from 'react-redux'
+
+import { useAppDispatch } from '../../redux/store'
+import { setReviews } from '../../redux/features/placeSlice'
 
 interface PropsState {
   placeId: string
@@ -19,7 +17,6 @@ export default function ReviewTextarea({ placeId, onRefresh, addReview }: PropsS
   const [rating, setRating] = useState(0)
   const [review, setReview] = useState('')
   const dispatch = useAppDispatch()
-  const [addReviewtest] = useCreateReviewMutation()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -28,7 +25,7 @@ export default function ReviewTextarea({ placeId, onRefresh, addReview }: PropsS
       return
     }
     try {
-      const addReviewResponse = await addReviewtest({
+      const addReviewResponse = await addReview({
         placeId: Number(placeId),
         review,
         rating
