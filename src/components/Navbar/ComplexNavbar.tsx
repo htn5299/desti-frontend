@@ -1,6 +1,9 @@
 import { Navbar, Typography } from '@material-tailwind/react'
 import { Link, Outlet } from 'react-router-dom'
 import ProfileMenu from './ProfileMenu'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/store'
+import { selectReviews } from '../../redux/features/placeSlice'
 export default function ComplexNavbar({ token }: { token: string }) {
   const navList = (
     <ul className='flex h-full items-center gap-3 lg:gap-8'>

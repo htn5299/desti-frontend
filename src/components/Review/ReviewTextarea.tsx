@@ -5,6 +5,9 @@ import { useCreateReviewMutation, useGetReviewsByUserPlaceIdQuery } from '../../
 
 import { toast } from 'react-toastify'
 import { ReviewByUserAndPlace } from '../../utils/types'
+import { RootState, useAppDispatch } from '../../redux/store'
+import { selectReviews, setReviews } from '../../redux/features/placeSlice'
+import { useSelector } from 'react-redux'
 
 interface PropsState {
   placeId: string
@@ -15,6 +18,8 @@ interface PropsState {
 export default function ReviewTextarea({ placeId, onRefresh, addReview }: PropsState) {
   const [rating, setRating] = useState(0)
   const [review, setReview] = useState('')
+  const dispatch = useAppDispatch()
+  const [addReviewtest] = useCreateReviewMutation()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -23,11 +28,27 @@ export default function ReviewTextarea({ placeId, onRefresh, addReview }: PropsS
       return
     }
     try {
-      await addReview({
+      const addReviewResponse = await addReviewtest({
         placeId: Number(placeId),
         review,
         rating
       })
+      if ('data' in addReviewResponse) {
+        const yeah = addReviewResponse.data
+        dispatch(
+          setReviews({
+            placeId: yeah.place.id,
+            review: {
+              id: yeah.id,
+              review: yeah.review,
+              rating: yeah.rating,
+              updatedAt: yeah.updatedAt,
+              createdAt: yeah.createdAt,
+              user: yeah.user
+            }
+          })
+        )
+      }
       onRefresh()
     } catch (e) {}
   }

@@ -59,3 +59,11 @@ export type ResponseFavourite = {
   here: boolean
   want: boolean
 }
+export type ReviewsByPlaceState = {
+  placeId: number
+  reviews: ReviewsByPlace[]
+}
+export type AddReviewAction = {
+  placeId: number
+  review: ReviewsByPlace
+}

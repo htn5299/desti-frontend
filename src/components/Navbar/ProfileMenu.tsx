@@ -1,13 +1,14 @@
 import { Avatar, Menu, MenuHandler, MenuItem, MenuList, Typography } from '@material-tailwind/react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { setCurrentUser } from '../../redux/features/userSlice'
 import { logOut, selectCurrentRefreshToken } from '../../redux/features/authSlice'
 import { useGetMeQuery } from '../../redux/api/userApi'
 import { useLogoutMutation } from '../../redux/api/authApi'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import EmptyAvatar from '../../assets/logos/avatar.png'
+import { SocketContext } from '../../utils/context/SocketContext'
 export default function ProfileMenu() {
   const { data } = useGetMeQuery(undefined, { refetchOnMountOrArgChange: true })
   const navigate = useNavigate()
@@ -15,6 +16,7 @@ export default function ProfileMenu() {
   const [logout] = useLogoutMutation()
   const refreshToken: string = useSelector(selectCurrentRefreshToken)
   const userprofile = useAppSelector((state) => state.user)
+  const { socket } = useContext(SocketContext)
   useEffect(() => {
     if (data) {
       dispatch(setCurrentUser(data))
@@ -24,10 +26,12 @@ export default function ProfileMenu() {
     try {
       logout({ refreshToken })
       dispatch(logOut())
+      socket?.disconnect()
       navigate('/login')
     } catch (error) {
       console.log(error)
       dispatch(logOut())
+
       navigate('/login')
     }
   }

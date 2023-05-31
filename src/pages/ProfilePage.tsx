@@ -1,7 +1,7 @@
 import { MapProfile, UserProfile } from '../components'
 import React from 'react'
 function ProfilePage() {
-  //TODO: re-code profile page
+  //todo:  update profile
   return (
     <div className={'grid-col-1 m-auto mt-6 grid w-10/12 gap-2 lg:grid-cols-3'}>
       <div className={'lg:col-span-1'}>

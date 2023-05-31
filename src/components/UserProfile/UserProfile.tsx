@@ -4,6 +4,8 @@ import { useGetUserByIdQuery } from '../../redux/api/userApi'
 import { useParams } from 'react-router-dom'
 
 const UserProfile = () => {
+  // const reviews = useSelector((state: RootState) => selectReviews(5)(state))
+  // console.log(reviews)
   const { userId } = useParams<{ userId: string }>()
   const { data: user } = useGetUserByIdQuery(`${userId}`)
   return (
