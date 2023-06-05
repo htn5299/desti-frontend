@@ -4,19 +4,15 @@ import { FaceSmileIcon, PhotoIcon } from '@heroicons/react/24/outline'
 
 import { toast } from 'react-toastify'
 
-import { useAppDispatch } from '../../redux/store'
-import { setReviews } from '../../redux/features/placeSlice'
-
 interface PropsState {
   placeId: string
   onRefresh: any
-  addReview: any
+  createReview: any
 }
 
-export default function ReviewTextarea({ placeId, onRefresh, addReview }: PropsState) {
+export default function ReviewTextarea({ placeId, onRefresh, createReview }: PropsState) {
   const [rating, setRating] = useState(0)
   const [review, setReview] = useState('')
-  const dispatch = useAppDispatch()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -25,27 +21,11 @@ export default function ReviewTextarea({ placeId, onRefresh, addReview }: PropsS
       return
     }
     try {
-      const addReviewResponse = await addReview({
+      await createReview({
         placeId: Number(placeId),
         review,
         rating
       })
-      if ('data' in addReviewResponse) {
-        const yeah = addReviewResponse.data
-        dispatch(
-          setReviews({
-            placeId: yeah.place.id,
-            review: {
-              id: yeah.id,
-              review: yeah.review,
-              rating: yeah.rating,
-              updatedAt: yeah.updatedAt,
-              createdAt: yeah.createdAt,
-              user: yeah.user
-            }
-          })
-        )
-      }
       onRefresh()
     } catch (e) {}
   }

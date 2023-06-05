@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar, Rating, Typography } from '@material-tailwind/react'
-import { FaceSmileIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { FaceSmileIcon, PencilIcon, StarIcon, TrashIcon } from '@heroicons/react/24/outline'
 import Moment from 'react-moment'
 import { ReviewsByPlace } from '../../utils/types'
 import { useGetUserByIdQuery } from '../../redux/api/userApi'
 import EmptyAvatar from '../../assets/logos/avatar.png'
 import { Link } from 'react-router-dom'
+import classNames from 'classnames'
+import { RatingCustom } from '../index'
 interface PropsState {
   review: ReviewsByPlace
 }
 const ReviewItem = ({ review }: PropsState) => {
   const { data: user } = useGetUserByIdQuery(`${review.user.id}` as string)
+  const { rating } = review
   return (
     <div className={'rounded-lg border border-gray-300 bg-gray-50 p-4'}>
       <div className={'flex items-center gap-2'}>
@@ -27,7 +30,7 @@ const ReviewItem = ({ review }: PropsState) => {
         </div>
       </div>
       <div className={'m-3'}>
-        <Rating value={review?.rating} readonly />
+        <RatingCustom rating={rating}></RatingCustom>
         <p>{review.review}</p>
       </div>
       <div className={'flex gap-3 border-t border-gray-300 pt-2 text-gray-700'}>

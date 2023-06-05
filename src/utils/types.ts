@@ -36,8 +36,8 @@ export type Profile = {
 }
 export type Review = {
   id: number | null
-  review?: string
-  rating?: number
+  review: string
+  rating: number
   updatedAt?: Date
   createdAt?: Date
 }
@@ -45,7 +45,7 @@ export type UserProfile = User & { profile: Profile }
 export type ReviewsByPlace = Review & { user: User }
 export type AddReview = Partial<Omit<Review, 'id' | 'updatedAt' | 'createdAt'>> & { placeId: number }
 export type AddReviewResponse = ReviewsByPlace & { place: Place }
-export type ReviewByUserAndPlace = ReviewsByPlace & { user: User } & { place: Place }
+export type ReviewByUserAndPlace = Review & { user: User } & { place: Place }
 export type ReviewFeedResponse = Review & { user: UserProfile } & { place: Place }
 
 export type SetFavouriteParams = {
@@ -59,9 +59,8 @@ export type ResponseFavourite = {
   here: boolean
   want: boolean
 }
-export type ReviewsByPlaceState = {
-  placeId: number
-  reviews: ReviewsByPlace[]
+export type ReviewsState = {
+  reviews: ReviewByUserAndPlace[]
 }
 export type AddReviewAction = {
   placeId: number

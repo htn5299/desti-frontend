@@ -19,6 +19,8 @@ import PlaceItemCarousel from './Place/PlaceItemCarousel'
 import WantHere from './Place/WantHere'
 import ListSearch from './Place/ListSearch'
 import SearchItem from './Search/SearchItem'
+import ReviewList from './Review/ReviewList'
+import RatingCustom from './RatingCustom/RatingCustom'
 export {
   BackHome,
   Login,
@@ -40,5 +42,7 @@ export {
   PlaceItemCarousel,
   WantHere,
   ListSearch,
-  SearchItem
+  SearchItem,
+  ReviewList,
+  RatingCustom
 }

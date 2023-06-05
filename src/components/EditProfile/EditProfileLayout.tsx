@@ -1,43 +1,77 @@
 import React, { useEffect, useState } from 'react'
-import { Avatar, Typography } from '@material-tailwind/react'
-import { Link } from 'react-router-dom'
-
+import { Avatar, Button, Typography } from '@material-tailwind/react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useGetMeQuery, useUpdateProfileMutation } from '../../redux/api/userApi'
+import EmptyAvatar from '../../assets/logos/avatar.png'
+import { RootState, useAppSelector } from '../../redux/store'
 const EditProfileLayout = () => {
-  const [selectedImage, setSelectedImage] = useState<string>()
+  const navigate = useNavigate()
+  const [updateProfile] = useUpdateProfileMutation()
+  // const { data: profile, refetch } = useGetMeQuery(undefined)
+  const profile = useAppSelector((state: RootState) => state.user)
+  const [name, setName] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [selectedImage, setSelectedImage] = useState<string>('')
+  const [avatarFile, setAvatarFile] = useState<File>()
+  const [about, setAbout] = useState<string>('')
   useEffect(() => {
     return () => {
       selectedImage && URL.revokeObjectURL(selectedImage)
     }
   }, [selectedImage])
+  useEffect(() => {
+    if (profile) {
+      const { name, email } = profile
+      const { avatar, about } = profile.profile
+      setName(name)
+      setEmail(email)
+      avatar && setSelectedImage(avatar)
+      about ? setAbout(about) : setAbout('')
+    }
+  }, [profile])
+
   const imageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0]
       const urlPreview = URL.createObjectURL(file)
+      setAvatarFile(file)
       setSelectedImage(urlPreview)
     }
   }
-
+  const handleUpdate = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault()
+    const formData = new FormData()
+    about && formData.append('about', about)
+    avatarFile && formData.append('file', avatarFile)
+    try {
+      await updateProfile(formData)
+      navigate(`/users/${profile?.id}`)
+    } catch (e) {}
+  }
   return (
-    <form action='' className={'mt-8 flex w-full flex-col gap-6 rounded-lg border border-gray-300 bg-white p-4'}>
+    <form className={'mt-8 flex w-full flex-col gap-6 rounded-lg border border-gray-300 bg-white p-4'}>
       <Typography variant='h3'>Edit Your Profile</Typography>
       <div>
         <label className={'mb-3 block font-semibold'}>USERNAME</label>
-        <input type='text' className={'w-4/6 rounded-lg  border  p-3 focus:outline-none'} />
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          type='text'
+          className={'w-4/6 rounded-lg  border  p-3 focus:outline-none'}
+        />
       </div>
       <div>
         <label className={'mb-3 block font-semibold'}>EMAIL</label>
-        <input type='text' className={'w-4/6 rounded-lg border p-3 focus:outline-none'} />
+        <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          type='text'
+          className={'w-4/6 rounded-lg border p-3 focus:outline-none'}
+        />
       </div>
       <div>
         <label className={'mb-3 block font-semibold'}>PROFILE IMAGE</label>
-        <Avatar
-          className={'mr-4 h-20 w-20'}
-          src={
-            selectedImage ||
-            'https://placewziz-nestjs-uploader.s3.ap-southeast-1.amazonaws.com/9d302243-8d91-47a7-b1c9-ac7d77e70fda_321501975-1754952598221060-6998078121714892766-n.png'
-          }
-          alt={'asd'}
-        ></Avatar>
+        <Avatar className={'mr-4 h-20 w-20'} src={selectedImage || EmptyAvatar} alt={'asd'}></Avatar>
         <input
           type='file'
           accept='image/*'
@@ -47,20 +81,27 @@ const EditProfileLayout = () => {
       </div>
       <div>
         <label className={'mb-3 block font-semibold'}>ABOUT</label>
-        <textarea className={'w-4/6 rounded-lg  border  p-3 focus:outline-none'} />
+        <textarea
+          value={about}
+          onChange={(e) => setAbout(e.target.value)}
+          className={'w-4/6 rounded-lg  border  p-3 focus:outline-none'}
+        />
       </div>
       <div className={'flex gap-3'}>
-        <button className={' rounded-lg bg-red-400 px-2 py-3 font-semibold uppercase text-white md:px-5 lg:px-20'}>
+        <button
+          onClick={handleUpdate}
+          className={' rounded-lg bg-red-400 px-2 py-3 font-semibold uppercase text-white md:px-5 lg:px-20'}
+        >
           Update Profile
         </button>
-        <Link
-          to={'..'}
+        <button
+          onClick={() => navigate(`/users/${profile?.id}`)}
           className={
             ' rounded-lg border border-gray-500 px-2 py-3 font-semibold uppercase text-gray-500 md:px-5 lg:px-16'
           }
         >
           Cancel
-        </Link>
+        </button>
       </div>
     </form>
   )

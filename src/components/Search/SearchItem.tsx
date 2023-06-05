@@ -6,7 +6,6 @@ interface PropsState {
 }
 const SearchItem = (props: PropsState) => {
   const { place } = props
-  console.log(place)
   return (
     <div className={'rounded-md px-3 py-1 hover:bg-gray-300'}>
       <Link to={`/places/${[place.id]}`} className={' cursor-pointer '}>

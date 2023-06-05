@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client'
-import { createContext, useEffect, ReactNode } from 'react'
+import { createContext, useEffect, ReactNode, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCurrentToken } from '../../redux/features/authSlice'
 
@@ -17,24 +17,21 @@ export const SocketContext = createContext<SocketContextValue>({
 
 export const SocketProvider = ({ children }: SocketContextProps) => {
   const token = useSelector(selectCurrentToken)
-  let socket: Socket | null = null
+  const [socket, setSocket] = useState<Socket | null>(null)
   useEffect(() => {
     if (token) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      socket = io('http://localhost:3001/', {
-        withCredentials: true,
-        extraHeaders: { Authorization: `Bearer ${token}` }
-      })
-    } else {
-      socket?.disconnect()
-      socket = null
+      setSocket(
+        io('http://localhost:8001/events', {
+          withCredentials: true,
+          extraHeaders: { Authorization: `Bearer ${token}` }
+        })
+      )
     }
     return () => {
       socket?.disconnect()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])
-  const socketValue: SocketContextValue = {
-    socket: token ? socket : null
-  }
-  return <SocketContext.Provider value={socketValue}>{children}</SocketContext.Provider>
+
+  return <SocketContext.Provider value={{ socket }}>{children}</SocketContext.Provider>
 }

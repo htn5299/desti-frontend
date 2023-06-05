@@ -1,29 +1,35 @@
-import { ReviewsByPlace } from '../../utils/types'
-import ReviewTextarea from './ReviewTextarea'
-import ReviewItem from './ReviewItem'
 import MyReviewItem from './MyReviewItem'
-import { useCreateReviewMutation, useGetReviewsByUserPlaceIdQuery } from '../../redux/api/reviewApi'
-import { useAppSelector } from '../../redux/store'
+import ReviewTextarea from './ReviewTextarea'
+import { useParams } from 'react-router-dom'
+import { useGetReviewsByPlaceIdQuery } from '../../redux/api/reviewApi'
+import React, { useEffect } from 'react'
+import { RootState, useAppDispatch, useAppSelector } from '../../redux/store'
+import { addReviews, clearReviews } from '../../redux/features/placeSlice'
+import { ReviewList } from '../index'
 
-interface PropsState {
-  reviews?: ReviewsByPlace[]
-  placeId: string
-}
-const Reviews = ({ reviews, placeId }: PropsState) => {
-  const userId = useAppSelector((state) => state.user.id) as number
-  const { data: myReview, refetch } = useGetReviewsByUserPlaceIdQuery({ userId, placeId })
-  const otherReviews = myReview ? reviews?.filter((review) => review.id !== myReview.id) : reviews
-  const renderedReviewItem = otherReviews?.map((review) => <ReviewItem review={review} key={review.id} />)
-  const [addReview] = useCreateReviewMutation()
+const Reviews = () => {
+  const { placeId } = useParams<{ placeId: string }>() as { placeId: string }
+  const dispatch = useAppDispatch()
+  const { data } = useGetReviewsByPlaceIdQuery(placeId)
+  useEffect(() => {
+    if (data) {
+      dispatch(addReviews(data))
+    }
+    return () => {
+      dispatch(clearReviews())
+    }
+  }, [data, dispatch])
   return (
-    <div className={'mt-10 flex flex-col gap-2'}>
-      <div className={'mt-8 font-semibold text-gray-900'}>Your Review</div>
-      {!myReview && <ReviewTextarea placeId={placeId} onRefresh={refetch} addReview={addReview} />}
-      {myReview && <MyReviewItem placeId={placeId} review={myReview} onRefresh={refetch} addReview={addReview} />}
-      {Boolean(otherReviews?.length) && <div className={'mt-8 font-semibold text-gray-900'}>Reviews</div>}
-      {renderedReviewItem}
+    <div className={'flex flex-col gap-2'}>
+      <div className={'font-semibold text-gray-900'}>Your Review</div>
+      <MyReviewItem />
+      <div className={'mt-8 font-semibold text-gray-900'}>Reviews</div>
+      <ReviewList />
     </div>
   )
 }
-
+// {!myReview && <ReviewTextarea placeId={placeId} onRefresh={refetch} addReview={addReview} />}
+// {myReview && <MyReviewItem placeId={placeId} review={myReview} onRefresh={refetch} addReview={addReview} />}
+// {Boolean(selectReviews?.length) && <div className={'mt-8 font-semibold text-gray-900'}>Reviews</div>}
+// {renderedReviewItem}
 export default Reviews

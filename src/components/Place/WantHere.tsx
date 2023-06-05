@@ -13,9 +13,9 @@ const WantHere = ({ onHereClick, onWantClick, isFavourite }: PropsState) => {
     <div className={'flex h-14 items-center gap-2'}>
       <button
         className={classNames(
-          'flex w-48 items-center justify-center  gap-1 rounded-lg border-2 border-gray-400 px-4  py-3 font-semibold uppercase text-gray-500 drop-shadow-xl duration-100 ease-in active:translate-y-px',
+          'flex w-48 items-center justify-center  gap-1 rounded-xl border-2 border-gray-400 px-4  py-3 font-semibold uppercase text-gray-500 drop-shadow-xl duration-100 ease-in active:translate-y-px',
           {
-            'border-green-400 text-green-400': isFavourite?.here,
+            'border-green-400  bg-green-50 text-green-400': isFavourite?.here,
             'hover:border-green-400 hover:text-green-400': !isFavourite?.here
           }
         )}
@@ -26,16 +26,16 @@ const WantHere = ({ onHereClick, onWantClick, isFavourite }: PropsState) => {
       </button>
       <button
         className={classNames(
-          'flex w-48 items-center justify-center  gap-1 rounded-lg border-2 border-gray-400 px-4  py-3 font-semibold uppercase text-gray-500 drop-shadow-xl duration-100 ease-in active:translate-y-px',
+          'flex w-48 items-center justify-center  gap-1 rounded-xl border-2 border-gray-400 px-4  py-3 font-semibold uppercase text-gray-500 drop-shadow-xl duration-100 ease-in active:translate-y-px',
           {
-            'border-red-400 text-red-400': isFavourite?.want,
+            'border-red-400 bg-red-50 text-red-400': isFavourite?.want,
             'hover:border-red-400 hover:text-red-400': !isFavourite?.want
           }
         )}
         onClick={onWantClick}
       >
-        <span>Want to Go </span>
-        <HeartIcon className={'inline h-5 w-5'} />
+        <span>Want Here </span>
+        <HeartIcon className={'font inline h-5 w-5 '} />
       </button>
     </div>
   )

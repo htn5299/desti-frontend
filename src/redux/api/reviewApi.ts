@@ -1,15 +1,9 @@
 import { apiSlice } from './apiSlice'
-import {
-  AddReview,
-  AddReviewResponse,
-  ReviewByUserAndPlace,
-  ReviewFeedResponse,
-  ReviewsByPlace
-} from '../../utils/types'
+import { AddReview, AddReviewResponse, ReviewByUserAndPlace, ReviewFeedResponse } from '../../utils/types'
 
 const reviewApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    createReview: builder.mutation<AddReviewResponse, AddReview>({
+    createReview: builder.mutation<ReviewByUserAndPlace, AddReview>({
       query: (addReview) => {
         const { review, rating } = addReview
         return {
@@ -20,7 +14,7 @@ const reviewApi = apiSlice.injectEndpoints({
       }
     }),
 
-    getReviewsByPlaceId: builder.query<ReviewsByPlace[], string>({
+    getReviewsByPlaceId: builder.query<ReviewByUserAndPlace[], string>({
       query: (placeId) => {
         return {
           url: `reviews?place=${placeId}`,

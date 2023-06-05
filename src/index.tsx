@@ -14,22 +14,20 @@ import { SocketProvider } from './utils/context/SocketContext'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
-  <React.StrictMode>
-    <ThemeProvider>
-      <ReduxProvider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <SocketProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route path='/*' element={<App />} />
-              </Routes>
-            </BrowserRouter>
-            <ToastContainer />
-          </SocketProvider>
-        </PersistGate>
-      </ReduxProvider>
-    </ThemeProvider>
-  </React.StrictMode>
+  <ThemeProvider>
+    <ReduxProvider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <SocketProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/*' element={<App />} />
+            </Routes>
+          </BrowserRouter>
+          <ToastContainer />
+        </SocketProvider>
+      </PersistGate>
+    </ReduxProvider>
+  </ThemeProvider>
 )
 
 reportWebVitals()
