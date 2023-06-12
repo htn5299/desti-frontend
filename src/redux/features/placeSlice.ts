@@ -14,7 +14,7 @@ const placeSlice = createSlice({
     },
     addReview: (state, action: PayloadAction<ReviewByUserAndPlace>) => {
       const review = action.payload
-      const reviewIndex = state.reviews.findIndex((reviewState, index) => reviewState.id === review.id)
+      const reviewIndex = state.reviews.findIndex((reviewState) => reviewState.id === review.id)
       if (reviewIndex === -1) {
         state.reviews.unshift(review)
       } else {
