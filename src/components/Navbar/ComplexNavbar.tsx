@@ -1,7 +1,5 @@
-import { Navbar, Typography } from '@material-tailwind/react'
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import ProfileMenu from './ProfileMenu'
-import { FlagIcon, HeartIcon, HomeIcon } from '@heroicons/react/24/outline'
 import NavList from './NavList'
 import LogoComponent from './Logo'
 import UtilList from './UtilList'
