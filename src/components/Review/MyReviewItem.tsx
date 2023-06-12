@@ -3,12 +3,11 @@ import { Link, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { FaceSmileIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { Avatar, Rating } from '@material-tailwind/react'
-import { useCreateReviewMutation, useGetReviewsByUserPlaceIdQuery } from '../../redux/api/reviewApi'
+import { useCreateReviewMutation, useGetMyReviewQuery } from '../../redux/api/reviewApi'
 import { RootState, useAppSelector } from '../../redux/store'
 import Moment from 'react-moment'
 import EmptyAvatar from '../../assets/logos/avatar.png'
 import { useGetUserByIdQuery } from '../../redux/api/userApi'
-import { addReview } from '../../redux/features/placeSlice'
 import ReviewTextarea from './ReviewTextarea'
 import { RatingCustom } from '../index'
 
@@ -16,10 +15,7 @@ const MyReviewItem = () => {
   const userId = useAppSelector((state: RootState) => state.user.id) as number
   const { placeId } = useParams<{ placeId: string }>() as { placeId: string }
   const [isEdited, setIsEdited] = useState(false)
-  const { data: myReviewData, refetch: refetchReview } = useGetReviewsByUserPlaceIdQuery(
-    { userId, placeId },
-    { skip: !Boolean(userId) }
-  )
+  const { data: myReviewData, refetch: refetchReview } = useGetMyReviewQuery({ placeId }, { skip: !Boolean(userId) })
   const { data: profile, refetch: refetchProfile } = useGetUserByIdQuery(`${userId}`, { skip: !Boolean(userId) })
   const [myReview, setMyReview] = useState<string>()
   const [myRating, setMyRating] = useState<number>()

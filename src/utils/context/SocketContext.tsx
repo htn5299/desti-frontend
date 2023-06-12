@@ -21,7 +21,7 @@ export const SocketProvider = ({ children }: SocketContextProps) => {
   useEffect(() => {
     if (token) {
       setSocket(
-        io('http://localhost:8001/events', {
+        io(`${process.env.REACT_APP_SOCKET_API}`, {
           withCredentials: true,
           extraHeaders: { Authorization: `Bearer ${token}` }
         })

@@ -9,6 +9,7 @@ import { useLogoutMutation } from '../../redux/api/authApi'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import EmptyAvatar from '../../assets/logos/avatar.png'
 import { SocketContext } from '../../utils/context/SocketContext'
+import { ChevronDownIcon } from '@heroicons/react/24/outline'
 export default function ProfileMenu() {
   const { data } = useGetMeQuery(undefined, { refetchOnMountOrArgChange: true })
   const navigate = useNavigate()
@@ -42,16 +43,15 @@ export default function ProfileMenu() {
         unmount: { y: 25 }
       }}
     >
-      <div className='hidden lg:block'>
-        <Typography variant='h6'>
-          <Link to={`/users/${data?.id}`} className='hover:text-black '>
-            {userprofile?.name}
-          </Link>
-        </Typography>
-      </div>
       <MenuHandler>
-        <div className='flex cursor-pointer items-center gap-4'>
+        <div className='flex cursor-pointer items-center gap-4 text-gray-50'>
           <Avatar src={userprofile?.profile.avatar || EmptyAvatar} alt='avatar' />
+          <Typography className={'hidden lg:block'}>
+            <Link to={'/'} className={'font-normal leading-6 '}>
+              {userprofile.name}
+            </Link>
+          </Typography>
+          <ChevronDownIcon className={'h-6 w-6'} />
         </div>
       </MenuHandler>
       <MenuList>

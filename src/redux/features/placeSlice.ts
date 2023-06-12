@@ -1,5 +1,5 @@
-import { AddReviewAction, AddReviewResponse, ReviewByUserAndPlace, ReviewsState } from '../../utils/types'
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ReviewByUserAndPlace, ReviewsState } from '../../utils/types'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 
 const initialState: ReviewsState = {

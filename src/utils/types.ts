@@ -22,7 +22,7 @@ export type Place = {
   name: string
   status: string
   updatedAt?: Date
-  createdBy: User
+  createdBy?: User
 }
 export type User = {
   email: string
@@ -30,8 +30,8 @@ export type User = {
   name: string
 }
 export type Profile = {
-  about: string
-  avatar: string
+  about: string | null
+  avatar: string | null
   id: number | null
 }
 export type Review = {
@@ -44,7 +44,6 @@ export type Review = {
 export type UserProfile = User & { profile: Profile }
 export type ReviewsByPlace = Review & { user: User }
 export type AddReview = Partial<Omit<Review, 'id' | 'updatedAt' | 'createdAt'>> & { placeId: number }
-export type AddReviewResponse = ReviewsByPlace & { place: Place }
 export type ReviewByUserAndPlace = Review & { user: User } & { place: Place }
 export type ReviewFeedResponse = Review & { user: UserProfile } & { place: Place }
 
@@ -61,8 +60,4 @@ export type ResponseFavourite = {
 }
 export type ReviewsState = {
   reviews: ReviewByUserAndPlace[]
-}
-export type AddReviewAction = {
-  placeId: number
-  review: ReviewsByPlace
 }

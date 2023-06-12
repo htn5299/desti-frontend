@@ -1,12 +1,11 @@
 import PostItem from './PostItem'
 import { Fragment, useState } from 'react'
 import { Waypoint } from 'react-waypoint'
-import { useGetReviewsQuery } from '../../redux/api/reviewApi'
+import { useGetReviewsNewsfeedQuery } from '../../redux/api/newsfeedApi'
 
 function PostList() {
   const [page, setPage] = useState(1)
-  const { data: reviews } = useGetReviewsQuery(page)
-
+  const { data: reviews } = useGetReviewsNewsfeedQuery(page)
   const postList = reviews?.map((review, i) => {
     return (
       <Fragment key={review.id}>
@@ -14,7 +13,6 @@ function PostList() {
         {i === reviews.length - 2 && (
           <Waypoint
             onEnter={() => {
-              // dispatch(setPage())
               setPage((prevState) => prevState + 1)
             }}
           />

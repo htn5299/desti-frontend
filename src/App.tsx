@@ -2,8 +2,6 @@ import { Route, Routes } from 'react-router-dom'
 import RequireAuth from 'components/Authentication/RequireAuth'
 import { HomePage, LoginPage, NotFoundPage, PlacePage, ProfilePage, RegisterPage, SearchPage } from './pages'
 import EditProfilePage from './pages/EditProfilePage'
-import * as process from 'process'
-//test
 function App() {
   return (
     <Routes>

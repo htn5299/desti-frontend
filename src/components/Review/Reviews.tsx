@@ -1,11 +1,10 @@
 import MyReviewItem from './MyReviewItem'
-import ReviewTextarea from './ReviewTextarea'
 import { useParams } from 'react-router-dom'
-import { useGetReviewsByPlaceIdQuery } from '../../redux/api/reviewApi'
 import React, { useEffect } from 'react'
-import { RootState, useAppDispatch, useAppSelector } from '../../redux/store'
+import { useAppDispatch } from '../../redux/store'
 import { addReviews, clearReviews } from '../../redux/features/placeSlice'
 import { ReviewList } from '../index'
+import { useGetReviewsByPlaceIdQuery } from '../../redux/api/placesApi'
 
 const Reviews = () => {
   const { placeId } = useParams<{ placeId: string }>() as { placeId: string }

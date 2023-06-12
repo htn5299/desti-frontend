@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button } from '@material-tailwind/react'
 import { FlagIcon, HeartIcon } from '@heroicons/react/24/solid'
 import { ResponseFavourite } from '../../utils/types'
 import classNames from 'classnames'

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Avatar, Button, Typography } from '@material-tailwind/react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useGetMeQuery, useUpdateProfileMutation } from '../../redux/api/userApi'
+import { Avatar, Typography } from '@material-tailwind/react'
+import { useNavigate } from 'react-router-dom'
+import { useUpdateProfileMutation } from '../../redux/api/userApi'
 import EmptyAvatar from '../../assets/logos/avatar.png'
 import { RootState, useAppSelector } from '../../redux/store'
 const EditProfileLayout = () => {

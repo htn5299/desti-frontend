@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { Avatar, Rating, Typography } from '@material-tailwind/react'
-import { FaceSmileIcon, PencilIcon, StarIcon, TrashIcon } from '@heroicons/react/24/outline'
+import React from 'react'
+import { Avatar } from '@material-tailwind/react'
+import { FaceSmileIcon } from '@heroicons/react/24/outline'
 import Moment from 'react-moment'
 import { ReviewsByPlace } from '../../utils/types'
 import { useGetUserByIdQuery } from '../../redux/api/userApi'
 import EmptyAvatar from '../../assets/logos/avatar.png'
 import { Link } from 'react-router-dom'
-import classNames from 'classnames'
+
 import { RatingCustom } from '../index'
 interface PropsState {
   review: ReviewsByPlace

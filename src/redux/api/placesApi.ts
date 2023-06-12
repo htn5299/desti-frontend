@@ -1,4 +1,4 @@
-import { Place } from '../../utils/types'
+import { Place, ReviewByUserAndPlace } from '../../utils/types'
 import { apiSlice } from './apiSlice'
 const placesApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -17,7 +17,15 @@ const placesApi = apiSlice.injectEndpoints({
           method: 'GET'
         }
       }
+    }),
+    getReviewsByPlaceId: builder.query<ReviewByUserAndPlace[], string>({
+      query: (placeId) => {
+        return {
+          url: `places/${placeId}/reviews`,
+          method: 'GET'
+        }
+      }
     })
   })
 })
-export const { useGetPlaceQuery, useSearchPlacesQuery } = placesApi
+export const { useGetReviewsByPlaceIdQuery, useGetPlaceQuery, useSearchPlacesQuery } = placesApi
