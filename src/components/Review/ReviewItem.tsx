@@ -4,7 +4,7 @@ import { FaceSmileIcon } from '@heroicons/react/24/outline'
 import Moment from 'react-moment'
 import { ReviewsByPlace } from '../../utils/types'
 import { useGetUserByIdQuery } from '../../redux/api/userApi'
-import EmptyAvatar from '../../assets/logos/avatar.png'
+import EmptyAvatar from '../../assets/profile/avatar.png'
 import { Link } from 'react-router-dom'
 
 import { RatingCustom } from '../index'
@@ -18,7 +18,10 @@ const ReviewItem = ({ review }: PropsState) => {
     <div className={'rounded-lg border border-gray-300 bg-gray-50 p-4'}>
       <div className={'flex items-center gap-2'}>
         <Link to={`/users/${review.user.id}`} className={'hover:cursor-pointer'}>
-          <Avatar src={user?.profile.avatar || EmptyAvatar} alt={'avatar'} />
+          <Avatar
+            src={user?.profile.avatar ? `${process.env.REACT_APP_AWS_URL}${user.profile.avatar}` : EmptyAvatar}
+            alt={'avatar'}
+          />
         </Link>
         <div>
           <Link to={`/users/${review.user.id}`} className={'font-bold hover:cursor-pointer hover:underline'}>

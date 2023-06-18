@@ -20,6 +20,7 @@ import SearchItem from './Search/SearchItem'
 import ReviewList from './Review/ReviewList'
 import RatingCustom from './RatingCustom/RatingCustom'
 import ListSearch from './Place/ListSearch'
+import DeleteReviewDialog from './Review/DeleteReviewDialog'
 export {
   BackHome,
   Login,
@@ -42,5 +43,6 @@ export {
   ListSearch,
   SearchItem,
   ReviewList,
-  RatingCustom
+  RatingCustom,
+  DeleteReviewDialog
 }

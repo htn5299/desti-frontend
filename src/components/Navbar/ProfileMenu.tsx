@@ -7,7 +7,7 @@ import { logOut, selectCurrentRefreshToken } from '../../redux/features/authSlic
 import { useGetMeQuery } from '../../redux/api/userApi'
 import { useLogoutMutation } from '../../redux/api/authApi'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
-import EmptyAvatar from '../../assets/logos/avatar.png'
+import EmptyAvatar from '../../assets/profile/avatar.png'
 import { SocketContext } from '../../utils/context/SocketContext'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 export default function ProfileMenu() {
@@ -30,9 +30,7 @@ export default function ProfileMenu() {
       socket?.disconnect()
       navigate('/login')
     } catch (error) {
-      console.log(error)
       dispatch(logOut())
-
       navigate('/login')
     }
   }
@@ -44,8 +42,15 @@ export default function ProfileMenu() {
       }}
     >
       <MenuHandler>
-        <div className='flex cursor-pointer items-center gap-4 text-gray-50'>
-          <Avatar src={userprofile?.profile.avatar || EmptyAvatar} alt='avatar' />
+        <div className='flex cursor-pointer items-center gap-2 text-gray-50'>
+          <Avatar
+            src={
+              userprofile?.profile.avatar
+                ? `${process.env.REACT_APP_AWS_URL}${userprofile?.profile.avatar}`
+                : EmptyAvatar
+            }
+            alt='avatar'
+          />
           <Typography className={'hidden lg:block'}>
             <Link to={'/'} className={'font-normal leading-6 '}>
               {userprofile.name}

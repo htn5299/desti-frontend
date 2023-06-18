@@ -39,15 +39,13 @@ const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
       } else {
         api.dispatch(logOut())
       }
-    } catch (error) {
-      console.log('console_log: ', error)
-    }
+    } catch (error) {}
   }
   return result
 }
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReAuth,
-  tagTypes: ['UserProfile'],
+  tagTypes: ['UserProfile', 'Reviews', 'Places'],
   endpoints: () => ({})
 })

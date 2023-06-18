@@ -1,8 +1,17 @@
-import { Place, ReviewByUserAndPlace } from '../../utils/types'
+import { Place, PlaceImage, PlaceWithImage } from '../../utils/types'
 import { apiSlice } from './apiSlice'
 const placesApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getPlace: builder.query<Place, string>({
+    createPlace: builder.mutation<Place, FormData>({
+      query: (place) => {
+        return {
+          url: 'places',
+          method: 'POST',
+          body: place
+        }
+      }
+    }),
+    getPlace: builder.query<PlaceWithImage, string>({
       query: (placeId) => {
         return {
           url: `places/${placeId}`,
@@ -18,14 +27,23 @@ const placesApi = apiSlice.injectEndpoints({
         }
       }
     }),
-    getReviewsByPlaceId: builder.query<ReviewByUserAndPlace[], string>({
+    topPlaces: builder.query<Place[], string>({
+      query: (top) => {
+        return {
+          url: `places/top/${top}`,
+          method: 'GET'
+        }
+      }
+    }),
+    getImages: builder.query<PlaceImage[], string>({
       query: (placeId) => {
         return {
-          url: `places/${placeId}/reviews`,
+          url: `places/${placeId}/images`,
           method: 'GET'
         }
       }
     })
   })
 })
-export const { useGetReviewsByPlaceIdQuery, useGetPlaceQuery, useSearchPlacesQuery } = placesApi
+export const { useGetPlaceQuery, useSearchPlacesQuery, useCreatePlaceMutation, useTopPlacesQuery, useGetImagesQuery } =
+  placesApi

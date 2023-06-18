@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Avatar, Typography } from '@material-tailwind/react'
 import { useNavigate } from 'react-router-dom'
 import { useUpdateProfileMutation } from '../../redux/api/userApi'
-import EmptyAvatar from '../../assets/logos/avatar.png'
+import EmptyAvatar from '../../assets/profile/avatar.png'
 import { RootState, useAppSelector } from '../../redux/store'
+import * as process from 'process'
 const EditProfileLayout = () => {
   const navigate = useNavigate()
   const [updateProfile] = useUpdateProfileMutation()
@@ -25,7 +26,7 @@ const EditProfileLayout = () => {
       const { avatar, about } = profile.profile
       setName(name)
       setEmail(email)
-      avatar && setSelectedImage(avatar)
+      avatar && setSelectedImage(`${process.env.REACT_APP_AWS_URL}${avatar}`)
       about ? setAbout(about) : setAbout('')
     }
   }, [profile])

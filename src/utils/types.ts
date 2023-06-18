@@ -17,6 +17,7 @@ export type Place = {
   id: number
   createdAt: Date
   description: string
+  address: string
   latitude: number
   longitude: number
   name: string
@@ -35,7 +36,7 @@ export type Profile = {
   id: number | null
 }
 export type Review = {
-  id: number | null
+  id: number
   review: string
   rating: number
   updatedAt?: Date
@@ -61,3 +62,21 @@ export type ResponseFavourite = {
 export type ReviewsState = {
   reviews: ReviewByUserAndPlace[]
 }
+export type UserPlaceIndex = {
+  userId: number
+  placeId: number
+}
+export type PlaceImage = {
+  id: number
+  placeId: number
+  key: string
+}
+export type Coordinates = { longitude: number; latitude: number }
+export type LocationState = {
+  name: string
+  description: string
+  address: string
+  latitude: number
+  longitude: number
+}
+export type PlaceWithImage = Place & { images: PlaceImage[] }

@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { FaceSmileIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { FaceSmileIcon, PencilIcon } from '@heroicons/react/24/outline'
 import { Avatar, Rating } from '@material-tailwind/react'
 import { useCreateReviewMutation, useGetMyReviewQuery } from '../../redux/api/reviewApi'
 import { RootState, useAppSelector } from '../../redux/store'
 import Moment from 'react-moment'
-import EmptyAvatar from '../../assets/logos/avatar.png'
+import EmptyAvatar from '../../assets/profile/avatar.png'
 import { useGetUserByIdQuery } from '../../redux/api/userApi'
 import ReviewTextarea from './ReviewTextarea'
 import { RatingCustom } from '../index'
-
+import { DeleteReviewDialog } from '../index'
 const MyReviewItem = () => {
   const userId = useAppSelector((state: RootState) => state.user.id) as number
   const { placeId } = useParams<{ placeId: string }>() as { placeId: string }
@@ -21,7 +21,6 @@ const MyReviewItem = () => {
   const [myRating, setMyRating] = useState<number>()
   const inputRef = useRef<HTMLInputElement>(null)
   const [createReview] = useCreateReviewMutation()
-
   useEffect(() => {
     if (isEdited) {
       inputRef.current?.focus()
@@ -63,7 +62,12 @@ const MyReviewItem = () => {
           <div className={'flex items-start justify-between gap-2'}>
             <div className={'flex items-center gap-2'}>
               <Link to={`/users/${userId}`} className={'hover:cursor-pointer'}>
-                <Avatar src={profile?.profile.avatar || EmptyAvatar} alt={'avatar'} />
+                <Avatar
+                  src={
+                    profile?.profile.avatar ? `${process.env.REACT_APP_AWS_URL}${profile?.profile.avatar}` : EmptyAvatar
+                  }
+                  alt={'avatar'}
+                />
               </Link>
               <div>
                 <Link to={`/users/${userId}`} className={'font-bold hover:cursor-pointer hover:underline'}>
@@ -79,7 +83,7 @@ const MyReviewItem = () => {
             <div className={'flex items-center gap-4 p-2 text-gray-700'}>
               {!isEdited && (
                 <>
-                  <TrashIcon className={'h-4 w-4 cursor-pointer'} />
+                  <DeleteReviewDialog placeId={placeId} myReview={myReviewData} />
                   <PencilIcon
                     className={'h-4 w-4 cursor-pointer'}
                     onClick={() => setIsEdited((prevState) => !prevState)}

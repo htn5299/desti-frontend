@@ -9,7 +9,7 @@ interface propsState {
 }
 const PlaceItemInfo = (props: propsState) => {
   const { place } = props
-  const { data: isFavourite, refetch: refreshFav } = useGetFavouriteQuery(place.id)
+  const { data: isFavourite, refetch: refreshFav } = useGetFavouriteQuery(place.id, { refetchOnMountOrArgChange: true })
   const [addFavourite] = useSetFavouriteMutation()
   const handleHereClick = async () => {
     try {

@@ -1,5 +1,5 @@
 import { apiSlice } from './apiSlice'
-import { ResponseFavourite, SetFavouriteParams } from '../../utils/types'
+import { PlaceWithImage, ResponseFavourite, SetFavouriteParams } from '../../utils/types'
 
 const apiFavourite = apiSlice.injectEndpoints({
   endpoints: (build) => ({
@@ -19,7 +19,28 @@ const apiFavourite = apiSlice.injectEndpoints({
           method: 'GET'
         }
       }
+    }),
+    getHerePlacesByUser: build.query<PlaceWithImage[], string>({
+      query: (userId) => {
+        return {
+          url: `favourites/users/${userId}/here`,
+          method: 'GET'
+        }
+      }
+    }),
+    getWantPlacesByUser: build.query<PlaceWithImage[], string>({
+      query: (userId) => {
+        return {
+          url: `favourites/users/${userId}/want`,
+          method: 'GET'
+        }
+      }
     })
   })
 })
-export const { useSetFavouriteMutation, useGetFavouriteQuery } = apiFavourite
+export const {
+  useSetFavouriteMutation,
+  useGetFavouriteQuery,
+  useGetHerePlacesByUserQuery,
+  useGetWantPlacesByUserQuery
+} = apiFavourite

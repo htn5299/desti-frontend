@@ -22,6 +22,13 @@ const placeSlice = createSlice({
         state.reviews.unshift(review)
       }
     },
+    removeReview: (state, action: PayloadAction<number>) => {
+      const reviewId = action.payload
+      const reviewIndex = state.reviews.findIndex((reviewState) => reviewState.id === reviewId)
+      if (reviewIndex !== -1) {
+        state.reviews.splice(reviewIndex, 1)
+      }
+    },
     clearReviews: (state) => {
       state.reviews = []
     }
@@ -35,5 +42,5 @@ export const reviewsByPlaceState = (state: RootState) => state.places
 //   )
 // // how use
 // // const reviews = useSelector((state) => selectReviews(placeId)(state))
-export const { addReviews, addReview, clearReviews } = placeSlice.actions
+export const { addReviews, addReview, clearReviews, removeReview } = placeSlice.actions
 export default placeSlice.reducer
