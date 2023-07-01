@@ -1,19 +1,18 @@
-import { useGetHerePlacesByUserQuery, useGetWantPlacesByUserQuery } from '../../redux/api/apiFavourite'
-import { Square3Stack3DIcon, UserCircleIcon } from '@heroicons/react/20/solid'
+import { useGetHerePlacesByUserQuery, useGetWantPlacesByUserQuery } from '../../redux/api/favouriteApi'
+import { UserCircleIcon } from '@heroicons/react/20/solid'
 import { Tabs, TabsHeader, TabsBody, Tab, TabPanel } from '@material-tailwind/react'
 import React from 'react'
-import HereMap from '../Favourite/HereMap'
 import WantMap from '../Favourite/WantMap'
 export default function MapProfile({ userId }: { userId: string }) {
   const { data: herePlaces } = useGetHerePlacesByUserQuery(userId, { refetchOnMountOrArgChange: true })
   const { data: wantPlaces } = useGetWantPlacesByUserQuery(userId, { refetchOnMountOrArgChange: true })
   const data = [
-    {
-      label: 'Been Here',
-      value: 'dashboard',
-      icon: Square3Stack3DIcon,
-      desc: herePlaces && Boolean(herePlaces.length) ? <HereMap places={herePlaces} /> : <div>no here</div>
-    },
+    // {
+    //   label: 'Been Here',
+    //   value: 'dashboard',
+    //   icon: Square3Stack3DIcon,
+    //   desc: herePlaces && Boolean(herePlaces.length) ? <HereMap places={herePlaces} /> : <div>no here</div>
+    // },
     {
       label: 'Want to Go',
       value: 'profile',

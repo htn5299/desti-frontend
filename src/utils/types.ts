@@ -1,3 +1,5 @@
+import { Actions, Services } from './constrains'
+
 export type UserCredentialsParams = {
   email: string
   password: string
@@ -80,3 +82,46 @@ export type LocationState = {
   longitude: number
 }
 export type PlaceWithImage = Place & { images: PlaceImage[] }
+
+export enum StatusCode {
+  PENDING = 'PENDING',
+  ACCEPTED = 'ACCEPTED',
+  DECLINED = 'DECLINED'
+}
+
+export type RequestFriendRes = {
+  id: number
+  status: StatusCode
+  requester: User
+  receiver: User
+  createdAt: Date
+  updatedAt: Date
+}
+export type NotificationResponse = {
+  id: number
+  actor: number
+  entity: number
+  action: Actions
+  service: Services
+  createdAt: Date
+  updatedAt: Date
+}
+export type NotificationRecipientResponse = {
+  id: number
+  readAt: null | Date
+  createdAt: Date
+  updatedAt: Date
+  notification: {
+    id: number
+    entity: number
+    action: Actions
+    service: Services
+    createdAt: Date
+    updatedAt: Date
+    actor: {
+      id: number
+      email: string
+      name: string
+    }
+  }
+}

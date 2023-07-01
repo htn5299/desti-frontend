@@ -1,7 +1,7 @@
 import { apiSlice } from './apiSlice'
 import { PlaceWithImage, ResponseFavourite, SetFavouriteParams } from '../../utils/types'
 
-const apiFavourite = apiSlice.injectEndpoints({
+const favouriteApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     setFavourite: build.mutation<any, SetFavouriteParams>({
       query: (content) => {
@@ -43,4 +43,4 @@ export const {
   useGetFavouriteQuery,
   useGetHerePlacesByUserQuery,
   useGetWantPlacesByUserQuery
-} = apiFavourite
+} = favouriteApi

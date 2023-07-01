@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { FaceSmileIcon, PencilIcon } from '@heroicons/react/24/outline'
 import { Avatar, Rating } from '@material-tailwind/react'
-import { useCreateReviewMutation, useGetMyReviewQuery } from '../../redux/api/reviewApi'
+import { useCreateReviewMutation, useGetMyReviewQuery, useUpdateMyReviewMutation } from '../../redux/api/reviewApi'
 import { RootState, useAppSelector } from '../../redux/store'
 import Moment from 'react-moment'
 import EmptyAvatar from '../../assets/profile/avatar.png'
@@ -21,6 +21,7 @@ const MyReviewItem = () => {
   const [myRating, setMyRating] = useState<number>()
   const inputRef = useRef<HTMLInputElement>(null)
   const [createReview] = useCreateReviewMutation()
+  const [updateReview] = useUpdateMyReviewMutation()
   useEffect(() => {
     if (isEdited) {
       inputRef.current?.focus()
@@ -46,7 +47,7 @@ const MyReviewItem = () => {
       return
     }
     try {
-      await createReview({
+      await updateReview({
         placeId: Number(placeId),
         review: myReview,
         rating: myRating

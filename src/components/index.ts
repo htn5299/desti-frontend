@@ -8,7 +8,7 @@ import PostItem from './Post/PostItem'
 import Reviews from './Review/Reviews'
 import ReviewTextarea from './Review/ReviewTextarea'
 import MapItem from './Map/MapItem'
-import UserProfile from './UserProfile/UserProfile'
+import Profile from './UserProfile/Profile'
 import MapProfile from './UserProfile/MapProfile'
 import AvatarBanner from './UserProfile/AvatarBanner'
 import InfoProfile from './UserProfile/InfoProfile'
@@ -21,6 +21,7 @@ import ReviewList from './Review/ReviewList'
 import RatingCustom from './RatingCustom/RatingCustom'
 import ListSearch from './Place/ListSearch'
 import DeleteReviewDialog from './Review/DeleteReviewDialog'
+import ListFriends from './UserProfile/ListFriends'
 export {
   BackHome,
   Login,
@@ -32,7 +33,7 @@ export {
   Reviews,
   ReviewTextarea,
   MapItem,
-  UserProfile,
+  Profile,
   MapProfile,
   AvatarBanner,
   InfoProfile,
@@ -44,5 +45,6 @@ export {
   SearchItem,
   ReviewList,
   RatingCustom,
-  DeleteReviewDialog
+  DeleteReviewDialog,
+  ListFriends
 }

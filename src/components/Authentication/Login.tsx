@@ -28,7 +28,6 @@ export default function Login() {
   }, [token, navigate, from])
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
     if (!email || !password) {
       return
     }

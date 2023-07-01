@@ -23,7 +23,7 @@ root.render(
               <Route path='/*' element={<App />} />
             </Routes>
           </BrowserRouter>
-          <ToastContainer />
+          <ToastContainer hideProgressBar position={'bottom-right'} className={'w-96'} />
         </SocketProvider>
       </PersistGate>
     </ReduxProvider>

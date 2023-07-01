@@ -1,5 +1,6 @@
 import React from 'react'
 import { BellIcon, ChatBubbleOvalLeftIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import NotificationDropdown from '../Notification/NotificationDropdown/NotificationDropdown'
 
 const UtilList = () => {
   return (
@@ -11,7 +12,7 @@ const UtilList = () => {
         <ChatBubbleOvalLeftIcon className={'h-6 w-6'} />
       </li>
       <li>
-        <BellIcon className={'h-6 w-6'} />
+        <NotificationDropdown />
       </li>
     </ul>
   )

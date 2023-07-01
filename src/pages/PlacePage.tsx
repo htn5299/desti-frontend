@@ -14,7 +14,7 @@ function PlacePage() {
   })
   const { data: placeImages } = useGetImagesQuery(placeId)
   const dispatch = useAppDispatch()
-  const navitaion = useNavigate()
+  const navigate = useNavigate()
   useEffect(() => {
     if (socket) {
       socket.emit('onPlaceJoin', { placeId })
@@ -29,9 +29,9 @@ function PlacePage() {
   }, [socket])
   useEffect(() => {
     if (!place && !isFetchingPlace) {
-      navitaion('/')
+      navigate('/')
     }
-  }, [isFetchingPlace, navitaion, place])
+  }, [isFetchingPlace, navigate, place])
 
   return (
     <>

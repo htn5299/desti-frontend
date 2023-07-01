@@ -13,6 +13,14 @@ const reviewApi = apiSlice.injectEndpoints({
         }
       }
     }),
+    getReviewById: builder.query<ReviewByUserAndPlace, string>({
+      query: (reviewId) => {
+        return {
+          url: `reviews/${reviewId}`,
+          method: 'GET'
+        }
+      }
+    }),
     getReviewsByPlaceId: builder.query<ReviewByUserAndPlace[], string>({
       query: (placeId) => {
         return {
@@ -43,7 +51,7 @@ const reviewApi = apiSlice.injectEndpoints({
       query: (addReview) => {
         const { review, rating } = addReview
         return {
-          url: `reviews/places/${addReview.placeId}/me`,
+          url: `reviews/places/${addReview.placeId}`,
           method: 'PATCH',
           body: { review, rating }
         }
@@ -64,6 +72,7 @@ const reviewApi = apiSlice.injectEndpoints({
 })
 export const {
   useCreateReviewMutation,
+  useGetReviewByIdQuery,
   useGetReviewsByPlaceIdQuery,
   useGetReviewsByUserIdQuery,
   useUpdateMyReviewMutation,
