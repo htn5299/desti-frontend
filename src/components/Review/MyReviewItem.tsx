@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { FaceSmileIcon, PencilIcon } from '@heroicons/react/24/outline'
+import { PencilIcon } from '@heroicons/react/24/outline'
 import { Avatar, Rating } from '@material-tailwind/react'
 import { useCreateReviewMutation, useGetMyReviewQuery, useUpdateMyReviewMutation } from '../../redux/api/reviewApi'
 import { RootState, useAppSelector } from '../../redux/store'

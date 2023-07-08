@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGetLikeQueryQuery } from '../../redux/api/likesApi'
 import { LikeType } from '../../utils/types'
-import { useSelector } from 'react-redux'
 import { RootState, useAppSelector } from '../../redux/store'
 
 interface PropState {

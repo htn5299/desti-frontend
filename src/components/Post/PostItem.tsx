@@ -8,7 +8,7 @@ import PlaceTemplate from 'components/Place/PlaceTemplate'
 import * as process from 'process'
 import { Link } from 'react-router-dom'
 import { LikeOfReview, PostBar } from './index'
-import { useCreateLikeMutation, useGetLikeQueryQuery, useLazyGetLikeQueryQuery } from '../../redux/api/likesApi'
+import { useCreateLikeMutation, useGetLikeQueryQuery } from '../../redux/api/likesApi'
 import { RootState, useAppSelector } from '../../redux/store'
 import { PostCommentList } from './PostComment'
 

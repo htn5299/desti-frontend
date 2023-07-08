@@ -3,7 +3,6 @@ import { Avatar } from '@material-tailwind/react'
 import { RootState, useAppSelector } from '../../redux/store'
 import EmptyAvatar from './../../assets/profile/avatar.png'
 import { useCreateCommentMutation } from '../../redux/api/commentApi'
-import { Toast } from 'react-toastify/dist/components'
 import { toast } from 'react-toastify'
 
 interface PropsState {
@@ -14,7 +13,7 @@ const PostBar = (props: PropsState) => {
   const { reviewId } = props
   const myAvatar = useAppSelector((state: RootState) => state.user.profile.avatar)
   const [commentText, setCommentText] = useState<string>('')
-  const [createComment, result] = useCreateCommentMutation()
+  const [createComment] = useCreateCommentMutation()
   const handleCreateComment = async () => {
     if (!commentText) {
       toast.warning('Comment khong duoc rong')

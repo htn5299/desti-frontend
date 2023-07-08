@@ -3,7 +3,6 @@ import { PostList } from '../components/Post'
 import { RootState, useAppSelector } from '../redux/store'
 import { useGetHerePlacesByUserQuery, useGetWantPlacesByUserQuery } from '../redux/api/favouriteApi'
 import { MultiLocationMap } from '../components/Map'
-import { useEffect } from 'react'
 
 export default function HomePage() {
   const userId = useAppSelector((state: RootState) => state.user.id)
