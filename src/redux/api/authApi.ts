@@ -8,7 +8,7 @@ export const authApi = apiSlice.injectEndpoints({
         return {
           url: 'auth/signin',
           method: 'POST',
-          body
+          body: body
         }
       }
     }),

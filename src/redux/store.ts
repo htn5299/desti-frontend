@@ -6,6 +6,10 @@ import { apiSlice } from './api/apiSlice'
 import userSlice from './features/userSlice'
 import authSlice from './features/authSlice'
 import appSlice from './features/appSlice'
+import placeSlice from './features/placeSlice'
+import locationSlice from './features/locationSlice'
+import notificationSlice from './features/notificationSlice'
+
 const persistConfig = {
   key: 'root',
   version: 1,
@@ -16,7 +20,10 @@ const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
   auth: authSlice,
   user: userSlice,
-  appContext: appSlice
+  appContext: appSlice,
+  places: placeSlice,
+  location: locationSlice,
+  notifications: notificationSlice
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

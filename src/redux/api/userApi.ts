@@ -3,7 +3,7 @@ import { apiSlice } from './apiSlice'
 
 export const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getMe: builder.query<UserProfile, undefined>({
+    getMe: builder.query<UserProfile, void>({
       query: () => {
         return {
           url: 'users/me',
@@ -32,4 +32,4 @@ export const userApi = apiSlice.injectEndpoints({
     })
   })
 })
-export const { useGetMeQuery, useUpdateProfileMutation, useGetUserByIdQuery } = userApi
+export const { useGetMeQuery, useUpdateProfileMutation, useLazyGetUserByIdQuery, useGetUserByIdQuery } = userApi

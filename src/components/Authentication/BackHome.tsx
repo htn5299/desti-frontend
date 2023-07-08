@@ -1,4 +1,3 @@
-import logo from '../../assets/logos/logo.png'
 import { Link } from 'react-router-dom'
 export default function BackHome() {
   return (

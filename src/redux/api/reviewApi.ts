@@ -1,15 +1,9 @@
 import { apiSlice } from './apiSlice'
-import {
-  AddReview,
-  AddReviewResponse,
-  ReviewByUserAndPlace,
-  ReviewFeedResponse,
-  ReviewsByPlace
-} from '../../utils/types'
+import { AddReview, ReviewByUserAndPlace, ReviewFeedResponse } from '../../utils/types'
 
 const reviewApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    createReview: builder.mutation<AddReviewResponse, AddReview>({
+    createReview: builder.mutation<ReviewByUserAndPlace, AddReview>({
       query: (addReview) => {
         const { review, rating } = addReview
         return {
@@ -19,50 +13,70 @@ const reviewApi = apiSlice.injectEndpoints({
         }
       }
     }),
-
-    getReviewsByPlaceId: builder.query<ReviewsByPlace[], string>({
-      query: (placeId) => {
+    getReviewById: builder.query<ReviewByUserAndPlace, string>({
+      query: (reviewId) => {
         return {
-          url: `reviews?place=${placeId}`,
+          url: `reviews/${reviewId}`,
           method: 'GET'
         }
       }
     }),
-    getReviewsByUserPlaceId: builder.query<ReviewByUserAndPlace, { placeId: string | number; userId: string | number }>(
-      {
-        query: ({ placeId, userId }) => {
-          return {
-            url: `reviews?place=${placeId}&user=${userId}`,
-            method: 'GET'
-          }
+    getReviewsByPlaceId: builder.query<ReviewByUserAndPlace[], string>({
+      query: (placeId) => {
+        return {
+          url: `reviews/places/${placeId}`,
+          method: 'GET'
         }
       }
-    ),
-    getReviews: builder.query<ReviewFeedResponse[], number>({
-      query: (page) => {
+      // providesTags: (result) => [{ type: 'Reviews', id: 'LIST' }]
+    }),
+    getReviewsByUserId: builder.query<ReviewFeedResponse[], string>({
+      query: (userId) => {
         return {
-          url: `reviews/feed?page=${page}`,
+          url: `reviews/users/${userId}`,
+          method: 'GET'
+        }
+      }
+    }),
+    getMyReview: builder.query<ReviewByUserAndPlace, { placeId: string | number }>({
+      query: ({ placeId }) => {
+        return {
+          url: `reviews/places/${placeId}/me`,
           method: 'GET'
         }
       },
-      keepUnusedDataFor: 0,
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName
+      providesTags: (result) => [{ type: 'Reviews', id: 'LIST' }]
+    }),
+    updateMyReview: builder.mutation<ReviewByUserAndPlace, AddReview>({
+      query: (addReview) => {
+        const { review, rating } = addReview
+        return {
+          url: `reviews/places/${addReview.placeId}`,
+          method: 'PATCH',
+          body: { review, rating }
+        }
+      }
+    }),
+    deleteMyReview: builder.mutation<{}, string>({
+      query: (placeId) => {
+        return {
+          url: `reviews/places/${placeId}/me`,
+          method: 'DELETE'
+        }
       },
-      // Always merge incoming data to the cache entry
-      merge: (currentCache, newItems) => {
-        currentCache.push(...newItems)
-      },
-      // Refetch when the page arg changes
-      forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg
+      invalidatesTags: (result, error, data) => {
+        return error ? [] : [{ type: 'Reviews', id: 'LIST' }]
       }
     })
   })
 })
 export const {
-  useGetReviewsByPlaceIdQuery,
   useCreateReviewMutation,
-  useGetReviewsByUserPlaceIdQuery,
-  useGetReviewsQuery
+  useGetReviewByIdQuery,
+  useGetReviewsByPlaceIdQuery,
+  useGetReviewsByUserIdQuery,
+  useUpdateMyReviewMutation,
+  useGetMyReviewQuery,
+  useDeleteMyReviewMutation,
+  useLazyGetReviewByIdQuery
 } = reviewApi

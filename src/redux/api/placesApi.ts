@@ -1,13 +1,18 @@
-import { Place } from '../../utils/types'
+import { Place, PlaceImage, PlaceWithImage } from '../../utils/types'
 import { apiSlice } from './apiSlice'
+
 const placesApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // getPlaces: builder.query<Place[], number>({
-    //   query: (page) => {
-    //     return `places?page=${page}`
-    //   }
-    // }),
-    getPlace: builder.query<Place, string>({
+    createPlace: builder.mutation<Place, FormData>({
+      query: (place) => {
+        return {
+          url: 'places',
+          method: 'POST',
+          body: place
+        }
+      }
+    }),
+    getPlace: builder.query<PlaceWithImage, string>({
       query: (placeId) => {
         return {
           url: `places/${placeId}`,
@@ -22,7 +27,30 @@ const placesApi = apiSlice.injectEndpoints({
           method: 'GET'
         }
       }
+    }),
+    topPlaces: builder.query<Place[], string>({
+      query: (top) => {
+        return {
+          url: `places/top/${top}`,
+          method: 'GET'
+        }
+      }
+    }),
+    getImages: builder.query<PlaceImage[], string>({
+      query: (placeId) => {
+        return {
+          url: `places/${placeId}/images`,
+          method: 'GET'
+        }
+      }
     })
   })
 })
-export const { useGetPlaceQuery, useSearchPlacesQuery } = placesApi
+export const {
+  useGetPlaceQuery,
+  useLazySearchPlacesQuery,
+  useSearchPlacesQuery,
+  useCreatePlaceMutation,
+  useTopPlacesQuery,
+  useGetImagesQuery
+} = placesApi

@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, IconButton, Rating } from '@material-tailwind/react'
 import { FaceSmileIcon, PhotoIcon } from '@heroicons/react/24/outline'
-import { useCreateReviewMutation, useGetReviewsByUserPlaceIdQuery } from '../../redux/api/reviewApi'
 
 import { toast } from 'react-toastify'
-import { ReviewByUserAndPlace } from '../../utils/types'
 
 interface PropsState {
   placeId: string
   onRefresh: any
-  addReview: any
+  createReview: any
 }
 
-export default function ReviewTextarea({ placeId, onRefresh, addReview }: PropsState) {
+export default function ReviewTextarea({ placeId, onRefresh, createReview }: PropsState) {
   const [rating, setRating] = useState(0)
   const [review, setReview] = useState('')
 
@@ -23,7 +21,7 @@ export default function ReviewTextarea({ placeId, onRefresh, addReview }: PropsS
       return
     }
     try {
-      await addReview({
+      await createReview({
         placeId: Number(placeId),
         review,
         rating

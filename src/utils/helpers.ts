@@ -1,4 +1,5 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { Actions, Services } from './constrains'
 
 // interface ErrorFormObject {
 //   [key: string | number]: string | ErrorFormObject | ErrorFormObject[]
@@ -34,4 +35,44 @@ export function isErrorWithMessage(error: unknown): error is EntityError {
     'message' in (error.data as object)
     // typeof (error as any).data.message === 'string'
   )
+}
+export function formatNotification(action: Actions, service: Services): string {
+  let result = ''
+  switch (service) {
+    case Services.FRIENDS:
+      if (action === Actions.POST) {
+        result = 'da gui yeu cau ket ban.'
+      }
+      break
+    case Services.AUTH:
+      break
+    case Services.USERS:
+      break
+    case Services.REFRESH_TOKEN:
+      break
+    case Services.REVIEWS:
+      if (action === Actions.POST) {
+        result = 'da review 1 dia diem.'
+      }
+      break
+    case Services.PLACES:
+      break
+    case Services.IMAGE_STORAGE:
+      break
+    case Services.PROFILE:
+      break
+    case Services.FAVOURITES:
+      break
+    case Services.GATEWAY_SESSION_MANAGER:
+      break
+    case Services.COMMENTS:
+      break
+    case Services.NEWSFEED:
+      break
+    case Services.PLACE_IMAGES:
+      break
+    case Services.NOTIFICATION:
+      break
+  }
+  return result
 }

@@ -36,7 +36,6 @@ export default function Register() {
       setErrorPassword('')
       setIsMatch(true)
     } catch (error) {
-      console.log(error)
       if (isErrorWithMessage(error)) {
         if (error.status === 409) {
           setErrorEmail(error.data.message as string)

@@ -8,7 +8,7 @@ const EditProfile = () => {
         <Link to={'/users/edit'}>Edit Profile</Link>
       </li>
       <li>
-        <Link to={'#'}>Email Setting</Link>
+        <Link to={'/location'}>Create Location</Link>
       </li>
       <li>
         <Link to={'#'}>My Lists</Link>

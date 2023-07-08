@@ -1,12 +1,13 @@
+import { useEffect, useRef, useState } from 'react'
 import { Card, Button, Typography } from '@material-tailwind/react'
+import classNames from 'classnames'
+import { isErrorWithMessage } from 'utils/helpers'
+import { selectCurrentToken, setCredentials } from 'redux/features/authSlice'
 import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { useLoginMutation } from '../../redux/api/authApi'
-import { useEffect, useRef, useState } from 'react'
-import { useAppDispatch } from 'redux/store'
-import { selectCurrentToken, setCredentials } from 'redux/features/authSlice'
-import { isErrorWithMessage } from 'utils/helpers'
-import classNames from 'classnames'
 import { useSelector } from 'react-redux'
+import { useAppDispatch } from 'redux/store'
+
 export default function Login() {
   let location = useLocation()
   let from = location.state?.from?.pathname || '/'
@@ -16,8 +17,7 @@ export default function Login() {
   const passwordRef = useRef<HTMLInputElement>(null)
   const [password, setPassword] = useState('')
   const [errMsg, setErrMsg] = useState(0)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [login, loginResult] = useLoginMutation()
+  const [login] = useLoginMutation()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
@@ -28,7 +28,6 @@ export default function Login() {
   }, [token, navigate, from])
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
     if (!email || !password) {
       return
     }

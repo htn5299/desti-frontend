@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import { Place } from '../../utils/types'
 import WantHere from './WantHere'
-import { useGetFavouriteQuery, useSetFavouriteMutation } from '../../redux/api/apiFavourite'
+import { useGetFavouriteQuery, useSetFavouriteMutation } from '../../redux/api/favouriteApi'
 interface propsState {
   place: Place
 }
 const PlaceItemInfo = (props: propsState) => {
   const { place } = props
-  const { data: isFavourite, refetch: refreshFav } = useGetFavouriteQuery(place.id)
+  const { data: isFavourite, refetch: refreshFav } = useGetFavouriteQuery(place.id, { refetchOnMountOrArgChange: true })
   const [addFavourite] = useSetFavouriteMutation()
   const handleHereClick = async () => {
     try {

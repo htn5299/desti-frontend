@@ -1,12 +1,11 @@
 import { useSelector } from 'react-redux'
 import { selectCurrentToken } from '../../redux/features/authSlice'
 import { Navigate, useLocation } from 'react-router-dom'
-import ComplexNavbar from '../Navbar/ComplexNavbar'
+import React, { FC } from 'react'
 
-function RequireAuth() {
+const RequireAuth: FC<React.PropsWithChildren> = ({ children }) => {
   const token = useSelector(selectCurrentToken)
   const location = useLocation()
-  return token ? <ComplexNavbar token={token} /> : <Navigate to='/login' state={{ from: location }} replace></Navigate>
+  return token ? <>{children}</> : <Navigate to='/login' state={{ from: location }} replace />
 }
-
 export default RequireAuth

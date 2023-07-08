@@ -1,4 +1,4 @@
-import { BackHome, Login } from '../components'
+import { BackHome, Login } from '../components/Authentication'
 
 export default function LoginPage() {
   return (

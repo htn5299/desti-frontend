@@ -2,10 +2,11 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
 import { logOut, setReAccessToken } from '../features/authSlice'
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import * as process from 'process'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:3001/api/',
-  // credentials: 'include',
+  baseUrl: `${process.env.REACT_APP_API}`,
+  credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.accessToken
     if (token) {
@@ -15,7 +16,7 @@ const baseQuery = fetchBaseQuery({
   }
 })
 
-const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
   args,
   api,
   extraOptions
@@ -38,15 +39,13 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
       } else {
         api.dispatch(logOut())
       }
-    } catch (error) {
-      console.log('console_log: ', error)
-    }
+    } catch (error) {}
   }
   return result
 }
 
 export const apiSlice = createApi({
-  baseQuery: baseQueryWithReauth,
-  tagTypes: ['UserProfile'],
-  endpoints: (builder) => ({})
+  baseQuery: baseQueryWithReAuth,
+  tagTypes: ['UserProfile', 'Reviews', 'Places', 'Comments'],
+  endpoints: () => ({})
 })
