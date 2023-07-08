@@ -1,39 +1,48 @@
 import React, { useContext, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
-import { ComplexNavbar } from '../components'
 import { SocketContext } from '../utils/context/SocketContext'
-import { NotificationRecipientResponse, NotificationResponse } from '../utils/types'
+import { NotificationRecipientResponse } from '../utils/types'
 import { toast } from 'react-toastify'
-import { Actions, Services } from '../utils/constrains'
-import NotificationReviewItem from '../components/Notification/NotificationItem/NotificationReviewItem'
-import NotificationFriendItem from '../components/Notification/NotificationItem/NotificationFriendItem'
 import { useGetNotificationsQuery } from '../redux/api/notificationApi'
+import { NotificationFriendItem, NotificationReviewItem } from '../components/Notification'
+import { ComplexNavbar } from '../components/Navbar'
+import { useAppDispatch } from '../redux/store'
+import { addNotification, addNotifications, clearNotifications } from '../redux/features/notificationSlice'
+import { SearchBox } from '../components/Search'
 
 const AppPage = () => {
   const { socket } = useContext(SocketContext)
-  const { data } = useGetNotificationsQuery()
+  const { data: notifications, refetch } = useGetNotificationsQuery()
+  const dispatch = useAppDispatch()
   useEffect(() => {
-    console.log(data)
-  }, [data])
+    refetch()
+    notifications && dispatch(addNotifications(notifications))
+    return () => {
+      dispatch(clearNotifications())
+    }
+  }, [dispatch, notifications, refetch])
+
   useEffect(() => {
     if (socket) {
       socket.on('onFriendReviewReceived', (payload: NotificationRecipientResponse) => {
-        console.log(payload)
-        toast(<NotificationReviewItem notification={payload} />)
+        dispatch(addNotification(payload))
+        toast(<NotificationReviewItem notificationRecipient={payload} />)
       })
       socket.on('onFriendRequest', (payload: NotificationRecipientResponse) => {
-        toast(<NotificationFriendItem notification={payload} />)
+        dispatch(addNotification(payload))
+        toast(<NotificationFriendItem notificationRecipient={payload} />)
       })
       socket.on('onFriendResponse', (payload: NotificationRecipientResponse) => {
-        toast(<NotificationFriendItem notification={payload} />)
+        dispatch(addNotification(payload))
+        toast(<NotificationFriendItem notificationRecipient={payload} />)
       })
     }
-    return () => {}
-  }, [socket])
+  }, [dispatch, socket])
 
   return (
     <>
       <ComplexNavbar />
+      <SearchBox />
       <Outlet />
     </>
   )

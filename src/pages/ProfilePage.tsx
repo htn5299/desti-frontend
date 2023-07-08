@@ -1,8 +1,10 @@
-import { ListFriends, MapProfile, Profile } from '../components'
 import React, { Fragment } from 'react'
 import { Outlet, useOutletContext, useParams } from 'react-router-dom'
 import { useGetUserByIdQuery } from '../redux/api/userApi'
+import { ListFriends, Profile } from '../components/UserProfile'
+
 type ContextType = { userId: string }
+
 function ProfilePage() {
   const { userId } = useParams<{ userId: string }>()
   const { data: user } = useGetUserByIdQuery(`${userId}`, { skip: !Boolean(userId) })
@@ -25,7 +27,9 @@ function ProfilePage() {
     </Fragment>
   )
 }
+
 export default ProfilePage
+
 export function useUser() {
   return useOutletContext<ContextType>()
 }

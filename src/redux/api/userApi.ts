@@ -32,4 +32,4 @@ export const userApi = apiSlice.injectEndpoints({
     })
   })
 })
-export const { useGetMeQuery, useUpdateProfileMutation, useGetUserByIdQuery } = userApi
+export const { useGetMeQuery, useUpdateProfileMutation, useLazyGetUserByIdQuery, useGetUserByIdQuery } = userApi

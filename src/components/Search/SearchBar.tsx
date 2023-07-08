@@ -11,8 +11,8 @@ export default function SearchBar() {
         <SearchButton />
       </div>
       <div className={'mx-4'}>
-        <p className={'mb-3'}>Popular destinations</p>
-        <div>{renderedPlace}</div>
+        <p className={'mb-3 text-gray-800'}>Popular destinations</p>
+        <div className={'mb-4 flex flex-col gap-2'}>{renderedPlace}</div>
       </div>
     </div>
   )

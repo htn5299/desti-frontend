@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSearchPlacesQuery } from '../redux/api/placesApi'
-import { ListSearch } from '../components'
+import { ListSearch } from '../components/Place'
 
 function SearchPage() {
   const [searchParams] = useSearchParams()

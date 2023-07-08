@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 interface PropState {
   places: PlaceWithImage[]
 }
+
 const applyToArray = (func: any, array: any) => func.apply(Math, array)
 
 const getBoundsForPoints = (places: PlaceWithImage[]) => {
@@ -75,7 +76,7 @@ const MultiLocationMap = ({ places }: PropState) => {
   })
 
   return (
-    <div className={'h-[20rem] w-full overflow-hidden rounded-xl lg:h-[30rem]'}>
+    <div className={'h-[15rem] w-full overflow-hidden rounded-xl lg:h-[25rem]'}>
       <ReactMapGL
         {...viewport}
         ref={mapRef}

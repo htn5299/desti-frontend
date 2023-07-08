@@ -1,10 +1,10 @@
-import ReactMapGL, { GeolocateControl, MapRef, Marker, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import Geocoder from './Geocoder'
+import ReactMapGL, { GeolocateControl, MapRef, Marker, NavigationControl } from 'react-map-gl'
 import { RootState, useAppDispatch, useAppSelector } from '../../../redux/store'
 import React, { useEffect, useRef, useState } from 'react'
 import { updateLocation } from '../../../redux/features/locationSlice'
 import { Coordinates } from '../../../utils/types'
+import { Geocoder } from '../index'
 
 const AddLocation = () => {
   const [userLocation, setUserLocation] = useState<Coordinates | null>(null)

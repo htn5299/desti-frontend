@@ -1,13 +1,12 @@
-import AddLocation from './AddLocation/AddLocation'
-import AddDetails from './AddDetails/AddDetails'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useCreatePlaceMutation } from '../../redux/api/placesApi'
 import { RootState, useAppSelector } from '../../redux/store'
 import { useDropzone } from 'react-dropzone'
-import { useCreatePlaceMutation } from '../../redux/api/placesApi'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import MySpinner from '../Skeleton/Spinner'
+import { AddDetails, AddLocation } from './index'
 import { isErrorWithMessage } from '../../utils/helpers'
+import MySpinner from '../Skeleton/Spinner'
 
 const AddPlace = () => {
   const [isLoading, setIsLoading] = useState(false)

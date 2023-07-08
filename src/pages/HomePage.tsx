@@ -1,6 +1,21 @@
-import PostList from '../components/Post/PostList'
-import { SearchBar } from '../components'
+import { SearchBar } from '../components/Search'
+import { PostList } from '../components/Post'
+import { RootState, useAppSelector } from '../redux/store'
+import { useGetHerePlacesByUserQuery, useGetWantPlacesByUserQuery } from '../redux/api/favouriteApi'
+import { MultiLocationMap } from '../components/Map'
+import { useEffect } from 'react'
+
 export default function HomePage() {
+  const userId = useAppSelector((state: RootState) => state.user.id)
+  const { data: wantPlaces } = useGetWantPlacesByUserQuery(String(userId), {
+    skip: !userId,
+    refetchOnMountOrArgChange: true
+  })
+  const { data: herePlaces } = useGetHerePlacesByUserQuery(String(userId), {
+    skip: !userId,
+    refetchOnMountOrArgChange: true
+  })
+
   return (
     <div className={'mx-2'}>
       <div className={'mx-auto grid max-w-[1444px] grid-cols-1 gap-5 py-2 xl:grid-cols-11'}>
@@ -13,7 +28,20 @@ export default function HomePage() {
             You have read all the reviews from your friends.
           </p>
         </div>
-        <div className={'hidden xl:col-span-3 xl:block'}>3</div>
+        <div className={'hidden xl:col-span-3 xl:block'}>
+          {herePlaces && (
+            <>
+              <div className={'font-semibold text-gray-800'}>Been Here</div>
+              <MultiLocationMap places={herePlaces} />
+            </>
+          )}
+          {wantPlaces && (
+            <>
+              <div className={'font-semibold text-gray-800'}>Want to go</div>
+              <MultiLocationMap places={wantPlaces} />
+            </>
+          )}
+        </div>
       </div>
     </div>
   )

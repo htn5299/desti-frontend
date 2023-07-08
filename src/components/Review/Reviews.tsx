@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom'
 import React, { useEffect } from 'react'
 import { useAppDispatch } from '../../redux/store'
 import { addReviews, clearReviews } from '../../redux/features/placeSlice'
-import { ReviewList } from '../index'
 import { useGetReviewsByPlaceIdQuery } from '../../redux/api/reviewApi'
+import { ReviewList } from './index'
 
 const Reviews = () => {
   const { placeId } = useParams<{ placeId: string }>() as { placeId: string }

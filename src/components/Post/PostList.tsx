@@ -1,7 +1,7 @@
-import PostItem from './PostItem'
 import { Fragment, useState } from 'react'
 import { Waypoint } from 'react-waypoint'
 import { useGetReviewsNewsfeedQuery } from '../../redux/api/newsfeedApi'
+import { PostItem } from './index'
 
 function PostList() {
   const [page, setPage] = useState(1)

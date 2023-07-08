@@ -7,26 +7,14 @@ import { NotificationRecipientResponse } from '../../../utils/types'
 import { formatNotification } from '../../../utils/helpers'
 
 interface PropsState {
-  notification: NotificationRecipientResponse
+  notificationRecipient: NotificationRecipientResponse
 }
-const NotificationFriendItem = ({ notification }: PropsState) => {
-  const {
-    id,
-    notification: {
-      id: notificaionId,
-      actor,
-      action,
-      service,
-      entity,
-      createdAt: notificatinCreateAt,
-      updatedAt: notificationUpdatedAt
-    },
-    createdAt,
-    updatedAt,
-    readAt
-  } = notification
+
+const NotificationFriendItem = ({ notificationRecipient }: PropsState) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { id, action, service, actor, createdAt, updatedAt, entity } = notificationRecipient.notification
   const message = formatNotification(action, service)
-  const { data: user } = useGetUserByIdQuery(String(actor.id))
+  const { data: user } = useGetUserByIdQuery(`${actor.id}`)
   return (
     <>
       {user && (

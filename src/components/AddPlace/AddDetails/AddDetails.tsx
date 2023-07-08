@@ -5,6 +5,7 @@ interface PropsState {
   setPlaceDescription: any
   setPlaceAddress: any
 }
+
 const AddDetails = ({ setPlaceName, setPlaceDescription, setPlaceAddress }: PropsState) => {
   return (
     <>

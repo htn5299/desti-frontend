@@ -1,4 +1,4 @@
-import AddPlace from '../components/AddPlace/AddPlace'
+import { AddPlace } from '../components/AddPlace'
 
 const CreateLocationPage = () => {
   return (

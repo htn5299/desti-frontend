@@ -5,10 +5,10 @@ import { useUpdateProfileMutation } from '../../redux/api/userApi'
 import EmptyAvatar from '../../assets/profile/avatar.png'
 import { RootState, useAppSelector } from '../../redux/store'
 import * as process from 'process'
+
 const EditProfileLayout = () => {
   const navigate = useNavigate()
   const [updateProfile] = useUpdateProfileMutation()
-  // const { data: profile, refetch } = useGetMeQuery(undefined)
   const profile = useAppSelector((state: RootState) => state.user)
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')

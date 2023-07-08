@@ -1,11 +1,14 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useGetImagesQuery, useGetPlaceQuery } from '../redux/api/placesApi'
-import { MapItem, PlaceItemInfo, PlaceItemCarousel, Reviews } from '../components'
 import { SocketContext } from '../utils/context/SocketContext'
 import { useContext, useEffect } from 'react'
 import { useAppDispatch } from '../redux/store'
 import { addReview, clearReviews, removeReview } from '../redux/features/placeSlice'
 import { ReviewByUserAndPlace } from '../utils/types'
+import { PlaceItemCarousel, PlaceItemInfo } from '../components/Place'
+import { MapItem } from '../components/Map'
+import { Reviews } from '../components/Review'
+
 function PlacePage() {
   const { placeId } = useParams<{ placeId: string }>() as { placeId: string }
   const { socket } = useContext(SocketContext)

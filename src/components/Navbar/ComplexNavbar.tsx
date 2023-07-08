@@ -1,8 +1,6 @@
-import { Link, Outlet } from 'react-router-dom'
-import ProfileMenu from './ProfileMenu'
-import NavList from './NavList'
-import LogoComponent from './Logo'
-import UtilList from './UtilList'
+import { Link } from 'react-router-dom'
+import { LogoComponent, NavList, ProfileMenu, UtilList } from './index'
+
 export default function ComplexNavbar() {
   return (
     <>

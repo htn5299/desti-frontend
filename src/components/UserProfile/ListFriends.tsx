@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useListFriendQuery } from '../../redux/api/friendsApi'
 import { UserProfile } from '../../utils/types'
+
 interface PropsState {
   user: UserProfile
 }
@@ -18,7 +19,7 @@ const ListFriends = (props: PropsState) => {
   return (
     <div className={'text-sm '}>
       <p className={'font-semibold uppercase'}>{`${user.name.split(' ')[0]}’S FRIENDS (${numsFriend})`}</p>
-      <div>{friends && friends.map((friend) => <div>{friend.name}</div>)}</div>
+      <div>{friends && friends.map((friend) => <div key={friend.id}>{friend.name}</div>)}</div>
     </div>
   )
 }

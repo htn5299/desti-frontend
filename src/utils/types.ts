@@ -125,3 +125,48 @@ export type NotificationRecipientResponse = {
     }
   }
 }
+export type NotificationState = {
+  notifications: NotificationRecipientResponse[]
+}
+export type CreateLikeDto = {
+  reviewId: number
+  isLiked: boolean
+}
+export type LikeQuery = {
+  review: number
+  user: number
+}
+export type LikeType = {
+  id: number
+  createdAt: number
+  review: Review
+  user: User
+  isLiked: boolean
+}
+
+export type CreateComment = {
+  reviewId: number
+  comment: string
+}
+
+export type CreateCommentResponse = {
+  id: number
+  review: ReviewByUserAndPlace
+  user: UserProfile
+  comment: string
+  createdAt: Date
+}
+export type DeleteCommentResponse = {
+  id: number
+  review: Review
+  user: User
+  comment: string
+  createdAt: Date
+}
+export type CommentResponse = {
+  id: number
+  review: Review
+  user: UserProfile
+  comment: string
+  createdAt: Date
+}

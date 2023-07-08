@@ -1,5 +1,5 @@
-import { AvatarBanner, InfoProfile } from '../index'
 import { UserProfile } from '../../utils/types'
+import { AvatarBanner, InfoProfile } from './index'
 
 interface PropsState {
   user: UserProfile

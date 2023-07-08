@@ -1,40 +1,20 @@
-import React, { useEffect } from 'react'
 import { useGetUserByIdQuery } from '../../../redux/api/userApi'
 import { Avatar } from '@material-tailwind/react'
 import EmptyAvatar from '../../../assets/profile/avatar.png'
 import Moment from 'react-moment'
-import { NotificationRecipientResponse, NotificationResponse } from '../../../utils/types'
-import { Services } from '../../../utils/constrains'
+import { NotificationRecipientResponse } from '../../../utils/types'
 import { formatNotification } from '../../../utils/helpers'
-import { useGetReviewByIdQuery, useGetReviewsByPlaceIdQuery } from '../../../redux/api/reviewApi'
+import { useGetReviewByIdQuery } from '../../../redux/api/reviewApi'
 
 interface PropsState {
-  notification: NotificationRecipientResponse
+  notificationRecipient: NotificationRecipientResponse
 }
-const NotificationReviewItem = ({ notification }: PropsState) => {
-  const {
-    id,
-    notification: {
-      id: notificaionId,
-      actor,
-      action,
-      service,
-      entity,
-      createdAt: notificatinCreateAt,
-      updatedAt: notificationUpdatedAt
-    },
-    createdAt,
-    updatedAt,
-    readAt
-  } = notification
+
+const NotificationReviewItem = ({ notificationRecipient }: PropsState) => {
+  const { action, service, entity, createdAt, actor } = notificationRecipient.notification
   const message = formatNotification(action, service)
-  const { data: user } = useGetUserByIdQuery(String(actor.id))
-  const { data: review, refetch } = useGetReviewByIdQuery(String(entity))
-  useEffect(() => {
-    if (id) {
-      refetch()
-    }
-  }, [id, refetch])
+  const { data: user } = useGetUserByIdQuery(`${actor.id}`)
+  const { data: review } = useGetReviewByIdQuery(`${entity}`)
 
   return (
     <div className={'h-16 w-80'}>

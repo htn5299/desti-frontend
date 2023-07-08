@@ -2,13 +2,15 @@ import { Link } from 'react-router-dom'
 import { Place } from '../../utils/types'
 import { useGetImagesQuery } from '../../redux/api/placesApi'
 import * as process from 'process'
+
 interface PropsState {
   place: Place
 }
+
 function PlaceTemplate({ place }: PropsState) {
   const { data: images } = useGetImagesQuery(`${place.id}`)
   return (
-    <div className={'mx-auto mb-4 flex h-fit w-full gap-2 rounded bg-white'}>
+    <div className={'mx-auto flex h-fit w-full gap-2 rounded bg-white'}>
       <div className={'h-28 w-2/5 rounded'}>
         {images && (
           <img

@@ -1,22 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
-const initialState: { page: number } = {
-  page: 1
+
+export type AppContextState = { isSearchPopup: boolean }
+const initialState: AppContextState = {
+  isSearchPopup: false
 }
 const appSlice = createSlice({
   name: 'appContext',
   initialState,
   reducers: {
-    setPage: (state) => {
-      state.page = state.page + 1
+    toggleSearch: (state) => {
+      state.isSearchPopup = !state.isSearchPopup
     },
-    setPagePrev: (state) => {
-      state.page = state.page - 1
-    },
-    resetPage: (state) => {
-      state.page = 1
+    resetSearch: () => {
+      return initialState
     }
   }
 })
 
-export const { setPage, resetPage, setPagePrev } = appSlice.actions
+export const { toggleSearch, resetSearch } = appSlice.actions
 export default appSlice.reducer

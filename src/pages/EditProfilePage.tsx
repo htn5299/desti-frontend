@@ -1,5 +1,5 @@
 import React from 'react'
-import EditProfileLayout from '../components/EditProfile/EditProfileLayout'
+import { EditProfileLayout } from '../components/EditProfile'
 
 const EditProfilePage = () => {
   return (

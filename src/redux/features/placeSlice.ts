@@ -1,36 +1,34 @@
-import { ReviewByUserAndPlace, ReviewsState } from '../../utils/types'
+import { ReviewByUserAndPlace } from '../../utils/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 
-const initialState: ReviewsState = {
-  reviews: []
-}
+const initialState: ReviewByUserAndPlace[] = []
 const placeSlice = createSlice({
   name: 'places',
   initialState,
   reducers: {
     addReviews: (state, action: PayloadAction<ReviewByUserAndPlace[]>) => {
-      state.reviews = action.payload
+      return action.payload
     },
     addReview: (state, action: PayloadAction<ReviewByUserAndPlace>) => {
       const review = action.payload
-      const reviewIndex = state.reviews.findIndex((reviewState) => reviewState.id === review.id)
+      const reviewIndex = state.findIndex((reviewState) => reviewState.id === review.id)
       if (reviewIndex === -1) {
-        state.reviews.unshift(review)
+        state.unshift(review)
       } else {
-        state.reviews.splice(reviewIndex, 1)
-        state.reviews.unshift(review)
+        state.splice(reviewIndex, 1)
+        state.unshift(review)
       }
     },
     removeReview: (state, action: PayloadAction<number>) => {
       const reviewId = action.payload
-      const reviewIndex = state.reviews.findIndex((reviewState) => reviewState.id === reviewId)
+      const reviewIndex = state.findIndex((reviewState) => reviewState.id === reviewId)
       if (reviewIndex !== -1) {
-        state.reviews.splice(reviewIndex, 1)
+        state.splice(reviewIndex, 1)
       }
     },
     clearReviews: (state) => {
-      state.reviews = []
+      return []
     }
   }
 })

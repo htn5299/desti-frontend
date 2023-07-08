@@ -1,5 +1,6 @@
 import { Place, PlaceImage, PlaceWithImage } from '../../utils/types'
 import { apiSlice } from './apiSlice'
+
 const placesApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createPlace: builder.mutation<Place, FormData>({
@@ -45,5 +46,11 @@ const placesApi = apiSlice.injectEndpoints({
     })
   })
 })
-export const { useGetPlaceQuery, useSearchPlacesQuery, useCreatePlaceMutation, useTopPlacesQuery, useGetImagesQuery } =
-  placesApi
+export const {
+  useGetPlaceQuery,
+  useLazySearchPlacesQuery,
+  useSearchPlacesQuery,
+  useCreatePlaceMutation,
+  useTopPlacesQuery,
+  useGetImagesQuery
+} = placesApi

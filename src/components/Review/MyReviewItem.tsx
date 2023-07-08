@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { FaceSmileIcon, PencilIcon } from '@heroicons/react/24/outline'
@@ -9,19 +9,35 @@ import Moment from 'react-moment'
 import EmptyAvatar from '../../assets/profile/avatar.png'
 import { useGetUserByIdQuery } from '../../redux/api/userApi'
 import ReviewTextarea from './ReviewTextarea'
-import { RatingCustom } from '../index'
-import { DeleteReviewDialog } from '../index'
+import { RatingCustom } from '../Rating'
+import { DeleteReviewDialog } from './index'
+import { LikeOfReview, PostBar } from '../Post'
+import { useCreateLikeMutation, useGetLikeQueryQuery } from '../../redux/api/likesApi'
+import { PostCommentList } from '../Post/PostComment'
+
 const MyReviewItem = () => {
   const userId = useAppSelector((state: RootState) => state.user.id) as number
   const { placeId } = useParams<{ placeId: string }>() as { placeId: string }
   const [isEdited, setIsEdited] = useState(false)
-  const { data: myReviewData, refetch: refetchReview } = useGetMyReviewQuery({ placeId }, { skip: !Boolean(userId) })
+  const { data: myReviewData, refetch: refetchReview } = useGetMyReviewQuery(
+    { placeId },
+    {
+      skip: !Boolean(userId),
+      refetchOnMountOrArgChange: true
+    }
+  )
   const { data: profile, refetch: refetchProfile } = useGetUserByIdQuery(`${userId}`, { skip: !Boolean(userId) })
   const [myReview, setMyReview] = useState<string>()
   const [myRating, setMyRating] = useState<number>()
   const inputRef = useRef<HTMLInputElement>(null)
   const [createReview] = useCreateReviewMutation()
   const [updateReview] = useUpdateMyReviewMutation()
+  const [isLiked, setIsLiked] = useState<Boolean>(false)
+  const { data: myLike, refetch } = useGetLikeQueryQuery(
+    { user: Number(userId), review: Number(myReviewData?.id) },
+    { skip: !userId }
+  )
+  const [setLike] = useCreateLikeMutation()
   useEffect(() => {
     if (isEdited) {
       inputRef.current?.focus()
@@ -56,6 +72,24 @@ const MyReviewItem = () => {
       refetchReview()
     } catch (e) {}
   }
+  const handleLike = async () => {
+    if (myLike && myLike[0].isLiked) {
+      myReviewData && (await setLike({ reviewId: myReviewData.id, isLiked: false }))
+      setIsLiked(false)
+    } else {
+      myReviewData && (await setLike({ reviewId: myReviewData?.id, isLiked: true }))
+      setIsLiked(true)
+    }
+    refetch()
+  }
+  useEffect(() => {
+    if (myLike && Boolean(myLike.length) && myLike[0].isLiked) {
+      setIsLiked(myLike[0].isLiked)
+    } else {
+      setIsLiked(false)
+    }
+  }, [myLike])
+
   return (
     <>
       {myReviewData && (
@@ -117,10 +151,22 @@ const MyReviewItem = () => {
               </>
             )}
           </div>
-          <div className={'flex gap-3 border-t border-gray-300 pt-2 text-gray-700'}>
-            <FaceSmileIcon className={'h-5 w-5 '} />
-            <p className={'font-semibold  text-gray-900 hover:cursor-pointer'}>reply</p>
+          {/*<div className={'flex gap-3 border-t border-gray-300 pt-2 text-gray-700'}>*/}
+          {/*  <FaceSmileIcon className={'h-5 w-5 '} />*/}
+          {/*  <p className={'font-semibold  text-gray-900 hover:cursor-pointer'}>reply</p>*/}
+          {/*</div>*/}
+          <div className={'flex select-none gap-2 p-3 pt-0 text-green-800'}>
+            {
+              <span className={'cursor-pointer hover:underline'} onClick={() => handleLike()}>
+                {isLiked ? 'Unlike' : 'Like'}
+              </span>
+            }
+            <span>·</span>
+            <span className={'cursor-pointer hover:underline'}>Comment</span>
           </div>
+          <LikeOfReview reviewId={myReviewData.id} isLiked={isLiked} />
+          <PostCommentList reviewId={myReviewData.id} />
+          <PostBar reviewId={myReviewData.id} />
         </div>
       )}
       {!myReviewData && <ReviewTextarea placeId={placeId} createReview={createReview} onRefresh={refetchReview} />}

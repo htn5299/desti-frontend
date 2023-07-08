@@ -1,5 +1,5 @@
 import { apiSlice } from './apiSlice'
-import { AddReview, ReviewByUserAndPlace } from '../../utils/types'
+import { AddReview, ReviewByUserAndPlace, ReviewFeedResponse } from '../../utils/types'
 
 const reviewApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -30,7 +30,7 @@ const reviewApi = apiSlice.injectEndpoints({
       }
       // providesTags: (result) => [{ type: 'Reviews', id: 'LIST' }]
     }),
-    getReviewsByUserId: builder.query<ReviewByUserAndPlace[], string>({
+    getReviewsByUserId: builder.query<ReviewFeedResponse[], string>({
       query: (userId) => {
         return {
           url: `reviews/users/${userId}`,
@@ -77,5 +77,6 @@ export const {
   useGetReviewsByUserIdQuery,
   useUpdateMyReviewMutation,
   useGetMyReviewQuery,
-  useDeleteMyReviewMutation
+  useDeleteMyReviewMutation,
+  useLazyGetReviewByIdQuery
 } = reviewApi

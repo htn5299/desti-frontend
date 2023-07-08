@@ -30,6 +30,14 @@ const friendsApi = apiSlice.injectEndpoints({
     listFriend: build.query<User[], number>({
       query: (userId) => {
         return {
+          url: `friends/users/${userId}`,
+          method: 'GET'
+        }
+      }
+    }),
+    getFriendById: build.query<User, number>({
+      query: (userId) => {
+        return {
           url: `friends/${userId}`,
           method: 'GET'
         }
@@ -37,5 +45,10 @@ const friendsApi = apiSlice.injectEndpoints({
     })
   })
 })
-export const { useListFriendQuery, useDeleteFriendMutation, useResponseFriendMutation, useRequestFriendMutation } =
-  friendsApi
+export const {
+  useListFriendQuery,
+  useLazyGetFriendByIdQuery,
+  useDeleteFriendMutation,
+  useResponseFriendMutation,
+  useRequestFriendMutation
+} = friendsApi

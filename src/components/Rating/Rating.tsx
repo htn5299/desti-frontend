@@ -1,11 +1,12 @@
 import React from 'react'
 import { StarIcon } from '@heroicons/react/24/solid'
 import classNames from 'classnames'
+
 interface PropState {
   rating: number
 }
 
-const RatingCustom = ({ rating }: PropState) => {
+const Rating = ({ rating }: PropState) => {
   return (
     <div className={'flex'}>
       <StarIcon
@@ -27,4 +28,4 @@ const RatingCustom = ({ rating }: PropState) => {
   )
 }
 
-export default RatingCustom
+export default Rating
