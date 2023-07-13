@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useListFriendQuery } from '../../redux/api/friendsApi'
 import { UserProfile } from '../../utils/types'
 
@@ -18,7 +19,9 @@ const ListFriends = (props: PropsState) => {
 
   return (
     <div className={'text-sm '}>
-      <p className={'font-semibold uppercase'}>{`${user.name.split(' ')[0]}’S FRIENDS (${numsFriend})`}</p>
+      <Link to={`/friend/user/${user.id}`} className={'font-semibold uppercase'}>{`${
+        user.name.split(' ')[0]
+      }’S FRIENDS (${numsFriend})`}</Link>
       <div>{friends && friends.map((friend) => <div key={friend.id}>{friend.name}</div>)}</div>
     </div>
   )

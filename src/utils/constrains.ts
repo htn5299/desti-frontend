@@ -3,11 +3,13 @@ export enum Actions {
   UPDATE = 'UPDATE',
   DELETE = 'DELETE'
 }
+
 export enum StatusCodes {
   PENDING = 'PENDING',
   ACCEPTED = 'ACCEPTED',
   DECLINED = 'DECLINED'
 }
+
 export enum Services {
   AUTH = 'AUTH_SERVICE',
   USERS = 'USERS_SERVICE',
@@ -23,4 +25,12 @@ export enum Services {
   NEWSFEED = 'NEWSFEED_SERVICE',
   PLACE_IMAGES = 'PLACE_IMAGE_SERVICE',
   NOTIFICATION = 'NOTIFICATION'
+}
+
+export enum StatusFriend {
+  ME = 'ME',
+  FRIEND = `FRIEND`,
+  REQUESTED = 'REQUESTED',
+  RESPONSE = 'RESPONSE',
+  NOT_FOUND = 'NOT_FOUND'
 }

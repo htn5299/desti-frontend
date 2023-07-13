@@ -6,4 +6,16 @@ import RegisterPage from './RegisterPage'
 import ProfilePage from './ProfilePage'
 import EditProfilePage from './EditProfilePage'
 import SearchPage from './SearchPage'
-export { HomePage, LoginPage, NotFoundPage, PlacePage, SearchPage, RegisterPage, ProfilePage, EditProfilePage }
+import FriendsPage from './FriendsPage'
+
+export {
+  HomePage,
+  LoginPage,
+  NotFoundPage,
+  PlacePage,
+  SearchPage,
+  RegisterPage,
+  ProfilePage,
+  EditProfilePage,
+  FriendsPage
+}

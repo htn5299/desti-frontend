@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import {
   EditProfilePage,
+  FriendsPage,
   HomePage,
   LoginPage,
   NotFoundPage,
@@ -35,6 +36,11 @@ function App() {
         </Route>
         <Route path={'search'}>
           <Route index element={<SearchPage />} />
+        </Route>
+        <Route path={'friend'}>
+          <Route path={'user'}>
+            <Route path={':userId'} element={<FriendsPage />} />
+          </Route>
         </Route>
         <Route path={'location'}>
           <Route index element={<CreateLocationPage />} />

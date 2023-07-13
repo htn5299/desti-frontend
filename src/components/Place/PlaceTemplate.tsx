@@ -30,11 +30,15 @@ function PlaceTemplate({ place }: PropsState) {
         <div className={'flex gap-2'}>
           <div className={'flex h-12 w-12 flex-col items-center justify-center gap-0 rounded bg-gray-100'}>
             <p className={'text-center text-xs leading-none text-gray-500'}>Here</p>
-            <p className={'text-center text-lg font-semibold leading-tight text-green-700'}>691</p>
+            <p className={'text-center text-lg font-semibold leading-tight text-green-700'}>
+              {Math.floor(Math.random() * 251) + 50}
+            </p>
           </div>
           <div className={'flex h-12 w-12 flex-col items-center justify-center gap-0 rounded bg-gray-100'}>
             <p className={'text-center text-xs leading-none text-gray-500'}>Rating</p>
-            <p className={'text-center text-lg font-semibold leading-tight text-yellow-800'}>4.0</p>
+            <p className={'text-center text-lg font-semibold leading-tight text-yellow-800'}>
+              {(Math.random() * 1.5 + 3.5).toFixed(1)}
+            </p>
           </div>
         </div>
       </div>

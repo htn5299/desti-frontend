@@ -1,5 +1,5 @@
 import { apiSlice } from './apiSlice'
-import { RequestFriendRes, User } from '../../utils/types'
+import { RequestFriendRes, StatusCode, User } from '../../utils/types'
 
 const friendsApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
@@ -11,10 +11,11 @@ const friendsApi = apiSlice.injectEndpoints({
         }
       }
     }),
-    responseFriend: build.mutation<RequestFriendRes, number>({
-      query: (userId) => {
+    responseFriend: build.mutation<RequestFriendRes, { friendId: number; status: StatusCode }>({
+      query: (content) => {
         return {
-          url: `friends/${userId}`,
+          url: `friends/${content.friendId}`,
+          body: { status: content.status },
           method: 'PATCH'
         }
       }
@@ -42,6 +43,14 @@ const friendsApi = apiSlice.injectEndpoints({
           method: 'GET'
         }
       }
+    }),
+    checkFriend: build.query<RequestFriendRes, number>({
+      query: (friendId) => {
+        return {
+          url: `friends/check/${friendId}`,
+          method: 'GET'
+        }
+      }
     })
   })
 })
@@ -50,5 +59,6 @@ export const {
   useLazyGetFriendByIdQuery,
   useDeleteFriendMutation,
   useResponseFriendMutation,
-  useRequestFriendMutation
+  useRequestFriendMutation,
+  useCheckFriendQuery
 } = friendsApi
