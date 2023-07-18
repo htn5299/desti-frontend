@@ -3,10 +3,13 @@ import ReactMapGL, { Marker, NavigationControl, Popup } from 'react-map-gl'
 import * as process from 'process'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { Place, PlaceImage } from 'utils/types'
+import { ReactComponent as RedMaker } from '../../assets/makers/mapbox-marker-icon-red.svg'
+
 interface PropsState {
   place: Place
   placeImage: PlaceImage
 }
+
 const MapItem = ({ place, placeImage }: PropsState) => {
   const [popupInfo, setPopupInfo] = useState<Place | null>()
   return (
@@ -28,7 +31,9 @@ const MapItem = ({ place, placeImage }: PropsState) => {
             e.originalEvent.stopPropagation()
             setPopupInfo(place)
           }}
-        />
+        >
+          {<RedMaker />}
+        </Marker>
         {popupInfo && (
           <Popup
             anchor='top'
@@ -36,15 +41,7 @@ const MapItem = ({ place, placeImage }: PropsState) => {
             latitude={Number(popupInfo.latitude)}
             onClose={() => setPopupInfo(null)}
           >
-            <div>
-              {popupInfo.name} |{' '}
-              <a
-                target='_new'
-                href={`https://en.wikipedia.org/w/index.php?title=Special:Search&search=${popupInfo.name}`}
-              >
-                Wikipedia
-              </a>
-            </div>
+            <div>{popupInfo.name}</div>
             <img width='100%' src={`${process.env.REACT_APP_AWS_URL}${placeImage.key}`} alt={placeImage.key} />
           </Popup>
         )}

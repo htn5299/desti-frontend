@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { MagnifyingGlassIcon, MapPinIcon } from '@heroicons/react/24/outline'
-import { useLazySearchPlacesQuery } from '../../redux/api/placesApi'
+import { useLazySearchPlacesQuery } from '../../../redux/api/placesApi'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch } from '../../redux/store'
-import { toggleSearch } from '../../redux/features/appSlice'
-import { Place } from '../../utils/types'
-import useDebounce from '../../hooks/useDebounce'
+import { useAppDispatch } from '../../../redux/store'
+import { toggleSearch } from '../../../redux/features/appSlice'
+import { Place } from '../../../utils/types'
+import useDebounce from '../../../hooks/useDebounce'
 import { SearchItem } from './index'
 
 const SearchInput = () => {

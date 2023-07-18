@@ -5,17 +5,22 @@ import EditProfile from './EditProfile'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import classNames from 'classnames'
+import { AddFriendButton } from '../Friend'
+
 interface PropsState {
   user: UserProfile
 }
+
 const InfoProfile = ({ user }: PropsState) => {
   const userAuth = useSelector((state: RootState) => state.user)
   return (
     <div className={'m-4'}>
       <div className={'mb-8'}>
-        <Typography className={'text-[2.4rem] font-bold text-gray-900'}>{user.name}</Typography>
+        <Typography className={'text-[1.6rem] font-bold text-gray-900'}>{user.name}</Typography>
         <span className={'font-extralight'}>{user.profile.about}</span>
       </div>
+      {userAuth && userAuth.id !== user.id && <AddFriendButton friendId={Number(user.id)} />}
+
       <div className={'my-8  text-gray-600'}>
         <div className={'flex items-center gap-3 border-t border-t-gray-500 py-2'}>
           <strong className={'text-[2.8rem] text-gray-700'}>2023</strong>

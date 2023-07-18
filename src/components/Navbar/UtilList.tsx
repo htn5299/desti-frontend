@@ -3,6 +3,7 @@ import { ChatBubbleOvalLeftIcon, MagnifyingGlassIcon } from '@heroicons/react/24
 import NotificationDropdown from '../Notification/NotificationDropdown/NotificationDropdown'
 import { useAppDispatch } from '../../redux/store'
 import { toggleSearch } from '../../redux/features/appSlice'
+import { Link } from 'react-router-dom'
 
 const UtilList = () => {
   const dispatch = useAppDispatch()
@@ -15,7 +16,9 @@ const UtilList = () => {
         <MagnifyingGlassIcon className={'h-6 w-6'} />
       </li>
       <li>
-        <ChatBubbleOvalLeftIcon className={'h-6 w-6'} />
+        <Link to={'/message'}>
+          <ChatBubbleOvalLeftIcon className={'h-6 w-6'} />
+        </Link>
       </li>
       <li>
         <NotificationDropdown />

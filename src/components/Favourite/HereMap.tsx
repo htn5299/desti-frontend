@@ -6,7 +6,7 @@ const HereMap = () => {
   const context = useUser()
   const { data: places } = useGetHerePlacesByUserQuery(context.userId, { refetchOnMountOrArgChange: true })
 
-  return <div className={'w-full'}>{places && <MultiLocationMap places={places} />}</div>
+  return <div className={'w-full'}>{places && <MultiLocationMap places={places} isBeenHere={true} />}</div>
 }
 
 export default HereMap

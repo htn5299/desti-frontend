@@ -2,7 +2,7 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { RootState, useAppDispatch, useAppSelector } from '../../redux/store'
 import { toggleSearch } from '../../redux/features/appSlice'
-import { SearchInput } from './index'
+import { SearchInput } from './SearchPlace'
 
 export default function SearchBox() {
   const dispatch = useAppDispatch()
@@ -15,7 +15,13 @@ export default function SearchBox() {
 
   return (
     <Transition.Root show={isSearchPopup} as={Fragment}>
-      <Dialog as='div' className='relative z-10' initialFocus={cancelButtonRef} onClose={() => handlePopup()}>
+      <Dialog
+        as='div'
+        className='relative z-10'
+        initialFocus={cancelButtonRef}
+        onClose={() => handlePopup()}
+        onDragEnter={() => handlePopup()}
+      >
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'

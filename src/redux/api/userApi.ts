@@ -29,7 +29,30 @@ export const userApi = apiSlice.injectEndpoints({
         }
       },
       invalidatesTags: [{ type: 'UserProfile', id: 'LIST' }]
+    }),
+    searchUser: builder.query<UserProfile[], string>({
+      query: (query) => {
+        return {
+          url: `users/search?q=${query}`,
+          method: 'GET'
+        }
+      }
+    }),
+    checkUser: builder.query<UserProfile, string>({
+      query: (query) => {
+        return {
+          url: `users/check?email==${query}`,
+          method: 'GET'
+        }
+      }
     })
   })
 })
-export const { useGetMeQuery, useUpdateProfileMutation, useLazyGetUserByIdQuery, useGetUserByIdQuery } = userApi
+export const {
+  useGetMeQuery,
+  useUpdateProfileMutation,
+  useLazyGetUserByIdQuery,
+  useGetUserByIdQuery,
+  useSearchUserQuery,
+  useCheckUserQuery
+} = userApi

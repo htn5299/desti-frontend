@@ -19,10 +19,19 @@ const ListFriends = (props: PropsState) => {
 
   return (
     <div className={'text-sm '}>
-      <Link to={`/friend/user/${user.id}`} className={'font-semibold uppercase'}>{`${
+      <Link to={`/friend/user/${user.id}`} className={'text-[16px] font-semibold uppercase hover:text-gray-700'}>{`${
         user.name.split(' ')[0]
       }’S FRIENDS (${numsFriend})`}</Link>
-      <div>{friends && friends.map((friend) => <div key={friend.id}>{friend.name}</div>)}</div>
+      <div>
+        {friends &&
+          friends.map((friend) => (
+            <div key={friend.id}>
+              <Link className={'font-semibold text-gray-900 hover:text-gray-700'} to={`/users/${friend.id}`}>
+                {friend.name}
+              </Link>
+            </div>
+          ))}
+      </div>
     </div>
   )
 }

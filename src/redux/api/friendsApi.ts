@@ -18,7 +18,8 @@ const friendsApi = apiSlice.injectEndpoints({
           body: { status: content.status },
           method: 'PATCH'
         }
-      }
+      },
+      invalidatesTags: (result, error, arg) => [{ type: 'Friends', id: arg.friendId }]
     }),
     deleteFriend: build.mutation<any, number>({
       query: (userId) => {
@@ -26,7 +27,8 @@ const friendsApi = apiSlice.injectEndpoints({
           url: `friends/${userId}`,
           method: 'DELETE'
         }
-      }
+      },
+      invalidatesTags: (result, error, arg) => [{ type: 'Friends', id: arg }]
     }),
     listFriend: build.query<User[], number>({
       query: (userId) => {
@@ -50,7 +52,8 @@ const friendsApi = apiSlice.injectEndpoints({
           url: `friends/check/${friendId}`,
           method: 'GET'
         }
-      }
+      },
+      providesTags: (result, error, arg) => [{ type: 'Friends', id: arg }]
     })
   })
 })
@@ -60,5 +63,6 @@ export const {
   useDeleteFriendMutation,
   useResponseFriendMutation,
   useRequestFriendMutation,
-  useCheckFriendQuery
+  useCheckFriendQuery,
+  useLazyCheckFriendQuery
 } = friendsApi

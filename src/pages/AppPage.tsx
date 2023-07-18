@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { Fragment, useContext, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { SocketContext } from '../utils/context/SocketContext'
 import { NotificationRecipientResponse } from '../utils/types'
@@ -14,6 +14,7 @@ const AppPage = () => {
   const { socket } = useContext(SocketContext)
   const { data: notifications, refetch } = useGetNotificationsQuery()
   const dispatch = useAppDispatch()
+
   useEffect(() => {
     refetch()
     notifications && dispatch(addNotifications(notifications))
@@ -41,7 +42,6 @@ const AppPage = () => {
 
   return (
     <>
-      <ComplexNavbar />
       <SearchBox />
       <Outlet />
     </>

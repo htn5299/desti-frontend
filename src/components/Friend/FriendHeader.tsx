@@ -19,7 +19,7 @@ const FriendHeader = (prop: PropState) => {
           variant={'square'}
           src={profile.avatar ? `${process.env.REACT_APP_AWS_URL}${profile.avatar}` : EmptyAvatar}
         />
-        <h2 className={'font-semibold'}>{`${user.name}'s Friends`}</h2>
+        <h2 className={'font-semibold '}>{`${user.name}'s Friends`}</h2>
       </div>
       <div>
         <Link to={`/users/${user.id}`}>{`${user.name}'s profile`}</Link>

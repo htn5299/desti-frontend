@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import { LogoComponent, NavList, ProfileMenu, UtilList } from './index'
 
 export default function ComplexNavbar() {
   return (
     <>
-      <nav className='sticky  inset-0 z-50 flex h-16 max-w-full items-center justify-between rounded-none  border-none bg-gray-900 px-8 opacity-90 xl:px-24'>
+      <nav className='flex h-16 max-w-full flex-shrink-0 items-center justify-between rounded-none  border-none bg-gray-900 px-8 opacity-90 xl:px-24'>
         <Link to={'/'}>
           <LogoComponent />
         </Link>
@@ -16,6 +16,7 @@ export default function ComplexNavbar() {
         </div>
         <ProfileMenu />
       </nav>
+      <Outlet />
     </>
   )
 }

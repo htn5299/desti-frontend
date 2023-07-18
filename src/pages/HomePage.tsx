@@ -31,13 +31,13 @@ export default function HomePage() {
           {herePlaces && (
             <>
               <div className={'font-semibold text-gray-800'}>Been Here</div>
-              <MultiLocationMap places={herePlaces} />
+              <MultiLocationMap places={herePlaces} isBeenHere={true} />
             </>
           )}
           {wantPlaces && (
             <>
               <div className={'font-semibold text-gray-800'}>Want to go</div>
-              <MultiLocationMap places={wantPlaces} />
+              <MultiLocationMap places={wantPlaces} isBeenHere={false} />
             </>
           )}
         </div>

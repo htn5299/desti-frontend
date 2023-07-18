@@ -36,12 +36,15 @@ export function isErrorWithMessage(error: unknown): error is EntityError {
     // typeof (error as any).data.message === 'string'
   )
 }
+
 export function formatNotification(action: Actions, service: Services): string {
   let result = ''
   switch (service) {
     case Services.FRIENDS:
       if (action === Actions.POST) {
         result = 'da gui yeu cau ket ban.'
+      } else if (action === Actions.UPDATE) {
+        result = 'da chap nhan yeu cau ket ban'
       }
       break
     case Services.AUTH:

@@ -26,7 +26,7 @@ const NotificationFriendItem = ({ notificationRecipient }: PropsState) => {
           <div>
             <p className={'line-clamp-2'}>
               <span className={'font-semibold'}>{user.name} </span>
-              <span>{`${message}`}</span>
+              <span>{message}</span>
             </p>
             <Moment className={'block text-sm text-gray-500'} toNow>
               {createdAt}

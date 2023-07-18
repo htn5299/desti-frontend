@@ -6,9 +6,12 @@ import * as process from 'process'
 import { useAppDispatch } from '../../redux/store'
 import { updateLocation } from '../../redux/features/locationSlice'
 import { Link } from 'react-router-dom'
+import { ReactComponent as PinkMaker } from '../../assets/makers/mapbox-marker-icon-pink.svg'
+import { ReactComponent as BlueMaker } from '../../assets/makers/mapbox-marker-icon-blue.svg'
 
 interface PropState {
   places: PlaceWithImage[]
+  isBeenHere: Boolean
 }
 
 const applyToArray = (func: any, array: any) => func.apply(Math, array)
@@ -28,7 +31,7 @@ const getBoundsForPoints = (places: PlaceWithImage[]) => {
   return zoom <= 20 ? { longitude, latitude, zoom } : { longitude, latitude, zoom: 12 }
 }
 
-const MultiLocationMap = ({ places }: PropState) => {
+const MultiLocationMap = ({ places, isBeenHere }: PropState) => {
   const [popupInfo, setPopupInfo] = useState<PlaceWithImage | null>()
   const [userLocation, setUserLocation] = useState<Coordinates | null>(null)
   const mapRef = useRef<MapRef>(null)
@@ -55,7 +58,9 @@ const MultiLocationMap = ({ places }: PropState) => {
             e.originalEvent.stopPropagation()
             setPopupInfo(place)
           }}
-        />
+        >
+          {isBeenHere ? <BlueMaker /> : <PinkMaker />}
+        </Marker>
         {popupInfo && (
           <Popup
             anchor='top'

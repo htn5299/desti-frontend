@@ -170,3 +170,36 @@ export type CommentResponse = {
   comment: string
   createdAt: Date
 }
+export type CreateConversationDto = { email: string }
+
+export type CreateConversationResponse = {
+  id: number
+  creator: User
+  recipient: User
+  lastMessageSentAt: Date
+  createdAt: Date
+}
+export type ConversationsResponse = {
+  id: number
+  creator: UserProfile
+  recipient: UserProfile
+  lastMessageSentAt: Date
+  createdAt: Date
+  lastMessageSent: {
+    id: number
+    content: string
+    createdAt: Date
+  } | null
+}
+export type CreateMessageDto = { conversationId: number; content: string }
+export type Message = {
+  id: number
+  content: string
+  createdAt: Date
+  author: UserProfile
+}
+export type MessagesByConversationId = {
+  id: number
+  messages: Message[]
+}
+export type EditMessageDto = CreateMessageDto & { messageId: number }

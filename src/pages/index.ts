@@ -7,6 +7,7 @@ import ProfilePage from './ProfilePage'
 import EditProfilePage from './EditProfilePage'
 import SearchPage from './SearchPage'
 import FriendsPage from './FriendsPage'
+import MessagePage from './MessagePage'
 
 export {
   HomePage,
@@ -17,5 +18,6 @@ export {
   RegisterPage,
   ProfilePage,
   EditProfilePage,
-  FriendsPage
+  FriendsPage,
+  MessagePage
 }

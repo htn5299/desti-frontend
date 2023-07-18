@@ -18,7 +18,17 @@ import { PostCommentList } from '../Post/PostComment'
 const MyReviewItem = () => {
   const userId = useAppSelector((state: RootState) => state.user.id) as number
   const { placeId } = useParams<{ placeId: string }>() as { placeId: string }
+
+  const [myReview, setMyReview] = useState<string>()
+  const [myRating, setMyRating] = useState<number>()
   const [isEdited, setIsEdited] = useState(false)
+  const [isLiked, setIsLiked] = useState<Boolean>(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const [createReview] = useCreateReviewMutation()
+  const [updateReview] = useUpdateMyReviewMutation()
+  const [setLike] = useCreateLikeMutation()
+
   const { data: myReviewData, refetch: refetchReview } = useGetMyReviewQuery(
     { placeId },
     {
@@ -26,18 +36,12 @@ const MyReviewItem = () => {
       refetchOnMountOrArgChange: true
     }
   )
-  const { data: profile, refetch: refetchProfile } = useGetUserByIdQuery(`${userId}`, { skip: !Boolean(userId) })
-  const [myReview, setMyReview] = useState<string>()
-  const [myRating, setMyRating] = useState<number>()
-  const inputRef = useRef<HTMLInputElement>(null)
-  const [createReview] = useCreateReviewMutation()
-  const [updateReview] = useUpdateMyReviewMutation()
-  const [isLiked, setIsLiked] = useState<Boolean>(false)
-  const { data: myLike, refetch } = useGetLikeQueryQuery(
+  const { data: myLike, refetch: refetchLike } = useGetLikeQueryQuery(
     { user: Number(userId), review: Number(myReviewData?.id) },
-    { skip: !userId }
+    { skip: !userId && Boolean(myReviewData) }
   )
-  const [setLike] = useCreateLikeMutation()
+  const { data: profile, refetch: refetchProfile } = useGetUserByIdQuery(String(userId), { skip: !Boolean(userId) })
+
   useEffect(() => {
     if (isEdited) {
       inputRef.current?.focus()
@@ -70,17 +74,18 @@ const MyReviewItem = () => {
       }).unwrap()
       setIsEdited((prevState) => !prevState)
       refetchReview()
+      refetchLike()
     } catch (e) {}
   }
   const handleLike = async () => {
     if (myLike && myLike[0].isLiked) {
-      myReviewData && (await setLike({ reviewId: myReviewData.id, isLiked: false }))
-      setIsLiked(false)
+      myReviewData && (await setLike({ reviewId: myReviewData.id, isLiked: !myLike[0].isLiked }))
+      setIsLiked(!myLike[0].isLiked)
     } else {
-      myReviewData && (await setLike({ reviewId: myReviewData?.id, isLiked: true }))
+      myReviewData && (await setLike({ reviewId: myReviewData.id, isLiked: true }))
       setIsLiked(true)
     }
-    refetch()
+    refetchLike()
   }
   useEffect(() => {
     if (myLike && Boolean(myLike.length) && myLike[0].isLiked) {
@@ -110,7 +115,7 @@ const MyReviewItem = () => {
                 </Link>
                 {!isEdited && (
                   <Moment className={'block text-gray-700'} toNow>
-                    {myReviewData?.updatedAt}
+                    {myReviewData.updatedAt}
                   </Moment>
                 )}
               </div>
@@ -151,10 +156,6 @@ const MyReviewItem = () => {
               </>
             )}
           </div>
-          {/*<div className={'flex gap-3 border-t border-gray-300 pt-2 text-gray-700'}>*/}
-          {/*  <FaceSmileIcon className={'h-5 w-5 '} />*/}
-          {/*  <p className={'font-semibold  text-gray-900 hover:cursor-pointer'}>reply</p>*/}
-          {/*</div>*/}
           <div className={'flex select-none gap-2 p-3 pt-0 text-green-800'}>
             {
               <span className={'cursor-pointer hover:underline'} onClick={() => handleLike()}>

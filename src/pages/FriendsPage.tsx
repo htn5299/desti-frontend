@@ -11,7 +11,7 @@ const FriendsPage = () => {
       {user && (
         <>
           <FriendHeader user={user} />
-          <div>List Friend</div>
+          <div className={'mt-4 font-semibold text-gray-900'}>List Friend</div>
           <FriendList user={user} />
         </>
       )}

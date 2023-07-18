@@ -10,6 +10,7 @@ import { StatusFriend } from '../../utils/constrains'
 import { isErrorWithMessage } from '../../utils/helpers'
 import { Spinner } from '../Skeleton'
 import { RootState, useAppSelector } from '../../redux/store'
+import { Unfriend } from '../Modal'
 
 interface PropState {
   friendId: number
@@ -28,18 +29,16 @@ const AddFriendButton = (prop: PropState) => {
       await requestFriend(friendId)
       setCheckedFriend(StatusFriend.REQUESTED)
     }
-    refetch()
   }
   const handleDelete = async () => {
     await deleteFriend(friendId)
-    refetch()
+    setCheckedFriend(StatusFriend.NOT_FOUND)
   }
-  const handleResponse = async () => {
+  const handleResponse = async (status: StatusCode) => {
     if (checkedFriend === StatusFriend.RESPONSE) {
-      await responseFriend({ friendId, status: StatusCode.ACCEPTED })
+      await responseFriend({ friendId, status })
       setCheckedFriend(StatusFriend.FRIEND)
     }
-    refetch()
   }
 
   useEffect(() => {
@@ -70,22 +69,39 @@ const AddFriendButton = (prop: PropState) => {
   return (
     <>
       {checkedFriend === StatusFriend.ME && <div>this is you</div>}
-      {checkedFriend === StatusFriend.FRIEND && <div>this is your friend</div>}
+      {checkedFriend === StatusFriend.FRIEND && <Unfriend friendId={friendId} />}
       {checkedFriend === StatusFriend.NOT_FOUND && (
-        <button className={'rounded border border-gray-900 bg-gray-300 px-3 py-0'} onClick={handleRequest}>
+        <button
+          className={'w-fit rounded border border-gray-500 bg-gray-200 px-2 py-1  font-semibold text-gray-700'}
+          onClick={handleRequest}
+        >
           Add friend
         </button>
       )}
       {checkedFriend === StatusFriend.REQUESTED && (
-        <button className={'rounded border border-gray-900 bg-gray-300 px-3 py-0'} onClick={handleDelete}>
+        <button
+          className={'w-fit rounded border border-gray-500 bg-gray-200 px-2 py-1  font-semibold text-gray-700'}
+          onClick={handleDelete}
+        >
           Cancel request
           {isLoading && <Spinner />}
         </button>
       )}
       {checkedFriend === StatusFriend.RESPONSE && (
-        <button className={'rounded border border-gray-900 bg-gray-300 px-3 py-0'} onClick={handleResponse}>
-          response
-        </button>
+        <div className={'flex gap-2'}>
+          <button
+            className={'w-fit rounded bg-gray-800  px-2 py-1   font-semibold text-white'}
+            onClick={() => handleResponse(StatusCode.ACCEPTED)}
+          >
+            Confirm
+          </button>
+          <button
+            className={'w-fit rounded border border-gray-500 bg-gray-200 px-2 py-1  font-semibold text-gray-700'}
+            onClick={() => handleResponse(StatusCode.DECLINED)}
+          >
+            Delete
+          </button>
+        </div>
       )}
     </>
   )

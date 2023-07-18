@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useLazyGetReviewByIdQuery } from '../../../redux/api/reviewApi'
 import { useLazyGetFriendByIdQuery } from '../../../redux/api/friendsApi'
+import { NotificationFriendItem } from '../index'
 
 export default function NotificationDropdown() {
   const notifications = useAppSelector((state: RootState) => state.notifications)
@@ -42,7 +43,7 @@ export default function NotificationDropdown() {
           <NotificationReviewItem notificationRecipient={notification} />
         )}
         {notification.notification.service === Services.FRIENDS && (
-          <NotificationReviewItem notificationRecipient={notification} />
+          <NotificationFriendItem notificationRecipient={notification} />
         )}
       </MenuItem>
     )
