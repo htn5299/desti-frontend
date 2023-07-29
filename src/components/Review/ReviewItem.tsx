@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Avatar } from '@material-tailwind/react'
 import Moment from 'react-moment'
 import { ReviewsByPlace } from '../../utils/types'
@@ -21,6 +21,8 @@ const ReviewItem = (props: PropsState) => {
   const { rating } = review
   const userId = useAppSelector((state: RootState) => state.user.id)
   const [isLiked, setIsLiked] = useState<Boolean>(false)
+  const commentRef = useRef<HTMLTextAreaElement>(null)
+
   const { data: myReview, refetch } = useGetLikeQueryQuery(
     { user: Number(userId), review: review.id },
     { skip: !userId }
@@ -38,9 +40,15 @@ const ReviewItem = (props: PropsState) => {
     }
     refetch()
   }
+  const onCommentRef = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (commentRef.current) {
+      commentRef.current.focus()
+    }
+  }
 
   useEffect(() => {
     refetch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLiked])
 
   useEffect(() => {
@@ -83,11 +91,13 @@ const ReviewItem = (props: PropsState) => {
           </span>
         }
         <span>·</span>
-        <span className={'cursor-pointer hover:underline'}>Comment</span>
+        <span className={'cursor-pointer hover:underline'} onClick={onCommentRef}>
+          Comment
+        </span>
       </div>
       <LikeOfReview reviewId={review.id} isLiked={isLiked} />
       <PostCommentList reviewId={review.id} />
-      <PostBar reviewId={review.id} />
+      <PostBar reviewId={review.id} commentRef={commentRef} />
     </div>
   )
 }

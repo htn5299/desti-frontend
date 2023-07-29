@@ -12,6 +12,14 @@ export const authApi = apiSlice.injectEndpoints({
         }
       }
     }),
+    loginWithGoogle: builder.query<any, undefined>({
+      query: () => {
+        return {
+          url: 'auth/google/login',
+          method: 'GET'
+        }
+      }
+    }),
     logout: builder.mutation<Omit<AuthState, 'email'>, Omit<AuthState, 'email' | 'accessToken'>>({
       query: (body: Omit<AuthState, 'email' | 'accessToken'>) => {
         return {
@@ -40,8 +48,44 @@ export const authApi = apiSlice.injectEndpoints({
           body
         }
       }
+    }),
+    validateCode: builder.query<any, string>({
+      query(code) {
+        return {
+          url: `/auth/validateCode/${code}`,
+          method: 'GET'
+        }
+      }
+    }),
+    forgetPassword: builder.mutation<any, Pick<UserCredentialsParams, 'email'>>({
+      query(body) {
+        return {
+          url: `auth/forget`,
+          method: 'POST',
+          body: body
+        }
+      }
+    }),
+    resetPassword: builder.mutation<any, Pick<UserCredentialsParams, 'password'> & { id: string }>({
+      query(body) {
+        const { id, password } = body
+        return {
+          url: `auth/reset/${id}`,
+          method: 'PATCH',
+          body: { password }
+        }
+      }
     })
   })
 })
 
-export const { useLoginMutation, useRegisterMutation, useRefreshTokenMutation, useLogoutMutation } = authApi
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useRefreshTokenMutation,
+  useLogoutMutation,
+  useLoginWithGoogleQuery,
+  useValidateCodeQuery,
+  useForgetPasswordMutation,
+  useResetPasswordMutation
+} = authApi

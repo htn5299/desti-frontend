@@ -6,7 +6,7 @@ import { SearchInput } from './SearchPlace'
 
 export default function SearchBox() {
   const dispatch = useAppDispatch()
-  const isSearchPopup = useAppSelector((state: RootState) => state.appContext.isSearchPopup)
+  const isSearchPopup = useAppSelector((state: RootState) => state.context.isSearchPopup)
   const handlePopup = () => {
     dispatch(toggleSearch())
   }
@@ -46,10 +46,8 @@ export default function SearchBox() {
               leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
             >
               <Dialog.Panel className='relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg'>
-                <div className='bg-white px-4 py-5'>
-                  <div className='sm:flex sm:items-start'>
-                    <SearchInput />
-                  </div>
+                <div className='sm:flex sm:items-start'>
+                  <SearchInput />
                 </div>
               </Dialog.Panel>
             </Transition.Child>

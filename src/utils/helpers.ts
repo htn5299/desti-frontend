@@ -1,10 +1,6 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { Actions, Services } from './constrains'
 
-// interface ErrorFormObject {
-//   [key: string | number]: string | ErrorFormObject | ErrorFormObject[]
-// }
-
 interface EntityError {
   status: number
   data: {

@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
-import ReactMapGL, { Marker, NavigationControl, Popup } from 'react-map-gl'
+import React, { useEffect, useState } from 'react'
+import ReactMapGL, { GeolocateControl, Marker, NavigationControl, Popup } from 'react-map-gl'
 import * as process from 'process'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { Place, PlaceImage } from 'utils/types'
+import { Coordinates, Place, PlaceImage } from 'utils/types'
 import { ReactComponent as RedMaker } from '../../assets/makers/mapbox-marker-icon-red.svg'
+import { useAppDispatch } from '../../redux/store'
+import { updateLocation } from '../../redux/features/locationSlice'
 
 interface PropsState {
   place: Place
@@ -12,6 +14,13 @@ interface PropsState {
 
 const MapItem = ({ place, placeImage }: PropsState) => {
   const [popupInfo, setPopupInfo] = useState<Place | null>()
+  const [userLocation, setUserLocation] = useState<Coordinates | null>(null)
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    if (userLocation) {
+      dispatch(updateLocation(userLocation))
+    }
+  }, [dispatch, userLocation])
   return (
     <div className={'h-[20rem] w-full overflow-hidden rounded-xl lg:h-[30rem]'}>
       <ReactMapGL
@@ -45,6 +54,14 @@ const MapItem = ({ place, placeImage }: PropsState) => {
             <img width='100%' src={`${process.env.REACT_APP_AWS_URL}${placeImage.key}`} alt={placeImage.key} />
           </Popup>
         )}
+        <GeolocateControl
+          position='top-right'
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation
+          onGeolocate={(position) => {
+            setUserLocation({ longitude: position.coords.longitude, latitude: position.coords.latitude })
+          }}
+        />
         <NavigationControl position={'bottom-right'}></NavigationControl>
       </ReactMapGL>
     </div>

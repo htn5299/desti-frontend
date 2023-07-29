@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import ReactMapGL, { GeolocateControl, MapRef, Marker, NavigationControl, Popup } from 'react-map-gl'
+import ReactMapGL, { FullscreenControl, GeolocateControl, MapRef, Marker, NavigationControl, Popup } from 'react-map-gl'
 import WebMercatorViewport from 'viewport-mercator-project'
 import { Coordinates, PlaceWithImage } from '../../utils/types'
 import * as process from 'process'
@@ -105,6 +105,7 @@ const MultiLocationMap = ({ places, isBeenHere }: PropState) => {
           }}
         />
         <NavigationControl position='bottom-right' />
+        <FullscreenControl />
       </ReactMapGL>
     </div>
   )

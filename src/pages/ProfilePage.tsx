@@ -7,7 +7,7 @@ type ContextType = { userId: string }
 
 function ProfilePage() {
   const { userId } = useParams<{ userId: string }>()
-  const { data: user } = useGetUserByIdQuery(`${userId}`, { skip: !Boolean(userId) })
+  const { data: user } = useGetUserByIdQuery(`${userId}`, { skip: !Boolean(userId), refetchOnMountOrArgChange: true })
   //todo:  update profile
   return (
     <Fragment>

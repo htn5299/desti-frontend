@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { FriendHeader, FriendList } from '../components/Friend'
 import { useGetUserByIdQuery } from '../redux/api/userApi'
-import { useCheckFriendQuery } from '../redux/api/friendsApi'
 
 const FriendsPage = () => {
   const { userId } = useParams<{ userId: string }>()

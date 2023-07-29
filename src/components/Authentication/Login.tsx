@@ -128,7 +128,9 @@ export default function Login() {
             </p>
           </div>
         </div>
-
+        <Link to='/reset' className=' font-medium text-blue-500 transition-colors hover:text-blue-700'>
+          Forget Password
+        </Link>
         <Button className='mt-6' fullWidth type='submit'>
           Login
         </Button>

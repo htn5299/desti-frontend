@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useListFriendQuery } from '../../redux/api/friendsApi'
 import { UserProfile } from '../../utils/types'
 import { FriendItem } from './index'

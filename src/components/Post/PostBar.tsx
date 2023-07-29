@@ -7,10 +7,11 @@ import { toast } from 'react-toastify'
 
 interface PropsState {
   reviewId: number
+  commentRef: React.RefObject<HTMLTextAreaElement>
 }
 
 const PostBar = (props: PropsState) => {
-  const { reviewId } = props
+  const { reviewId, commentRef } = props
   const myAvatar = useAppSelector((state: RootState) => state.user.profile.avatar)
   const [commentText, setCommentText] = useState<string>('')
   const [createComment] = useCreateCommentMutation()
@@ -30,6 +31,7 @@ const PostBar = (props: PropsState) => {
       </div>
       <div className={'flex w-full flex-col items-start gap-1'}>
         <textarea
+          ref={commentRef}
           rows={1}
           className={
             ' w-[95%] resize-y rounded border p-1  text-xs text-gray-900 focus:border-gray-500 focus:outline-none'

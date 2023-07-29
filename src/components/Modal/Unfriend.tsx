@@ -2,6 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useDeleteFriendMutation } from '../../redux/api/friendsApi'
 import { CheckIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom'
 
 interface PropState {
   friendId: number
@@ -11,7 +12,7 @@ export default function Unfriend(prop: PropState) {
   const { friendId } = prop
   const [isHover, setIsHover] = useState<Boolean>(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [deleteFriend, { isLoading }] = useDeleteFriendMutation()
+  const [deleteFriend] = useDeleteFriendMutation()
 
   const handleDelete = async () => {
     await deleteFriend(friendId)
@@ -29,21 +30,29 @@ export default function Unfriend(prop: PropState) {
   return (
     <>
       <div>
-        <button
-          onClick={openModal}
-          onMouseEnter={() => setIsHover(true)}
-          onMouseLeave={() => setIsHover(false)}
-          className={'w-32 rounded border border-gray-500 bg-gray-200 py-1  font-semibold text-gray-700'}
-        >
-          {isHover ? (
-            'Unfriend'
-          ) : (
-            <div className={'flex justify-center gap-1'}>
-              <CheckIcon className={'h-5 w-5'} />
-              <span>Friend</span>
-            </div>
-          )}
-        </button>
+        <div className={'flex items-center gap-2'}>
+          <button
+            onClick={openModal}
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+            className={'w-32 rounded border border-gray-500 bg-gray-200 py-1  font-semibold text-gray-700'}
+          >
+            {isHover ? (
+              'Unfriend'
+            ) : (
+              <div className={'flex justify-center gap-1'}>
+                <CheckIcon className={'h-5 w-5'} />
+                <span>Friend</span>
+              </div>
+            )}
+          </button>
+          <Link
+            to={`/message/${friendId}`}
+            className={'w-fit rounded border border-gray-500 bg-gray-200 px-5 py-1  font-semibold text-gray-700'}
+          >
+            Message
+          </Link>
+        </div>
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>

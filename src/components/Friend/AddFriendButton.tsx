@@ -11,6 +11,7 @@ import { isErrorWithMessage } from '../../utils/helpers'
 import { Spinner } from '../Skeleton'
 import { RootState, useAppSelector } from '../../redux/store'
 import { Unfriend } from '../Modal'
+import { useCreateConversationMutation } from '../../redux/api/conversationApi'
 
 interface PropState {
   friendId: number
@@ -21,9 +22,10 @@ const AddFriendButton = (prop: PropState) => {
   const { friendId } = prop
   const [requestFriend] = useRequestFriendMutation()
   const [deleteFriend, { isLoading }] = useDeleteFriendMutation()
-  const { data: checked, refetch, error } = useCheckFriendQuery(friendId)
+  const { data: checked, error } = useCheckFriendQuery(friendId, { refetchOnMountOrArgChange: true })
   const [checkedFriend, setCheckedFriend] = useState<StatusFriend>(StatusFriend.NOT_FOUND)
-  const [responseFriend] = useResponseFriendMutation()
+  const [responseFriend, { data }] = useResponseFriendMutation()
+  const [createConversation] = useCreateConversationMutation()
   const handleRequest = async () => {
     if (checkedFriend === StatusFriend.NOT_FOUND) {
       await requestFriend(friendId)
@@ -36,10 +38,16 @@ const AddFriendButton = (prop: PropState) => {
   }
   const handleResponse = async (status: StatusCode) => {
     if (checkedFriend === StatusFriend.RESPONSE) {
-      await responseFriend({ friendId, status })
+      await responseFriend({ friendId, status }).unwrap()
       setCheckedFriend(StatusFriend.FRIEND)
     }
   }
+  useEffect(() => {
+    if (data) {
+      createConversation({ email: data.requester.email, message: 'new conversation' })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   useEffect(() => {
     if (checked) {
@@ -64,6 +72,7 @@ const AddFriendButton = (prop: PropState) => {
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checked, error])
 
   return (

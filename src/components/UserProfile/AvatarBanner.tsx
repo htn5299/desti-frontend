@@ -5,14 +5,16 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { UserProfile } from '../../utils/types'
 import * as process from 'process'
+
 interface PropsState {
   user: UserProfile
 }
+
 const AvatarBanner = ({ user }: PropsState) => {
   const userAuth = useSelector((state: RootState) => state.user)
   return (
     <div
-      className={`flex justify-center rounded-t-xl bg-[url("https://placewziz-nestjs-uploader.s3.ap-southeast-1.amazonaws.com/profile/banner.png")]`}
+      className={`flex select-none justify-center rounded-t-xl bg-[url("https://placewziz-nestjs-uploader.s3.ap-southeast-1.amazonaws.com/profile/banner.png")]`}
     >
       {userAuth.id === user.id && (
         <Avatar

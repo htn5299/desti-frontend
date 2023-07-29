@@ -3,7 +3,7 @@ import { Avatar, Typography } from '@material-tailwind/react'
 import Moment from 'react-moment'
 import AvatarImage from '../../assets/profile/avatar.png'
 import { useGetPlaceQuery } from '../../redux/api/placesApi'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PlaceTemplate from 'components/Place/PlaceTemplate'
 import * as process from 'process'
 import { Link } from 'react-router-dom'
@@ -21,6 +21,7 @@ function PostItem(props: PostItemProps) {
   const userId = useAppSelector((state: RootState) => state.user.id)
   const { data: place } = useGetPlaceQuery(`${review.place.id}`)
   const [isLiked, setIsLiked] = useState<Boolean>(false)
+  const commentRef = useRef<HTMLTextAreaElement>(null)
   const { data: myReview, refetch } = useGetLikeQueryQuery(
     { user: Number(userId), review: review.id },
     { skip: !userId }
@@ -38,9 +39,14 @@ function PostItem(props: PostItemProps) {
     }
     refetch()
   }
-
+  const onCommentRef = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (commentRef.current) {
+      commentRef.current.focus()
+    }
+  }
   useEffect(() => {
     refetch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLiked])
 
   useEffect(() => {
@@ -84,12 +90,14 @@ function PostItem(props: PostItemProps) {
             </span>
           }
           <span>·</span>
-          <span className={'cursor-pointer hover:underline'}>Comment</span>
+          <span className={'cursor-pointer hover:underline'} onClick={onCommentRef}>
+            Comment
+          </span>
         </div>
       </div>
       <LikeOfReview reviewId={review.id} isLiked={isLiked} />
       <PostCommentList reviewId={review.id} />
-      <PostBar reviewId={review.id} />
+      <PostBar reviewId={review.id} commentRef={commentRef} />
     </div>
   )
 }

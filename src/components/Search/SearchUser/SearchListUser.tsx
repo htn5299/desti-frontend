@@ -1,8 +1,6 @@
 import { UserProfile } from '../../../utils/types'
 import React, { Fragment } from 'react'
-import { SearchItem } from '../SearchPlace'
 import { SearchUserItem } from './index'
-import { useAppDispatch } from '../../../redux/store'
 
 interface PropsState {
   usersSearch: UserProfile[]

@@ -2,13 +2,16 @@ import { Link } from 'react-router-dom'
 import { Place } from '../../utils/types'
 import { useGetImagesQuery } from '../../redux/api/placesApi'
 import * as process from 'process'
+import { useGetHereUsersByPlaceQuery, useGetWantUsersByPlaceQuery } from '../../redux/api/favouriteApi'
 
 interface PropsState {
   place: Place
 }
 
 function PlaceTemplate({ place }: PropsState) {
+  const { data: heres } = useGetHereUsersByPlaceQuery(`${place.id}`, { refetchOnMountOrArgChange: true })
   const { data: images } = useGetImagesQuery(`${place.id}`)
+  const { data: wants } = useGetWantUsersByPlaceQuery(`${place.id}`, { refetchOnMountOrArgChange: true })
   return (
     <div className={'mx-auto flex h-fit w-full gap-2 rounded bg-white'}>
       <div className={'h-28 w-2/5 rounded'}>
@@ -30,15 +33,11 @@ function PlaceTemplate({ place }: PropsState) {
         <div className={'flex gap-2'}>
           <div className={'flex h-12 w-12 flex-col items-center justify-center gap-0 rounded bg-gray-100'}>
             <p className={'text-center text-xs leading-none text-gray-500'}>Here</p>
-            <p className={'text-center text-lg font-semibold leading-tight text-green-700'}>
-              {Math.floor(Math.random() * 251) + 50}
-            </p>
+            <p className={'text-center text-lg font-semibold leading-tight text-green-700'}>{heres && heres.length}</p>
           </div>
           <div className={'flex h-12 w-12 flex-col items-center justify-center gap-0 rounded bg-gray-100'}>
-            <p className={'text-center text-xs leading-none text-gray-500'}>Rating</p>
-            <p className={'text-center text-lg font-semibold leading-tight text-yellow-800'}>
-              {(Math.random() * 1.5 + 3.5).toFixed(1)}
-            </p>
+            <p className={'text-center text-xs leading-none text-gray-500'}>Want</p>
+            <p className={'text-center text-lg font-semibold leading-tight text-yellow-800'}>{wants && wants.length}</p>
           </div>
         </div>
       </div>

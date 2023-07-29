@@ -13,8 +13,8 @@ interface PropsState {
 const NotificationFriendItem = ({ notificationRecipient }: PropsState) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id, action, service, actor, createdAt, updatedAt, entity } = notificationRecipient.notification
-  const message = formatNotification(action, service)
   const { data: user } = useGetUserByIdQuery(`${actor.id}`)
+  const message = formatNotification(action, service)
   return (
     <>
       {user && (

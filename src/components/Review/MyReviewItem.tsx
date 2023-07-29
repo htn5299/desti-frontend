@@ -24,7 +24,7 @@ const MyReviewItem = () => {
   const [isEdited, setIsEdited] = useState(false)
   const [isLiked, setIsLiked] = useState<Boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
-
+  const commentRef = useRef<HTMLTextAreaElement>(null)
   const [createReview] = useCreateReviewMutation()
   const [updateReview] = useUpdateMyReviewMutation()
   const [setLike] = useCreateLikeMutation()
@@ -86,6 +86,11 @@ const MyReviewItem = () => {
       setIsLiked(true)
     }
     refetchLike()
+  }
+  const onCommentRef = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (commentRef.current) {
+      commentRef.current.focus()
+    }
   }
   useEffect(() => {
     if (myLike && Boolean(myLike.length) && myLike[0].isLiked) {
@@ -163,11 +168,13 @@ const MyReviewItem = () => {
               </span>
             }
             <span>·</span>
-            <span className={'cursor-pointer hover:underline'}>Comment</span>
+            <span className={'cursor-pointer hover:underline'} onClick={onCommentRef}>
+              Comment
+            </span>
           </div>
           <LikeOfReview reviewId={myReviewData.id} isLiked={isLiked} />
           <PostCommentList reviewId={myReviewData.id} />
-          <PostBar reviewId={myReviewData.id} />
+          <PostBar reviewId={myReviewData.id} commentRef={commentRef} />
         </div>
       )}
       {!myReviewData && <ReviewTextarea placeId={placeId} createReview={createReview} onRefresh={refetchReview} />}

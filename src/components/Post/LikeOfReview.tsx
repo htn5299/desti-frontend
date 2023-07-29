@@ -24,6 +24,7 @@ const LikeOfReview = (props: PropState) => {
       setLikeList(likes.filter((like) => like.isLiked === true))
       setMyLike(likes.filter((like) => like.isLiked === true && like.user.id === userId)[0])
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [likes])
 
   const render = likeList && Boolean(likeList.length) && (

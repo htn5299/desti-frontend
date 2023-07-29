@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useGetImagesQuery, useGetPlaceQuery } from '../redux/api/placesApi'
 import { SocketContext } from '../utils/context/SocketContext'
 import { useContext, useEffect } from 'react'
@@ -8,6 +8,7 @@ import { ReviewByUserAndPlace } from '../utils/types'
 import { PlaceItemCarousel, PlaceItemInfo } from '../components/Place'
 import { MapItem } from '../components/Map'
 import { Reviews } from '../components/Review'
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
 
 function PlacePage() {
   const { placeId } = useParams<{ placeId: string }>() as { placeId: string }
@@ -38,14 +39,22 @@ function PlacePage() {
 
   return (
     <>
-      {place && (
+      {place && placeImages && (
         <div className={'mx-auto my-10 grid w-11/12 grid-cols-3  gap-x-2 gap-y-6 lg:w-5/6'}>
           <div className={'col-span-3'}>{!isFetchingPlace && place && <PlaceItemInfo place={place} />}</div>
           <div className={'col-span-3 lg:col-span-2'}>
-            {!isFetchingPlace && placeImages && <PlaceItemCarousel placeImages={placeImages} />}
+            {!isFetchingPlace && <PlaceItemCarousel placeImages={placeImages} />}
           </div>
-          <div className={'col-span-3 lg:col-span-1'}>
-            {placeImages && <MapItem place={place} placeImage={placeImages[0]} />}
+          <div className={'col-span-3 flex flex-col items-end gap-1 lg:col-span-1'}>
+            <MapItem place={place} placeImage={placeImages[0]} />
+            <Link
+              to={`http://www.google.com/maps/place/${place.latitude},${place.longitude}`}
+              target='_blank'
+              className={'flex gap-1 text-green-900'}
+            >
+              <span>View on Google Maps </span>
+              <ArrowTopRightOnSquareIcon className={'inline-block h-4 w-4'} />
+            </Link>
           </div>
           <div className={'col-span-3 lg:col-span-2'}>
             <Reviews />

@@ -1,5 +1,4 @@
 import React from 'react'
-import { useGetUserByIdQuery } from '../../redux/api/userApi'
 import { Avatar } from '@material-tailwind/react'
 import EmptyAvatar from '../../assets/profile/avatar.png'
 import { Link } from 'react-router-dom'

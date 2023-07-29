@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { LogoComponent } from '../Navbar'
 
-const HeaderMessage = () => {
+const MessageHeader = () => {
   return (
     <Link to={'/'}>
       <div className={'flex h-12 items-center bg-gray-600 px-4'}>
@@ -12,4 +11,4 @@ const HeaderMessage = () => {
   )
 }
 
-export default HeaderMessage
+export default MessageHeader

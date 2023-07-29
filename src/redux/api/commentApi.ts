@@ -25,7 +25,8 @@ const commentApi = apiSlice.injectEndpoints({
           url: `comments/${commentId}`,
           method: 'DELETE'
         }
-      }
+      },
+      invalidatesTags: (result, error, arg) => [{ type: 'Comments', id: 'LIST' }]
     }),
     getComments: build.query<CommentResponse[], number>({
       query: (commentId) => {
@@ -51,7 +52,10 @@ const commentApi = apiSlice.injectEndpoints({
           method: 'GET'
         }
       },
-      providesTags: (result, error, arg) => [{ type: 'Comments', id: arg.review }]
+      providesTags: (result, error, arg) => [
+        { type: 'Comments', id: arg.review },
+        { type: 'Comments', id: 'LIST' }
+      ]
     })
   })
 })

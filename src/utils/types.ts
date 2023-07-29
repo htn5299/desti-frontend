@@ -1,5 +1,7 @@
 import { Actions, Services } from './constrains'
 
+export type AppContextState = { isSearchPopup: boolean; messageEditId: number | null; messageEdit: string }
+
 export type UserCredentialsParams = {
   email: string
   password: string
@@ -99,9 +101,10 @@ export type RequestFriendRes = {
 }
 export type NotificationResponse = {
   id: number
-  actor: number
+  actor: User
   entity: number
   action: Actions
+  content?: string
   service: Services
   createdAt: Date
   updatedAt: Date
@@ -111,19 +114,7 @@ export type NotificationRecipientResponse = {
   readAt: null | Date
   createdAt: Date
   updatedAt: Date
-  notification: {
-    id: number
-    entity: number
-    action: Actions
-    service: Services
-    createdAt: Date
-    updatedAt: Date
-    actor: {
-      id: number
-      email: string
-      name: string
-    }
-  }
+  notification: NotificationResponse
 }
 export type NotificationState = {
   notifications: NotificationRecipientResponse[]
@@ -170,7 +161,7 @@ export type CommentResponse = {
   comment: string
   createdAt: Date
 }
-export type CreateConversationDto = { email: string }
+export type CreateConversationDto = { email: string; message: string }
 
 export type CreateConversationResponse = {
   id: number
@@ -185,13 +176,11 @@ export type ConversationsResponse = {
   recipient: UserProfile
   lastMessageSentAt: Date
   createdAt: Date
-  lastMessageSent: {
-    id: number
-    content: string
-    createdAt: Date
-  } | null
+  lastMessageSent: Omit<Message, 'author'> | null
 }
+
 export type CreateMessageDto = { conversationId: number; content: string }
+
 export type Message = {
   id: number
   content: string
@@ -203,3 +192,15 @@ export type MessagesByConversationId = {
   messages: Message[]
 }
 export type EditMessageDto = CreateMessageDto & { messageId: number }
+
+export type OnMessagePayload = {
+  message: Message & { conversation: ConversationsResponse }
+  conversation: ConversationsResponse
+}
+
+export type UpdateMessageResponse = Message & { conversation: ConversationsResponse }
+export type DeleteMessagePayload = {
+  conversationId: number
+  messageId: number
+  userId: number
+}

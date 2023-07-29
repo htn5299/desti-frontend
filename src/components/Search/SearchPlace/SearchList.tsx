@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react'
 import { Place } from '../../../utils/types'
-import Moment from 'react-moment'
-import { Link } from 'react-router-dom'
 import { SearchItem } from './index'
 
 interface PropsState {

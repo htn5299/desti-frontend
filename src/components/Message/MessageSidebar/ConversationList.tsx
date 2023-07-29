@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { ConversationsResponse } from '../../../utils/types'
 import { ConversationItem } from '../index'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -18,9 +18,7 @@ const ConversationList = (prop: PropState) => {
   }, [])
 
   const rendered = conversations.map((conversation) => (
-    <div key={conversation.id}>
-      <ConversationItem conversation={conversation} />
-    </div>
+    <ConversationItem conversation={conversation} key={conversation.id} />
   ))
   return (
     <div>

@@ -11,15 +11,15 @@ const PostCommentList = (props: PropsState) => {
   const { data: comments } = useGetCommentsReviewOrUserQuery({ review: reviewId })
   const renderedComment =
     comments &&
-    comments.slice(0, 5).map((comment) => (
+    comments.map((comment) => (
       <div key={comment.id}>
         <PostCommentItem comment={comment} />
       </div>
     ))
   return (
-    <>
+    <div className={'max-h-52 overflow-y-auto'}>
       {comments && Boolean(comments.length) && <div className={'border-t border-gray-400 p-2'}>{renderedComment}</div>}
-    </>
+    </div>
   )
 }
 

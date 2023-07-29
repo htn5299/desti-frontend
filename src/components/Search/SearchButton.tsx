@@ -16,7 +16,7 @@ const SearchButton = () => {
         onClick={() => handlePopup()}
       >
         <MagnifyingGlassIcon className={'h-5 w-5'} />
-        <p className={'text-sm'}>Search Places</p>
+        <p className={'text-sm'}>Search Desti</p>
       </div>
     </>
   )

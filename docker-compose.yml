@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  desti-nestjs:
+    container_name: desti-react
+    image: desti-react:1.0
+    ports:
+      - "3000:3000"

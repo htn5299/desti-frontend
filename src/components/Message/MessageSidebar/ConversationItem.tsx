@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ConversationsResponse, UserProfile } from '../../../utils/types'
-import { RootState, useAppDispatch, useAppSelector } from '../../../redux/store'
+import { useAppDispatch } from '../../../redux/store'
 import { Avatar } from '@material-tailwind/react'
 import EmptyAvatar from '../../../assets/profile/avatar.png'
 import Moment from 'react-moment'
@@ -30,12 +30,19 @@ const ConversationItem = (prop: PropState) => {
   }, [user, dispatch])
 
   return (
-    <Link to={`${conversation.id}`} className={'mb-1 flex items-center gap-2 bg-gray-100 px-5'}>
-      <Avatar src={friend?.profile.avatar ? `${process.env.REACT_APP_AWS_URL}${friend.profile.avatar}` : EmptyAvatar} />
-      <div className={'hidden lg:block'}>
-        <p>{friend?.name}</p>
-        <p>{conversation.lastMessageSent?.content}</p>
-        <Moment toNow>{conversation.lastMessageSent?.createdAt}</Moment>
+    <Link to={`/message/${conversation.id}`} className={'flex gap-2'}>
+      <div
+        className={`text-gray-900' group flex w-full
+       items-center gap-2 rounded-md  px-2 py-2 text-sm hover:bg-blue-500 hover:text-white`}
+      >
+        <Avatar
+          src={friend?.profile.avatar ? `${process.env.REACT_APP_AWS_URL}${friend.profile.avatar}` : EmptyAvatar}
+        />
+        <div className={'hidden lg:block'}>
+          <p>{friend?.name}</p>
+          <p className={'line-clamp-2'}>{conversation.lastMessageSent?.content}</p>
+          <Moment toNow>{conversation.lastMessageSent?.createdAt}</Moment>
+        </div>
       </div>
     </Link>
   )

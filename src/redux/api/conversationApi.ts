@@ -5,7 +5,8 @@ import {
   CreateConversationResponse,
   CreateMessageDto,
   EditMessageDto,
-  MessagesByConversationId
+  MessagesByConversationId,
+  UpdateMessageResponse
 } from '../../utils/types'
 
 const conversationApi = apiSlice.injectEndpoints({
@@ -21,7 +22,6 @@ const conversationApi = apiSlice.injectEndpoints({
     }),
     getConversations: build.query<ConversationsResponse[], undefined>({
       query: () => {
-        console.log('this this')
         return {
           url: 'conversations',
           method: 'GET'
@@ -55,7 +55,7 @@ const conversationApi = apiSlice.injectEndpoints({
         }
       }
     }),
-    editMessage: build.mutation<any, EditMessageDto>({
+    editMessage: build.mutation<UpdateMessageResponse, EditMessageDto>({
       query: (body) => {
         const { content, conversationId, messageId } = body
         const message = { content: content }

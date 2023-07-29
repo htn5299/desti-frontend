@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useGetUserByIdQuery } from '../../redux/api/userApi'
 import { Avatar } from '@material-tailwind/react'
 import EmptyAvatar from '../../assets/profile/avatar.png'
 import { AddFriendButton } from './index'
-import { useCheckFriendQuery, useRequestFriendMutation } from '../../redux/api/friendsApi'
 import { Link } from 'react-router-dom'
 
 interface PropState {

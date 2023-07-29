@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from '../../redux/store'
 import EmptyAvatar from '../../assets/profile/avatar.png'
 import { SocketContext } from '../../utils/context/SocketContext'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
+import { clearNotifications } from '../../redux/features/notificationSlice'
+
 export default function ProfileMenu() {
   const { data } = useGetMeQuery(undefined, { refetchOnMountOrArgChange: true })
   const navigate = useNavigate()
@@ -27,6 +29,7 @@ export default function ProfileMenu() {
     try {
       logout({ refreshToken })
       dispatch(logOut())
+      dispatch(clearNotifications())
       socket?.disconnect()
       navigate('/login')
     } catch (error) {
@@ -63,9 +66,11 @@ export default function ProfileMenu() {
         <Link to={`/users/${data?.id}`}>
           <MenuItem>My Profile</MenuItem>
         </Link>
-        <MenuItem>Setting</MenuItem>
         <MenuItem>
-          <div onClick={() => handleSignOut()} className='text-red-500'>
+          <Link to={'/location'}>Create Location</Link>
+        </MenuItem>
+        <MenuItem>
+          <div onClick={handleSignOut} className='text-red-500'>
             Log out
           </div>
         </MenuItem>

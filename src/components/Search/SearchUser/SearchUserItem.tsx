@@ -1,7 +1,7 @@
 import React from 'react'
 import { resetSearch } from '../../../redux/features/appSlice'
 import { Link } from 'react-router-dom'
-import { Place, UserProfile } from '../../../utils/types'
+import { UserProfile } from '../../../utils/types'
 import { useAppDispatch } from '../../../redux/store'
 
 interface PropsState {

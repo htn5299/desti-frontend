@@ -7,7 +7,7 @@ const notificationSlice = createSlice({
   initialState,
   reducers: {
     addNotifications: (state, action: PayloadAction<NotificationRecipientResponse[]>) => {
-      return action.payload
+      return [...state, ...action.payload]
     },
     addNotification: (state, action: PayloadAction<NotificationRecipientResponse>) => {
       state.unshift(action.payload)

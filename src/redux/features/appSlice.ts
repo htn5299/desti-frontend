@@ -1,11 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AppContextState } from '../../utils/types'
 
-export type AppContextState = { isSearchPopup: boolean }
 const initialState: AppContextState = {
-  isSearchPopup: false
+  isSearchPopup: false,
+  messageEditId: null,
+  messageEdit: ''
 }
 const appSlice = createSlice({
-  name: 'appContext',
+  name: 'context',
   initialState,
   reducers: {
     toggleSearch: (state) => {
@@ -13,9 +15,13 @@ const appSlice = createSlice({
     },
     resetSearch: () => {
       return initialState
+    },
+    setMessageEditId: (state, action: PayloadAction<{ messageEditId: number | null; messageEdit: string }>) => {
+      state.messageEditId = action.payload.messageEditId
+      state.messageEdit = action.payload.messageEdit
     }
   }
 })
 
-export const { toggleSearch, resetSearch } = appSlice.actions
+export const { toggleSearch, resetSearch, setMessageEditId } = appSlice.actions
 export default appSlice.reducer

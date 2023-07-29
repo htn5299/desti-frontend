@@ -16,14 +16,20 @@ import AppPage from './pages/AppPage'
 import { HereMap, WantMap } from './components/Favourite'
 import CreateLocationPage from './pages/CreateLocationPage'
 import { PostListUser } from './components/Post'
-import { ContentMessage } from './components/Message'
+import { MessageContent } from './components/Message'
 import ComplexNavbar from 'components/Navbar/ComplexNavbar'
+import ForgetPage from './pages/ForgetPage'
+import ResetPage from './pages/ResetPage'
 
 function App() {
   return (
     <Routes>
       <Route path={'login'} element={<LoginPage />} />
       <Route path={'register'} element={<RegisterPage />} />
+      <Route path={'reset'}>
+        <Route index element={<ForgetPage />} />
+        <Route path={':id'} element={<ResetPage />} />
+      </Route>
       <Route path={'/'} element={<RequireAuth children={<AppPage />} />}>
         <Route path={'/'} element={<ComplexNavbar />}>
           <Route index element={<HomePage />} />
@@ -52,7 +58,7 @@ function App() {
         </Route>
 
         <Route path={'message'} element={<MessagePage />}>
-          <Route path={':conversationId'} element={<ContentMessage />} />
+          <Route path={':conversationId'} element={<MessageContent />} />
         </Route>
       </Route>
 
