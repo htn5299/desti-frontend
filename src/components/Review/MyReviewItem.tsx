@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { PencilIcon } from '@heroicons/react/24/outline'
 import { Avatar, Rating } from '@material-tailwind/react'
-import { useCreateReviewMutation, useGetMyReviewQuery, useUpdateMyReviewMutation } from '../../redux/api/reviewApi'
+import { useGetMyReviewQuery, useUpdateMyReviewMutation } from '../../redux/api/reviewApi'
 import { RootState, useAppSelector } from '../../redux/store'
 import Moment from 'react-moment'
 import EmptyAvatar from '../../assets/profile/avatar.png'
@@ -18,14 +18,12 @@ import { PostCommentList } from '../Post/PostComment'
 const MyReviewItem = () => {
   const userId = useAppSelector((state: RootState) => state.user.id) as number
   const { placeId } = useParams<{ placeId: string }>() as { placeId: string }
-
   const [myReview, setMyReview] = useState<string>()
   const [myRating, setMyRating] = useState<number>()
   const [isEdited, setIsEdited] = useState(false)
   const [isLiked, setIsLiked] = useState<Boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const commentRef = useRef<HTMLTextAreaElement>(null)
-  const [createReview] = useCreateReviewMutation()
   const [updateReview] = useUpdateMyReviewMutation()
   const [setLike] = useCreateLikeMutation()
 
@@ -36,11 +34,11 @@ const MyReviewItem = () => {
       refetchOnMountOrArgChange: true
     }
   )
-  const { data: myLike, refetch: refetchLike } = useGetLikeQueryQuery(
-    { user: Number(userId), review: Number(myReviewData?.id) },
-    { skip: !userId && Boolean(myReviewData) }
-  )
   const { data: profile, refetch: refetchProfile } = useGetUserByIdQuery(String(userId), { skip: !Boolean(userId) })
+  const { data: myLike, refetch: retchMyLike } = useGetLikeQueryQuery(
+    { user: Number(userId), review: Number(myReviewData?.id) },
+    { skip: !userId || !Boolean(myReviewData) }
+  )
 
   useEffect(() => {
     if (isEdited) {
@@ -59,8 +57,13 @@ const MyReviewItem = () => {
     if (myReviewData) {
       setMyReview(myReviewData.review)
       setMyRating(myReviewData.rating)
+      retchMyLike()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myReviewData])
+  useEffect(() => {
+    myLike && setIsLiked(myLike[0].isLiked)
+  }, [myLike])
   const handleSubmit = async () => {
     if (!myRating || !myReview) {
       toast.warning('rating and rating not null')
@@ -73,32 +76,25 @@ const MyReviewItem = () => {
         rating: myRating
       }).unwrap()
       setIsEdited((prevState) => !prevState)
-      refetchReview()
-      refetchLike()
     } catch (e) {}
   }
+
   const handleLike = async () => {
-    if (myLike && myLike[0].isLiked) {
-      myReviewData && (await setLike({ reviewId: myReviewData.id, isLiked: !myLike[0].isLiked }))
-      setIsLiked(!myLike[0].isLiked)
-    } else {
+    if (!myLike) {
       myReviewData && (await setLike({ reviewId: myReviewData.id, isLiked: true }))
       setIsLiked(true)
+    } else {
+      myReviewData && (await setLike({ reviewId: myReviewData.id, isLiked: !myLike[0].isLiked }))
+      setIsLiked(!myLike[0].isLiked)
     }
-    refetchLike()
+    retchMyLike()
   }
+
   const onCommentRef = (event: React.MouseEvent<HTMLDivElement>) => {
     if (commentRef.current) {
       commentRef.current.focus()
     }
   }
-  useEffect(() => {
-    if (myLike && Boolean(myLike.length) && myLike[0].isLiked) {
-      setIsLiked(myLike[0].isLiked)
-    } else {
-      setIsLiked(false)
-    }
-  }, [myLike])
 
   return (
     <>
@@ -167,6 +163,7 @@ const MyReviewItem = () => {
                 {isLiked ? 'Unlike' : 'Like'}
               </span>
             }
+            {/*<span>{String(isLiked)}</span>*/}
             <span>·</span>
             <span className={'cursor-pointer hover:underline'} onClick={onCommentRef}>
               Comment
@@ -177,7 +174,7 @@ const MyReviewItem = () => {
           <PostBar reviewId={myReviewData.id} commentRef={commentRef} />
         </div>
       )}
-      {!myReviewData && <ReviewTextarea placeId={placeId} createReview={createReview} onRefresh={refetchReview} />}
+      {!myReviewData && <ReviewTextarea placeId={placeId} refetchReview={refetchReview} />}
     </>
   )
 }

@@ -7,9 +7,9 @@ const EditProfile = () => {
       <li>
         <Link to={'/users/edit'}>Edit Profile</Link>
       </li>
-      <li>
-        <Link to={'/location'}>Create Location</Link>
-      </li>
+      {/*<li>*/}
+      {/*  <Link to={'/location'}>Create Location</Link>*/}
+      {/*</li>*/}
       <li>
         <Link to={'#'}>My Lists</Link>
       </li>

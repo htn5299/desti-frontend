@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import { AddFriendButton } from '../Friend'
 import { Link } from 'react-router-dom'
 import { useGetHerePlacesByUserQuery, useGetWantPlacesByUserQuery } from '../../redux/api/favouriteApi'
+import { PencilIcon } from '@heroicons/react/24/outline'
 
 interface PropsState {
   user: UserProfile
@@ -18,12 +19,19 @@ const InfoProfile = ({ user }: PropsState) => {
   const { data: herePlaces } = useGetHerePlacesByUserQuery(String(user.id), { refetchOnMountOrArgChange: true })
   const { data: wantPlaces } = useGetWantPlacesByUserQuery(String(user.id), { refetchOnMountOrArgChange: true })
   return (
-    <div className={'m-4'}>
-      <div className={'mb-8'}>
-        <Link to={`/users/${user.id}`}>
-          <Typography className={'text-[1.6rem] font-bold text-gray-900'}>{user.name}</Typography>
-        </Link>
-        <span className={'font-extralight'}>{user.profile.about}</span>
+    <div className={'m-4 '}>
+      <div className={'mb-8  w-full '}>
+        <div className={'flex justify-between'}>
+          <Link to={`/users/${user.id}`}>
+            <Typography className={'text-[1.6rem]  font-bold text-gray-900'}>{user.name}</Typography>
+          </Link>
+          {userAuth && userAuth.id === user.id && (
+            <Link to={'/users/edit'}>
+              <PencilIcon className={'h-4 w-4 text-gray-900'} />
+            </Link>
+          )}
+        </div>
+        <span className={'line-clamp-2  font-extralight'}>{user.profile.about}</span>
       </div>
       {userAuth && userAuth.id !== user.id && <AddFriendButton friendId={Number(user.id)} />}
 

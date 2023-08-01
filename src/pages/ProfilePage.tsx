@@ -12,8 +12,8 @@ function ProfilePage() {
   return (
     <Fragment>
       {user && (
-        <div className={'grid-col-1 m-auto mt-6 grid w-10/12 gap-4 lg:grid-cols-12'}>
-          <div className={'col-span-1 lg:col-span-4'}>
+        <div className={'grid-col-1 m-auto mt-6 grid w-10/12 gap-4 lg:grid-cols-11'}>
+          <div className={'col-span-1 lg:col-span-3'}>
             <Profile user={user} />
           </div>
           <div className={'col-span-1 lg:col-span-6'}>

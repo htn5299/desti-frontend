@@ -14,14 +14,14 @@ const AddDetails = ({ setPlaceName, setPlaceDescription, setPlaceAddress }: Prop
         <input
           onChange={(e) => setPlaceName(e.target.value)}
           type='text'
-          className={'w-4/6 rounded-lg  border  p-3 focus:outline-none'}
+          className={'w-full rounded-lg  border  p-3 focus:outline-none'}
         />
       </div>
       <div>
         <label className={'mb-3 block font-semibold uppercase'}>Description</label>
         <textarea
           onChange={(e) => setPlaceDescription(e.target.value)}
-          className={'w-4/6 rounded-lg  border  p-3 focus:outline-none'}
+          className={'w-full rounded-lg  border  p-3 focus:outline-none'}
         />
       </div>
       <div>
@@ -29,7 +29,7 @@ const AddDetails = ({ setPlaceName, setPlaceDescription, setPlaceAddress }: Prop
         <input
           type='text'
           onChange={(e) => setPlaceAddress(e.target.value)}
-          className={'w-4/6 rounded-lg  border  p-3 focus:outline-none'}
+          className={'w-full rounded-lg  border  p-3 focus:outline-none'}
         />
       </div>
     </>

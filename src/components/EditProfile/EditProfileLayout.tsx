@@ -5,8 +5,11 @@ import { useUpdateProfileMutation } from '../../redux/api/userApi'
 import EmptyAvatar from '../../assets/profile/avatar.png'
 import { RootState, useAppSelector } from '../../redux/store'
 import * as process from 'process'
+import MySpinner from '../Skeleton/Spinner'
 
 const EditProfileLayout = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
   const navigate = useNavigate()
   const [updateProfile] = useUpdateProfileMutation()
   const profile = useAppSelector((state: RootState) => state.user)
@@ -44,10 +47,16 @@ const EditProfileLayout = () => {
     const formData = new FormData()
     about && formData.append('about', about)
     avatarFile && formData.append('file', avatarFile)
+    name && formData.append('name', name)
     try {
+      setIsLoading(true)
+
       await updateProfile(formData)
       navigate(`/users/${profile?.id}`)
-    } catch (e) {}
+    } catch (e) {
+    } finally {
+      setIsLoading(false)
+    }
   }
   return (
     <form className={'mt-8 flex w-full flex-col gap-6 rounded-lg border border-gray-300 bg-white p-4'}>
@@ -91,9 +100,12 @@ const EditProfileLayout = () => {
       <div className={'flex gap-3'}>
         <button
           onClick={handleUpdate}
-          className={' rounded-lg bg-red-400 px-2 py-3 font-semibold uppercase text-white md:px-5 lg:px-20'}
+          className={
+            'flex items-center gap-2 rounded-lg bg-red-400 px-2 py-3 font-semibold uppercase text-white md:px-5 lg:px-20'
+          }
         >
           Update Profile
+          {isLoading && <MySpinner />}
         </button>
         <button
           onClick={() => navigate(`/users/${profile?.id}`)}

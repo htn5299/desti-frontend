@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSearchPlacesQuery } from '../redux/api/placesApi'
 import { useSearchUserQuery } from '../redux/api/userApi'
-import { Tab } from '@headlessui/react'
 import { SearchList } from '../components/Search/SearchPlace'
 import { SearchListUser } from '../components/Search/SearchUser'
 import { Place, UserProfile } from '../utils/types'
-import { MapIcon, UserIcon } from '@heroicons/react/24/outline'
-import classNames from 'classnames'
+import { MapIcon, UsersIcon } from '@heroicons/react/24/outline'
+import { Typography } from '@material-tailwind/react'
 
 function SearchPage() {
   const [searchParams] = useSearchParams()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selected, setSelected] = useState<boolean>(true)
   const q = searchParams.get('q')
   const { data: placesSearch } = useSearchPlacesQuery(`${q}`, { skip: !Boolean(q) })
@@ -30,35 +30,24 @@ function SearchPage() {
       setUsers(usersSearch)
     }
   }, [usersSearch])
-
   return (
-    <div className={'m-auto w-5/6 grid-cols-3'}>
-      <Tab.Group defaultIndex={selected ? 0 : 1}>
-        <Tab.List className={'my-2 flex w-1/3 justify-between gap-2'}>
-          <Tab
-            className={classNames('w-1/2 rounded bg-gray-300 ', { 'bg-blue-400': selected })}
-            onClick={() => setSelected(true)}
-          >
-            <div className={'flex gap-2 p-2'}>
-              <MapIcon className={'h-6 w-6'} />
-              <span>Places</span>
-            </div>
-          </Tab>
-          <Tab
-            className={classNames('w-1/2 rounded bg-gray-300 ', { 'bg-blue-400': !selected })}
-            onClick={() => setSelected(false)}
-          >
-            <div className={'flex gap-2 p-2'}>
-              <UserIcon className={'h-6 w-6'} />
-              <span>User</span>
-            </div>
-          </Tab>
-        </Tab.List>
-        <Tab.Panels className={'w-2/3'}>
-          <Tab.Panel>{<SearchList placesSearch={places} />}</Tab.Panel>
-          <Tab.Panel>{<SearchListUser usersSearch={users} />}</Tab.Panel>
-        </Tab.Panels>
-      </Tab.Group>
+    <div className={'m-auto w-5/6 grid-cols-3 '}>
+      <div className={'grid grid-cols-3 gap-4'}>
+        <div className={'col-span-2'}>
+          <Typography variant={'h5'} className={'text-GRAY-800 mb-2 border-b-2'}>
+            <MapIcon className={'inline-block h-6 w-6'} />
+            <span> Places</span>
+          </Typography>
+          <SearchList placesSearch={places} />
+        </div>
+        <div className={'col-span-1'}>
+          <Typography variant={'h5'} className={'mb-2  border-b-2 text-gray-800'}>
+            <UsersIcon className={'inline-block h-6 w-6 '} />
+            <span> People</span>
+          </Typography>
+          <SearchListUser usersSearch={users} />
+        </div>
+      </div>
     </div>
   )
 }

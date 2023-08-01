@@ -49,7 +49,7 @@ const AddPlace = () => {
       navigate(`/places/${newPlace.id}`)
     } catch (e) {
       if (isErrorWithMessage(e)) {
-        e.status === 422 && toast.error('Image size is less than 5Mb')
+        e.status === 422 && toast.error('Image size is less than 10Mb')
       }
       resetFormData()
     } finally {
@@ -96,7 +96,7 @@ const AddPlace = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <form className={'mt-8 flex w-full flex-col gap-6 rounded-lg border border-gray-300 bg-white p-4'}>
+    <form className={'mx-auto mt-8 flex w-4/6 flex-col  gap-6 rounded-lg border border-gray-300 bg-white p-4'}>
       <AddDetails
         setPlaceName={setPlaceName}
         setPlaceDescription={setPlaceDescription}
@@ -113,11 +113,11 @@ const AddPlace = () => {
       <aside className={'flex flex-row flex-wrap'}>{thumbs}</aside>
       <button
         onClick={handleCreate}
-        className={' rounded-lg bg-red-400 px-2 py-3 font-semibold uppercase text-white md:px-5 lg:px-20 '}
+        className={'  rounded-lg bg-red-400 px-2 py-3 font-semibold uppercase text-white md:px-5 lg:px-20 '}
       >
         {isLoading ? (
           <span>
-            Creating...
+            {'Creating... '}
             <MySpinner />
           </span>
         ) : (

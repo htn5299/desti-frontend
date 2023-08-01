@@ -13,7 +13,11 @@ const PostListUser = () => {
       </Fragment>
     )
   })
-  return <div>{postList}</div>
+  return (
+    <div className={'flex h-screen flex-col'}>
+      <div className={'overflow-y-auto'}>{postList}</div>
+    </div>
+  )
 }
 
 export default PostListUser

@@ -13,7 +13,7 @@ interface PropsState {
 
 const WantHere = ({ onHereClick, onWantClick, isFavourite, wantUsers, hereUsers }: PropsState) => {
   return (
-    <div className={'flex h-14 items-start gap-2'}>
+    <div className={'flex items-start gap-2'}>
       <div className={'flex flex-col items-center gap-2'}>
         <button
           className={classNames(

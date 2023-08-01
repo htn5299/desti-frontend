@@ -54,11 +54,7 @@ export default function ProfileMenu() {
             }
             alt='avatar'
           />
-          <Typography className={'hidden lg:block'}>
-            <Link to={'/'} className={'font-normal leading-6 '}>
-              {userprofile.name}
-            </Link>
-          </Typography>
+          <Typography className={'hidden lg:block'}>{userprofile.name}</Typography>
           <ChevronDownIcon className={'h-6 w-6'} />
         </div>
       </MenuHandler>

@@ -70,7 +70,7 @@ const MultiLocationMap = ({ places, isBeenHere }: PropState) => {
           >
             <Link to={`/places/${popupInfo.id}`}>{popupInfo.name}</Link>
             <img
-              width='100%'
+              className={'h-36 w-52 object-cover'}
               src={`${process.env.REACT_APP_AWS_URL}${popupInfo.images[0].key}`}
               alt={place.images[0].key}
             />

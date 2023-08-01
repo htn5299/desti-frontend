@@ -26,14 +26,25 @@ const PlaceItemInfo = (props: propsState) => {
   const [addFavourite] = useSetFavouriteMutation()
   const handleHereClick = async () => {
     try {
-      await addFavourite({ placeId: place.id, here: isFavourite && !isFavourite.here })
+      if (isFavourite) {
+        await addFavourite({ placeId: place.id, here: !isFavourite.here })
+      } else {
+        await addFavourite({ placeId: place.id, here: true })
+      }
+
       refetchFav()
       refetchHere()
     } catch (e) {}
   }
   const handleWantClick = async () => {
     try {
-      await addFavourite({ placeId: place.id, want: isFavourite && !isFavourite.want })
+      if (!isFavourite) {
+        console.log({ placeId: place.id, want: true })
+        await addFavourite({ placeId: place.id, want: true })
+      } else {
+        console.log({ placeId: place.id, want: !isFavourite.want })
+        await addFavourite({ placeId: place.id, want: !isFavourite.want })
+      }
       refetchFav()
       refetchWant()
     } catch (e) {}
@@ -51,6 +62,7 @@ const PlaceItemInfo = (props: propsState) => {
               </Link>
             </div>
             <Moment className={'text-gray-700'} fromNow>{` ${place?.updatedAt}`}</Moment>
+            <p className={'line-clamp-[13]'}>{place?.description}</p>
           </div>
         </div>
         <div>
@@ -63,8 +75,6 @@ const PlaceItemInfo = (props: propsState) => {
           />
         </div>
       </div>
-
-      <p className={'line-clamp-[13]'}>{place?.description}</p>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { SocketContext } from '../utils/context/SocketContext'
 import {
@@ -21,7 +21,6 @@ const AppPage = () => {
   const { socket } = useContext(SocketContext)
   const { data: conversations, refetch: refetchConversations } = useGetConversationsQuery(undefined)
   const dispatch = useAppDispatch()
-
   useEffect(() => {
     if (conversations) dispatch(addConversations(conversations))
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar } from '@material-tailwind/react'
+import { Avatar, Typography } from '@material-tailwind/react'
 import EmptyAvatar from '../../assets/profile/avatar.png'
 import { Link } from 'react-router-dom'
 import { UserProfile } from '../../utils/types'
@@ -12,18 +12,15 @@ const FriendHeader = (prop: PropState) => {
   const { user } = prop
   const profile = user.profile
   const friendHeader = (
-    <div className={'flex justify-between '}>
+    <Link to={`/users/${user.id}`}>
       <div className={'flex items-start gap-3'}>
         <Avatar
           variant={'square'}
           src={profile.avatar ? `${process.env.REACT_APP_AWS_URL}${profile.avatar}` : EmptyAvatar}
         />
-        <h2 className={'font-semibold '}>{`${user.name}'s Friends`}</h2>
+        <Typography className={'font-semibold '}>{`${user.name}'s friends`}</Typography>
       </div>
-      <div>
-        <Link to={`/users/${user.id}`}>{`${user.name}'s profile`}</Link>
-      </div>
-    </div>
+    </Link>
   )
 
   return <div>{friendHeader}</div>
